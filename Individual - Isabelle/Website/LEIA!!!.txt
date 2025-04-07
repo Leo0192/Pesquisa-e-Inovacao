@@ -1,0 +1,1 @@
+Esse aquivo serve meramente para manter os diretórios no GitHub, depois de inserir algum arquivo, apague-o.
