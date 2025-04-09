@@ -65,7 +65,7 @@
 ## 👷👷‍♀️ Membros da Equipe
 
 - [Guilherme Santos](); 
-- [Hércules Pereira](https://www.linkedin.com/in/herculessp);
+- [Hércules Pereira]();
 - [Isabelle Constantino]();
 - [Leonardo Piato]();
 - [Miguel de Oliveira]().
