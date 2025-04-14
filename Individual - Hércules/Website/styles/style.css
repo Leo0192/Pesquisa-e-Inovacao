@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'Special Gothic Condensed One';
+    src: url(/assets/fonts/SpecialGothicCondensedOne-Regular.ttf) format('ttf');
+}
+*{
+    font-family: 'Special Gothic Condensed One', Helvetica, sans-serif;
+}
+body {
+    margin: 0px;
+    height: 750px;
+    background-image: url("../assets/imgs/banner.jpg");
+    
+}
+.container{
+    margin: auto;
+    width: 80%;
+    display: flex;
+}
+.login {
+    height: 900px;
+    
+}
+.login .container {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(94, 49, 4);
+    border-radius: 30px;
+    border: solid 2px rgb(43, 21, 2);
+    padding: 15px;
+}
+.card-login {
+    width: 500px;
+    height: 500px;
+}
+.card-cadastro {
+    width: 500px;
+    height: 800px;
+}
+.login .campo {
+    width: 400px;
+}
+ .login h2 {
+    color: rgb(255, 255, 255);
+    margin-bottom: 15px;
+}
+.login .formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login span {
+    color: rgb(255, 255, 255);
+}
+.login input {
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: solid 2px rgb(43, 21, 2);
+    margin-bottom: 20px;
+}
+.login button {
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(150, 76, 2);
+    color: white;
+    font-weight: bold;
+}
+.login button:hover {
+    background-color:  rgb(255, 255, 255);
+    color: black;
+    cursor: pointer;
+}
