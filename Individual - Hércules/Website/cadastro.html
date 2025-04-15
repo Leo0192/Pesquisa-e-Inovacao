@@ -5,58 +5,132 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>VitAgro | Cadastro</title>
-
   <link rel="stylesheet" href="styles/style.css" />
   <link rel="icon" href="assets/icon/logo_vitagro.png" />
+  <title>VitAgro | Cadastro</title>
 </head>
 
 <body>
+  <div class="header">
+    <div class="container">
+        
+      <a href="#" class="titulo">
+        <img src="assets/imgs/logo_vitagro.png" alt="Logo VitAgro" height="80px">
+      </a>
+    
+      <ul class="navbar">
+          <a href="#">Home</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="#">Sobre Nós</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="#">Calculadora Financeira</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="#">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="login">
-
     <div class="container">
       <div class="card card-cadastro">
         <h2>Bem-vindo!</h2>
-        <div class="formulario">
+        <div class="forms">
             <div class="campo">
                 <span>Nome:</span>
-                <input id="nome_input" type="text" placeholder="Seu nome" />
+                <input id="input_name" type="text" placeholder="Seu nome" />
             </div>
             <div class="campo">
                 <span>Sobrenome:</span>
-                <input id="sobrenome_input" type="text" placeholder="Seu sobrenome" />
+                <input id="input_lastname" type="text" placeholder="Seu sobrenome" />
             </div>
             <div class="campo">
                 <span>CPF:</span>
-                <input id="cpf_input" type="text" placeholder="123.456.788-90" />
+                <input id="input_cpf" type="text" placeholder="123.456.788-90" />
             </div>
             <div class="campo">
                 <span>Tolken:</span>
-                <input id="tolken_input" type="text" placeholder="Insira aqui seu código" />
+                <input id="input_tolken" type="text" placeholder="Insira aqui seu código" />
             </div>
             <div class="campo">
                 <span>E-mail:</span>
-                <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+                <input id="input_email" type="text" placeholder="email@vitagro.com" />
             </div>
             <div class="campo">
                 <span>Telefone celular:</span>
-                <input id="telefone_input" type="text" placeholder="(11) 91234-5678" />
+                <input id="input_tel" type="text" placeholder="(11) 91234-5678" />
             </div>
             <div class="campo">
                 <span>Senha:</span>
-                <input id="senha_input" type="password" placeholder="******" />
+                <input id="input_password" type="password" placeholder="******" />
             </div>
             <div class="campo">
                 <span>Confirmação da Senha:</span>
-                <input id="confirmacao_senha_input" type="password" placeholder="******" />
+                <input id="input_confirm_password" type="password" placeholder="******" />
             </div>
-            <button class="botao">Cadastrar</button>
+            <button class="credential_submit">Cadastrar</button>
         </div>
       </div>
     </div>
   </div>
+  <div class="footer">
+    <div class="container">
 
+        <img class="icon-footer" src="assets/imgs/logo_vitagro.png" alt="Logo VitAgro">
+
+        <div class="links">
+            <p class="titulo-footer">Páginas do site</p>
+            <ul class="link">
+              <li>
+                <a href="index.html">Página Inicial
+                </a>
+              </li>
+              <li>
+                <a href="simulador.html">Sobre Nós</a>
+              </li>
+              <li>
+                <a href="login.html">Calculadora Financeira</a>
+              </li>
+              <li>
+                <a href="#">Página de Login</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="contato">
+            <h2 class="titulo-contato">Contato:</h2>
+            <ul class="contatos">
+              <li>
+                <p>Email: VitAgro@sptech.school</p>
+              </li>
+              <li>
+                <p>Localização: Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001</p>
+              </li>
+              <li class="sociais">
+                <p>Redes Sociais:<p>
+                    <a href="#">
+                        <img class="icon-social" src="assets/imgs/facebook.png" alt="facebook" height="5px">
+                    </a>
+                    <a href="#">
+                        <img class="icon-social" src="assets/imgs/linkedin.png" alt="linkedin" height="5px">
+                    </a>
+                    <a href="#">
+                        <img class="icon-social" src="assets/imgs/instagram.png" alt="instagram" height="5px">
+                    </a>
+                    <a href="#">
+                        <img class="icon-social" src="assets/imgs/twitter.png" alt="twitter" height="5px">
+                    </a>
+              </li>
+            </ul>
+          </div>
+
+    </div>
+  </div>
 </body>
 
 </html>
