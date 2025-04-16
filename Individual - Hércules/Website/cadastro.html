@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles/style.css" />
   <link rel="icon" href="assets/icon/logo_vitagro.png" />
+  <script src="js/vitagro.js"></script>
   <title>VitAgro | Cadastro</title>
 </head>
 
@@ -31,7 +32,7 @@
         </li>
         <li class="pipe">|</li>
         <li>
-          <a href="#">Login</a>
+          <a href="login.html">Login</a>
         </li>
       </ul>
     </div>
@@ -43,35 +44,35 @@
         <div class="forms">
             <div class="campo">
                 <span>Nome:</span>
-                <input id="input_name" type="text" placeholder="Seu nome" />
+                <input id="input_name" type="text" placeholder="Seu nome" onchange="emptyName()" />
             </div>
             <div class="campo">
                 <span>Sobrenome:</span>
-                <input id="input_lastname" type="text" placeholder="Seu sobrenome" />
+                <input id="input_lastname" type="text" placeholder="Seu sobrenome" onchange="emptyLastname()" />
             </div>
             <div class="campo">
                 <span>CPF:</span>
-                <input id="input_cpf" type="text" placeholder="123.456.788-90" />
+                <input id="input_cpf" type="text" placeholder="123.456.788-90" onchange="cpf()"/>
             </div>
             <div class="campo">
                 <span>Tolken:</span>
-                <input id="input_tolken" type="text" placeholder="Insira aqui seu código" />
+                <input id="input_tolken" type="text" placeholder="Insira aqui seu código" onchange="empty()"/>
             </div>
             <div class="campo">
                 <span>E-mail:</span>
-                <input id="input_email" type="text" placeholder="email@vitagro.com" />
+                <input id="input_email" type="text" placeholder="email@vitagro.com" onchange="email()"/>
             </div>
             <div class="campo">
                 <span>Telefone celular:</span>
-                <input id="input_tel" type="text" placeholder="(11) 91234-5678" />
+                <input id="input_phone" type="text" placeholder="(11) 91234-5678" onchange="phone()"/>
             </div>
             <div class="campo">
                 <span>Senha:</span>
-                <input id="input_password" type="password" placeholder="******" />
+                <input id="input_password" type="password" placeholder="******" onchange="password()"/>
             </div>
             <div class="campo">
                 <span>Confirmação da Senha:</span>
-                <input id="input_confirm_password" type="password" placeholder="******" />
+                <input id="input_confirm_password" type="password" placeholder="******" onchange="confirmPassowrd()"/>
             </div>
             <button class="credential_submit">Cadastrar</button>
         </div>
