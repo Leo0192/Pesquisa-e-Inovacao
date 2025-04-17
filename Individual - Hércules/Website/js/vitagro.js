@@ -11,7 +11,30 @@ function email(){
     }
 }
 function phone(){
-
+    var phone = input_phone.value;
+    phone = phone.replaceAll('-','');
+    phone = phone.replaceAll('(','');
+    phone = phone.replaceAll(')','');
+    phone = phone.replaceAll(' ','');
+    phone = phone.replaceAll('+','');
+    let phoneLength = phone.length;
+    let text='';
+    if (phoneLength < 13 || phoneLength > 13){
+        input_phone.style.border = "2px solid red";
+        input_phone.value = "Número Inválido!";
+        return false;
+    } else{
+        if(phone[5] != 9){
+            input_phone.style.border = "2px solid red";
+            input_phone.value = "Número Inválido!";
+            return false;
+        }
+        text = phone.replace(/(\d{2})(\d{2})(\d{5})(\d{4})/, "+$1 ($2) $3-$4");
+        console.log(text);
+        input_phone.value = text;
+        input_phone.style.border = "2px solid green";
+        return true;
+    }
 }
 function emptyName(){
     let text = input_name.value;
@@ -36,7 +59,24 @@ function emptyLastname(){
     }
 }
 function cpf(){
-
+    var cpf = input_cpf.value;
+    cpf = cpf.replaceAll('.','');
+    cpf = cpf.replaceAll('-','');
+    let cpfLength = cpf.length;
+    let text='';
+    if (cpfLength < 11 || cpfLength > 11){
+        input_cpf.style.border = "2px solid red";
+        input_cpf.value = "O CPF deve ter 11 dígitos!";
+        return false;
+    } else{
+        text = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        console.log(text);
+        console.log(cpf);
+        input_cpf.value = text;
+        input_cpf.style.border = "2px solid green";
+        return true;
+    }
+    
 }
 function password(){
 
