@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles/style.css" />
   <link rel="icon" href="assets/icon/logo_vitagro.png" />
-  <script src="js/vitagro.js"></script>
   <title>VitAgro | Login</title>
 </head>
 
@@ -43,14 +42,19 @@
         <h2>Olá novamente!</h2>
         <div class="forms">
             <div class="campo">
-                <span>Email:</span>
-                <input id="input_email" type="text" placeholder="email@vitagro.com" onchange="email()" />
+              <span>E-mail:</span>
+              <input id="input_email" type="text" placeholder="email@vitagro.com" oninput="email()"/>
+              <div id="invalid_email" class="invalid-feedback">Insira o Email</div>
             </div> 
             <div class="campo">
-                <span>Senha:</span>
-                <input id="input_password" type="password" placeholder="******" onchange="password()"/>
+              <span>Senha:</span>
+              <input id="input_password" type="password" placeholder="******" oninput="password()"/>
+              <div id="invalid_password" class="invalid-feedback">Insira a Senha</div>
             </div>
-            <button class="credential_submit" onclick="">Entrar</button>
+            <button class="credential-submit" onclick="">Entrar</button>
+            <div class="login-redirect">
+              <p>Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+          </div>   
         </div>
       </div>
     </div>
@@ -109,5 +113,5 @@
     </div>
   </div>
 </body>
-
+<script src="js/vitagro.js"></script>
 </html>

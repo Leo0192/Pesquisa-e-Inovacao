@@ -80,6 +80,7 @@ body {
 }
 .login .campo {
     width: 400px;
+    color: gray;
 }
  .login h2 {
     color: rgb(255, 255, 255);
@@ -98,9 +99,21 @@ body {
     height: 30px;
     border-radius: 5px;
     border: solid 2px rgb(43, 21, 2);
-    margin-bottom: 20px;
 }
-.credential_submit {
+.invalid-feedback{
+margin-bottom: 10px;
+}
+.invalid-feedback img {
+    width: 12px;
+    height: 12px;
+}
+.invalid-feedback .denied {
+    color: rgb(189, 4, 4);
+}
+.invalid-feedback .accept {
+    color: rgb(2, 110, 2);
+}
+.credential-submit {
     width: 100px;
     height: 40px;
     border-radius: 5px;
@@ -109,10 +122,16 @@ body {
     color: white;
     font-weight: bold;
 }
-.credential_submit:hover {
+.credential-submit:hover {
     background-color:  rgb(255, 255, 255);
     color: black;
     cursor: pointer;
+}
+.login-redirect p {
+    color: rgb(255, 255, 255);
+}
+.login-redirect a {
+    color: rgb(255, 255, 255);
 }
 .footer .container{
     height: 100%;
