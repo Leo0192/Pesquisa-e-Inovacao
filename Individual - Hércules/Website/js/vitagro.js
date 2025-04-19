@@ -1,7 +1,3 @@
-credential_submit_button.disabled = true;
-credential_submit_button.style.cursor = "not-allowed";
-login_submit_button.disabled = true;
-login_submit_button.style.cursor = "not-allowed";
 function emptyName(){
     let text = input_name.value;
     if(text == ""){
@@ -26,15 +22,15 @@ function emptyLastname(){
         return true;
     }
 }
-function tolken(){
-    let text = input_tolken.value;
+function token(){
+    let text = input_token.value;
     if(text == ""){
-        input_tolken.style.border = "2px solid red";
-        invalid_tolken.innerHTML = "<img src='assets/imgs/denied.png'> <span class='denied'> Tolken Inválido! </span>";
+        input_token.style.border = "2px solid red";
+        invalid_token.innerHTML = "<img src='assets/imgs/denied.png'> <span class='denied'> Token Inválido! </span>";
         return false;
     } else{
-        input_tolken.style.border = "2px solid green";
-        invalid_tolken.innerHTML = "<img src='assets/imgs/accept.png'> <span class='accept'> Tolken Ok! </span>";
+        input_token.style.border = "2px solid green";
+        invalid_token.innerHTML = "<img src='assets/imgs/accept.png'> <span class='accept'> Token Ok! </span>";
         return true;
     }
 }
@@ -136,19 +132,19 @@ function confirmPassword(){
 function checkAll(){
     let nameValid = emptyName();
     let lastnameValid = emptyLastname();
-    let tokenValid = tolken();
+    let tokenValid = token();
     let cpfValid = cpf();
     let emailValid = email();
     let phoneValid = phone();
     let passwordValid = password();
     let confirmPasswordValid = confirmPassword();
     if(nameValid && lastnameValid && tokenValid && cpfValid && emailValid && phoneValid && passwordValid && confirmPasswordValid){
-        console.log("true");
         credential_submit_button.disabled = false;
         credential_submit_button.style.cursor = "pointer";
         return true;
     }else{
-        console.log("false");
+        credential_submit_button.disabled = true;
+        credential_submit_button.style.cursor = "not-allowed";
         return false;
     }
 }
@@ -160,6 +156,8 @@ function checkAllLogin(){
         login_submit_button.style.cursor = "pointer";
         return true;
     }else{
+        login_submit_button.disabled = true;
+        login_submit_button.style.cursor = "not-allowed";
         return false;
     }
 }

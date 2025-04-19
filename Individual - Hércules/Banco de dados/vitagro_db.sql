@@ -1,6 +1,5 @@
 -- Criação do banco de dados central da VitAgro
 CREATE DATABASE vitagro;
-
 -- Colocando o database central em uso
 USE vitagro;
 
@@ -35,28 +34,13 @@ CREATE TABLE representante (
 	nome_representante VARCHAR(50) NOT NULL, -- Nome do representante da empresa
     cpf_representante CHAR(11) NOT NULL, -- CPF do representante da empresa
     id_empresa int, -- Identificador da empresa
-    email_representante VARCHAR(50) NOT NULL, -- Email para contato com o representante da empresa
-	senha VARCHAR(50) NOT NULL, -- Senha para realizar login
-    primary key (id_representante)
-);
-
-create table telefone_representante (
-	id_telefone int auto_increment,
+    email_representante VARCHAR(100) NOT NULL,
+    senha varchar(20),
     codigo_internacional char(2),
     ddd char(3),
-    telefone varchar(9),
-    id_representante int,
-    primary key (id_telefone),
-    constraint fk_telefone_representante foreign key (id_representante)
-		references representante (id_representante)
-);
-create table email_representante (
-	id_email int auto_increment,
-    email varchar(200),
-    id_representante int,
-    primary key (id_email),
-     constraint fk_email_representante foreign key (id_representante)
-		references representante (id_representante)
+    telefone char(9),
+    ativo boolean,
+    primary key (id_representante)
 );
 /* Criação da tabela plantacao, que visa armazenar os dados das diferentes plantações nas quais nosso sistema está instalado,
 junto com a relação da plantação com a empresa parceira, dona do hectare */
@@ -122,25 +106,11 @@ VALUES
     ('vendas@sojaterra.com', 3);
 
 -- Inserindo dados na tabela representante
-INSERT INTO representante (nome_representante, cpf_representante, id_empresa, email_representante, senha)
+INSERT INTO representante (nome_representante, cpf_representante, id_empresa, email_representante, senha, codigo_internacional, ddd, telefone)
 VALUES 
-    ('João Silva', '12345678901', 1, 'joao@empresa.com', 'senha123'),
-    ('Maria Oliveira', '98765432100', 2, 'maria@agroforte.com', 'senha456'),
-    ('Carlos Mendes', '65498732100', 3, 'carlos@sojaterra.com', 'senha789');
-
--- Inserindo telefones dos representantes na tabela telefone_representante
-INSERT INTO telefone_representante (codigo_internacional, ddd, telefone, id_representante)
-VALUES 
-    ('55', '11', '912345678', 1),
-    ('55', '62', '987654321', 2),
-    ('55', '64', '965432109', 3);
-
--- Inserindo emails adicionais dos representantes na tabela email_representante
-INSERT INTO email_representante (email, id_representante)
-VALUES 
-    ('joao.silva@empresa.com.br', 1),
-    ('maria.oliveira@agroforte.com.br', 2),
-    ('carlos.mendes@sojaterra.com.br', 3);
+    ('João Silva', '12345678901', 1, 'joao@empresa.com', 'senha123', '55', '11', '912345678'),
+    ('Maria Oliveira', '98765432100', 2, 'maria@agroforte.com', 'senha456', '55', '62', '987654321'),
+    ('Carlos Mendes', '65498732100', 3, 'carlos@sojaterra.com', 'senha789', '55', '64', '965432109');
     
 -- Inserindo uma plantação vinculada à empresa
 INSERT INTO plantacao (endereco, hectares, idEmpresa)
@@ -172,6 +142,6 @@ VALUES (1, 45.75),
 -- Seleção para verificação das inserções e consulta
 SELECT * FROM empresa;
 SELECT * FROM plantacao;
-SELECT * FROM grupo;
+SELECT * FROM hectare;
 SELECT * FROM sensor;
 SELECT * FROM historico_sensor ORDER BY data DESC;
