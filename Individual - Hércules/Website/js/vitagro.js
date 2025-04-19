@@ -1,3 +1,7 @@
+credential_submit_button.disabled = true;
+credential_submit_button.style.cursor = "not-allowed";
+login_submit_button.disabled = true;
+login_submit_button.style.cursor = "not-allowed";
 function emptyName(){
     let text = input_name.value;
     if(text == ""){
@@ -93,12 +97,70 @@ function phone(){
     }
 }
 function password(){
-    let password='';
-    let haveUpper = passoword.indexOf('');
-
-
-    
+    var password= input_password.value;
+    let passwordLength = password.length;
+    let haveNumber = /\d/.test(password);
+    let haveSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    let haveLower = /[a-z]/.test(password);
+    let haveUpper = /[A-Z]/.test(password);
+    if(passwordLength < 8 || passwordLength > 20){
+        input_password.style.border = "2px solid red";
+        invalid_password.innerHTML = "<img src='assets/imgs/denied.png'> <span class='denied'> A senha deve ter entre 8 e 20 dígitos! </span>";
+        return false;
+    } else if(!haveNumber || !haveSpecial || !haveLower || !haveUpper){
+        input_password.style.border = "2px solid red";
+        invalid_password.innerHTML = "<img src='assets/imgs/denied.png'> <span class='denied'> A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais! </span>";
+        return false;
+    } else{
+        input_password.style.border = "2px solid green";
+        invalid_password.innerHTML = "<img src='assets/imgs/accept.png'> <span class='accept'> Senha Ok! </span>";
+        return true;
+    }
 }
 function confirmPassword(){
+    let confirmPassword = input_confirm_password.value;
+    if(confirmPassword != input_password.value ){
+        input_confirm_password.style.border = "2px solid red";
+        invalid_confirm_password.innerHTML = "<img src='assets/imgs/denied.png'> <span class='denied'> As senhas não conferem! </span>";
+        return false;
+    } else if(input_confirm_password.value == ""){
+        input_confirm_password.style.border = "2px solid red";
+        invalid_confirm_password.innerHTML = "<img src='assets/imgs/denied.png'> <span class='denied'> Esse campo não pode ficar vazio! </span>";
+        return false;
+    } else{
+        input_confirm_password.style.border = "2px solid green";
+        invalid_confirm_password.innerHTML = "<img src='assets/imgs/accept.png'> <span class='accept'> Senha Ok! </span>";
+        return true;
+    }
+}
+function checkAll(){
+    let nameValid = emptyName();
+    let lastnameValid = emptyLastname();
+    let tokenValid = tolken();
+    let cpfValid = cpf();
+    let emailValid = email();
+    let phoneValid = phone();
+    let passwordValid = password();
+    let confirmPasswordValid = confirmPassword();
 
+    if(nameValid && lastnameValid && tokenValid && cpfValid && emailValid && phoneValid && passwordValid && confirmPasswordValid){
+        console.log("true");
+        credential_submit_button.disabled = false;
+        credential_submit_button.style.cursor = "pointer";
+        return true;
+    }else{
+        console.log("false");
+        return false;
+    }
+}
+function checkAllLogin(){
+    let emailValid = email();
+    let passwordValid = password();
+    if(emailValid && passwordValid){
+        login_submit_button.disabled = false;
+        login_submit_button.style.cursor = "pointer";
+        return true;
+    }else{
+        return false;
+    }
 }
