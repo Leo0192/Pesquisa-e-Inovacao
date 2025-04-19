@@ -24,20 +24,70 @@
         align-items: center;
     }
 
+    section{
+        min-height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bloco_calc{
+        background-color: burlywood;
+        min-height: 200px;
+        min-width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        border: 3px sienna solid;
+    }
+
+    .bloco_calc button{
+        border-radius: 10px;
+        border: 3px sienna solid;
+        background-color: blanchedalmond;
+        width: 50px;
+        width: 100px;
+        height: 30px;
+    }
+
+    #div_mensagem{
+        background-color: burlywood;
+        max-width: 400px;
+        font-size: 1em;
+    }
+
     footer {
         background-color: burlywood;
         width: 100%;
         height: 23vh;
         display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
-    .container_footer{
+    #container_footer{
         display: flex;
+        flex-direction: column;
+    }
+
+    img{
+        width: 300px;
+    }
+
+    span{
+        color: brown;
+        text-decoration: double;
+    }
+    a{
+        text-decoration: none;
+        color: black;
     }
 </style>
 
 <body>
     <header>
-        <img src="" alt="Logo">
+        <img src="../../Main/res/logo_vitagro.png" alt="Logo">
         <div>
             <a href="#">Início</a>
             <a href="#">Sobre Nós</a>
@@ -48,18 +98,20 @@
     <section>
         <div>
             <h2>Simulador de Ganhos e Perdas</h2>
-            <div>
+            <div class="bloco_calc">
                 <p>Informe quantos hectares possui:</p>
-                <input type="number" id="ipt_quantidade_hectares">
+                <div>
+                    <input type="number" id="ipt_quantidade_hectares">
+                    <button onclick="Calcular()">Calcular</button>
+                </div>
             </div>
-            <button onclick="Calcular()">Calcular</button>
             <div id="div_mensagem"></div>
         </div>
     </section>
     <footer>
         <div id="container_footer">
-            <img src="" alt="Logo">
-            <div>
+            <img src="../../Main/res/logo_vitagro.png" alt="Logo">
+            <div id="container_redes_sociais">
                 <img src="" alt="Redes Sociais">
                 <img src="" alt="Redes Sociais">
                 <img src="" alt="Redes Sociais">
@@ -101,7 +153,7 @@
 
         preco_final_herbicida = Number((preco_hectares_por_aplicacao * quantidade_aplicacoes).toFixed(2));
 
-        div_mensagem.innerHTML = `Você pode perder até R$${preco_saca_hectare} se não tiver um sistema de monitoramento cuidando do seu espaço!<br>
-        Além disso, pode economizar de R$${(preco_final_herbicida * evaporacao_minima).toFixed(2)} até R$${(preco_final_herbicida * evaporacao_maxima).toFixed(2)}`
+        div_mensagem.innerHTML = `<p>Você pode perder até <span><b>R$${preco_saca_hectare}</b></span> se não tiver um sistema de monitoramento cuidando do seu espaço!<br>
+        Além disso, pode economizar de <span><b>R$${(preco_final_herbicida * evaporacao_minima).toFixed(2)}</b></span> até <span><b>R$${(preco_final_herbicida * evaporacao_maxima).toFixed(2)}</b></span></p>`
     }
 </script>
