@@ -142,7 +142,6 @@ function checkAll(){
     let phoneValid = phone();
     let passwordValid = password();
     let confirmPasswordValid = confirmPassword();
-
     if(nameValid && lastnameValid && tokenValid && cpfValid && emailValid && phoneValid && passwordValid && confirmPasswordValid){
         console.log("true");
         credential_submit_button.disabled = false;
@@ -162,5 +161,24 @@ function checkAllLogin(){
         return true;
     }else{
         return false;
+    }
+}
+function checkAllLoginSubmit(){
+    let emailValid = input_email.value;
+    let passwordValid = input_password.value;
+    let validAll = checkAllLogin();
+    if (validAll && emailValid=='adm@vitagro.com' && passwordValid=='Vitagro123!') {
+        invalid_data.innerHTML ='';
+        window.location.href = "dashboard.html";
+        return true; 
+    } else {
+        invalid_data.innerHTML = "<img src='assets/imgs/denied.png'> <span class='denied'> As credenciais inseridas não conferem! </span>";
+        input_email.style.border = "2px solid red";
+        input_email.value = "";
+        invalid_email.innerHTML = "<img src='assets/imgs/denied.png'> <span class='denied'> Insira o email novamente! </span>";
+        input_password.style.border = "2px solid red";
+        input_password.value = "";
+        invalid_password.innerHTML = "<img src='assets/imgs/denied.png'> <span class='denied'> Insira a senha novamente! </span>";
+        return false; 
     }
 }

@@ -51,7 +51,8 @@
               <input id="input_password" type="password" placeholder="******" oninput="password()"/>
               <div id="invalid_password" class="invalid-feedback">Insira a Senha</div>
             </div>
-            <button class="credential-submit" id="login_submit_button" onclick="" onmouseover="checkAllLogin()">Entrar</button>
+            <button class="credential-submit" id="login_submit_button" onclick="checkAllLoginSubmit()" onmouseover="checkAllLogin()">Entrar</button>
+            <div id="invalid_data" class="invalid-feedback"></div>
             <div class="login-redirect">
               <p>Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
           </div>   
