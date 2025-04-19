@@ -1,0 +1,160 @@
+/* Reset básico e configurações gerais */
+* {
+    margin: 0; /* Remove margem padrão */
+    padding: 0; /* Remove preenchimento padrão */
+    box-sizing: border-box; /* Inclui padding e borda dentro do tamanho total */
+    font-family: Arial, Helvetica, sans-serif; /* Fonte padrão */
+  }
+  
+  body {
+    background-color: #633615; /* Define cor de fundo da página */
+  }
+  
+  ul {
+    list-style: none; /* Remove marcadores de listas */
+  }
+  
+  a {
+    text-decoration: none; /* Remove sublinhado dos links */
+    color: inherit; /* Herda cor do elemento pai */
+  }
+  
+  /* Container principal que centraliza o conteúdo */
+  .container {
+    width: 80%; /* Usa 80% da largura da tela */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    display: flex; /* Usa flexbox */
+    align-items: center; /* Alinha itens verticalmente ao centro */
+    justify-content: space-between; /* Espaço entre os itens */
+  }
+  
+  /* Estilo do cabeçalho */
+  .header {
+    width: 100%; /* Ocupa toda a largura da tela */
+    height: 80px; /* Altura fixa */
+    background-color: #633615; /* Cor de fundo */
+    display: flex; /* Flexbox para alinhamento */
+    align-items: center; /* Alinha verticalmente ao centro */
+    justify-content: center; /* Centraliza conteúdo */
+  }
+  
+  .logo img {
+    height: 60px; /* Altura da logo */
+  }
+  
+  /* Menu de navegação */
+  .navbar {
+    display: flex; /* Itens em linha */
+    gap: 40px; /* Espaçamento entre eles */
+  }
+  
+  .navbar li {
+    padding: 10px; /* Espaçamento interno */
+    transition: 0.3s; /* Suaviza efeito de hover */
+  }
+  
+  .navbar li:hover {
+    background-color: #633615; /* Cor de fundo no hover */
+    border-radius: 5px; /* Bordas arredondadas */
+  }
+  
+  .navbar li.agora {
+    border-bottom: 2px solid rgb(101, 53, 19); /* Indica item ativo com borda inferior */
+  }
+  
+  .navbar a {
+    color: white; /* Texto branco */
+    font-weight: bold; /* Negrito */
+  }
+  
+  /* Ícone do menu para dispositivos móveis */
+  .menu-icon img {
+    height: 30px; /* Tamanho do ícone */
+    cursor: pointer; /* Muda o cursor ao passar por cima */
+  }
+  
+  /* Banner principal da página */
+  .banner {
+    position: relative; /* Permite posicionar a imagem de fundo por trás */
+    width: 100%; /* Largura total */
+    height: 100vh; /* Altura da tela */
+    overflow: hidden; /* Esconde partes que ultrapassam */
+  }
+  
+  .background-image {
+    position: absolute; /* Posiciona por trás do conteúdo */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cobre toda a área sem distorcer */
+    filter: brightness(0.7); /* Escurece a imagem */
+    z-index: -1; /* Fica atrás do conteúdo */
+  }
+  
+  .hero-content {
+    display: flex; /* Flex para alinhar elementos */
+    flex-direction: column; /* Empilha verticalmente */
+    align-items: center; /* Alinha ao centro */
+    text-align: center; /* Centraliza texto */
+    color: white; /* Texto branco */
+    padding-top: 10%; /* Espaçamento do topo */
+  }
+  
+  .hero-logo {
+    width: 200px; /* Tamanho do logo */
+    margin-bottom: 20px; /* Espaço abaixo do logo */
+  }
+  
+  .hero-content h1 {
+    font-size: 1.8rem; /* Tamanho da fonte */
+    max-width: 600px; /* Largura máxima do texto */
+  }
+  
+  /* Seção "Sobre Nós" com fundo escurecido */
+  .sobre-nos-section {
+    position: relative; /* Para permitir background e conteúdo sobrepostos */
+    width: 100%; /* Ocupa toda a largura */
+    height: 100vh; /* Altura total da tela */
+    overflow: hidden; /* Esconde o que ultrapassar */
+  }
+  
+  .sobre-nos-box {
+    display: flex; /* Layout flexível */
+    flex-direction: column; /* Alinha os filhos verticalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    text-align: center; /* Centraliza texto */
+    padding: 40px; /* Espaçamento interno */
+    background-color: rgba(240, 222, 189, 0.95); /* Fundo bege com transparência */
+    max-width: 900px; /* Largura máxima da caixa */
+    margin: 100px auto; /* Espaço no topo e centralização horizontal */
+    border-radius: 20px; /* Bordas arredondadas */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra suave */
+    border: 2px solid #3f2d23; /* Borda escura */
+    z-index: 1; /* Fica acima da imagem de fundo */
+    position: relative; /* Necessário para z-index funcionar corretamente */
+  }
+  
+  .sobre-nos-box h1 {
+    font-size: 2.5rem; /* Tamanho do título */
+    color: #3f2d23; /* Marrom escuro */
+    margin-bottom: 20px; /* Espaçamento inferior */
+  }
+  
+  .sobre-nos-box p {
+    font-size: 1.1rem; /* Tamanho da fonte do parágrafo */
+    color: #3f2d23; /* Mesma cor do título */
+    line-height: 1.6; /* Espaçamento entre linhas */
+    max-width: 800px; /* Limita a largura */
+    margin: 0 auto; /* Centraliza o texto */
+    padding: 0 20px; /* Espaço lateral */
+  }
+  
+  /* Imagem de fundo da seção Sobre Nós */
+  .sobre-nos-section .background-image {
+    position: absolute; /* Atrás da caixa */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Preenche sem distorcer */
+    filter: brightness(0.6); /* Escurece a imagem */
+    z-index: 0; /* Atrás do conteúdo */
+  }
+  
