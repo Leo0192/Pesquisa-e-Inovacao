@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        background-color: blanchedalmond;
+    }
+
+    header {
+        background-color: burlywood;
+        width: 100%;
+        height: 23vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    footer {
+        background-color: burlywood;
+        width: 100%;
+        height: 23vh;
+        display: flex;
+    }
+    .container_footer{
+        display: flex;
+    }
+</style>
+
+<body>
+    <header>
+        <img src="" alt="Logo">
+        <div>
+            <a href="#">Início</a>
+            <a href="#">Sobre Nós</a>
+            <a href="#">Simulador G.P</a>
+            <a href="#">Portal de Monitoramento</a>
+        </div>
+    </header>
+    <section>
+        <div>
+            <h2>Simulador de Ganhos e Perdas</h2>
+            <div>
+                <p>Informe quantos hectares possui:</p>
+                <input type="number" id="ipt_quantidade_hectares">
+            </div>
+            <button onclick="Calcular()">Calcular</button>
+            <div id="div_mensagem"></div>
+        </div>
+    </section>
+    <footer>
+        <div id="container_footer">
+            <img src="" alt="Logo">
+            <div>
+                <img src="" alt="Redes Sociais">
+                <img src="" alt="Redes Sociais">
+                <img src="" alt="Redes Sociais">
+                <img src="" alt="Redes Sociais">
+            </div>
+        </div>
+        <div id="container_footer">
+            <b>Páginas do site:</b>
+            <a href="#">Início</a>
+            <a href="#">Sobre Nós</a>
+            <a href="#">Simulador G.P</a>
+            <a href="#">Portal de Monitoramento</a>
+        </div>
+        <div id="container_footer">
+            <h4>Localização:</h4>
+            <img src="" alt="Localização">
+        </div>
+    </footer>
+</body>
+
+</html>
+<script>
+    function Calcular() {
+        hectares = Number(ipt_quantidade_hectares.value);
+        valor_saca = 128; // valor de cada saca de soja de 60kg - média de preço
+        quantidade_saca_por_hectares = 60 // Quantidade de sacas que cada hectare gera em média - 50 a 80
+        herbicida_litro = 120; // preço do herbicida por Litro - encontrado entre 110 a 130
+        litro_hectares = 2.5 // quantidade de Litros por hectare médio para aplicação
+        periodo_aplicacao = 56 // De quantos em quantos dias deve aplicar
+        tempo_colheita = 120 // tempo de colheita - 90 à 120
+        evaporacao_minima = 0.19; // menor taxa de evaporação baseada na umidade
+        evaporacao_maxima = 0.9; // maior taxa de evaporação baseada na umidade
+
+        preco_saca_hectare = valor_saca * hectares;
+
+        preco_hectares_por_aplicacao = Number((herbicida_litro * litro_hectares * hectares).toFixed(2));
+
+        quantidade_aplicacoes = tempo_colheita / periodo_aplicacao;
+
+        preco_final_herbicida = Number((preco_hectares_por_aplicacao * quantidade_aplicacoes).toFixed(2));
+
+        div_mensagem.innerHTML = `Você pode perder até R$${preco_saca_hectare} se não tiver um sistema de monitoramento cuidando do seu espaço!<br>
+        Além disso, pode economizar de R$${(preco_final_herbicida * evaporacao_minima).toFixed(2)} até R$${(preco_final_herbicida * evaporacao_maxima).toFixed(2)}`
+    }
+</script>
