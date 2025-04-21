@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitAgro</title>
+</head>
+
+<link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" href="img/logo-VitAgro.ico">
+</head>
+<body>
+
+    <div class="header">
+        <div class="container">
+            
+          <a href="#" class="titulo">
+            <img src="img/logo-VitAgro.png" alt="Logo VitAgro" height="80px">
+          </a>
+        
+          <ul class="navbar">
+            <a href="index.html">Home</a>
+          </li>
+          <li class="pipe">|</li>
+          <li>
+            <a href="sobrenos.html">Sobre Nós</a>
+          </li>
+          <li class="pipe">|</li>
+          <li>
+              <a href="calculadora.html">Calculadora Financeira</a>
+          </li>
+          <li class="pipe">|</li>
+          <li>
+              <a href="cadastro.html">Cadastro</a>
+          </li>
+          <li class="pipe">|</li>
+          <li>
+              <a href="login.html">Login</a>
+          </li>
+      </ul>
+        </div>
+      </div>
+    
+      <div class="conteudo-calculadora">
+        <div class="container">
+            <section>
+                <div class="texto-calc">
+                    <h2>Simulador de Ganhos e Perdas</h2>
+                    <div class="bloco_calc">
+                        <p>Informe quantos hectares possui:</p>
+                        <div>
+                            <input type="number" id="ipt_quantidade_hectares">
+                            <button onclick="Calcular()">Calcular</button>
+                        </div>
+                    </div>
+                    <div id="div_mensagem"></div>
+                    
+                </div>
+            </section>
+        </div>
+      </div>
+    
+      <div class="footer">
+        <div class="container">
+
+            <img class="icon-footer" src="img/Vit_agro_preto-removebg-preview 1.png" alt="Logo VitAgro">
+
+            <div class="links">
+                <p class="titulo-footer">Páginas do site</p>
+                <ul class="link">
+                  <li>
+                    <a href="index.html">Página Inicial
+                    </a>
+                  </li>
+                  <li>
+                    <a href="sobrenos.html">Sobre Nós</a>
+                  </li>
+                  <li>
+                    <a href="calculadora.html">Calculadora Financeira</a>
+                  </li>
+                  <li>
+                    <a href="cadastro.html">Página de Cadastro</a>
+                  </li>
+                  <li>
+                    <a href="login.html">Página de Login</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="contato">
+                <h2 class="titulo-contato">Contato:</h2>
+                <ul class="contatos">
+                  <li>
+                    <p>Email: VitAgro@sptech.school</p>
+                  </li>
+                  <li>
+                    <p>Localização: Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001</p>
+                  </li>
+                  <li class="sociais">
+                    <p>Redes Sociais:<p>
+                        <a href="#">
+                            <img class="icon-social" src="img/facebook.png" alt="facebook" height="5px">
+                        </a>
+                        <a href="#">
+                            <img class="icon-social" src="img/linkedin.png" alt="linkedin" height="5px">
+                        </a>
+                        <a href="#">
+                            <img class="icon-social" src="img/instagram.png" alt="instagram" height="5px">
+                        </a>
+                        <a href="#">
+                            <img class="icon-social" src="img/twitter.png" alt="twitter" height="5px">
+                        </a>
+                  </li>
+                </ul>
+              </div>
+
+        </div>
+      </div>
+    
+</body>
+</html>
+
+<script>
+    function Calcular() {
+        hectares = Number(ipt_quantidade_hectares.value);
+        valor_saca = 128; // valor de cada saca de soja de 60kg - média de preço
+        quantidade_saca_por_hectares = 60 // Quantidade de sacas que cada hectare gera em média - 50 a 80
+        herbicida_litro = 120; // preço do herbicida por Litro - encontrado entre 110 a 130
+        litro_hectares = 2.5 // quantidade de Litros por hectare médio para aplicação
+        periodo_aplicacao = 56 // De quantos em quantos dias deve aplicar
+        tempo_colheita = 120 // tempo de colheita - 90 à 120
+        evaporacao_minima = 0.19; // menor taxa de evaporação baseada na umidade
+        evaporacao_maxima = 0.9; // maior taxa de evaporação baseada na umidade
+
+        preco_saca_hectare = valor_saca * hectares;
+
+        preco_hectares_por_aplicacao = Number((herbicida_litro * litro_hectares * hectares).toFixed(2));
+
+        quantidade_aplicacoes = tempo_colheita / periodo_aplicacao;
+
+        preco_final_herbicida = Number((preco_hectares_por_aplicacao * quantidade_aplicacoes).toFixed(2));
+
+        div_mensagem.innerHTML = `<p>Você pode perder até <span><b>R$${preco_saca_hectare}</b></span> se não tiver um sistema de monitoramento cuidando do seu espaço!<br>
+        Além disso, pode economizar de <span><b>R$${(preco_final_herbicida * evaporacao_minima).toFixed(2)}</b></span> até <span><b>R$${(preco_final_herbicida * evaporacao_maxima).toFixed(2)}</b></span></p>`
+    }
+</script>
