@@ -88,7 +88,7 @@ feita a medição */
 CREATE TABLE historico_sensor(
     id_historico INT PRIMARY KEY AUTO_INCREMENT, -- Identificador único do histórico
     fk_idSensor INT NOT NULL, -- Identificador do sensor
-    umidade DECIMAL(4,2), -- Porcentagem da umidade no momento do registro
+    umidade int, -- Porcentagem da umidade no momento do registro
     data DATETIME DEFAULT CURRENT_TIMESTAMP, -- Data e horário em que a medição foi feita
     CONSTRAINT fk_idSensor FOREIGN KEY(fk_idSensor) REFERENCES sensor(id_sensor) -- Criação da relação da chave estrangeira
 );
