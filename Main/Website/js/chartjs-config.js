@@ -6,7 +6,7 @@ function startChart() {
             labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
             datasets: [{
                 label: 'Sensor A',
-                data: [55, 42, 37, 48, 56, 62],
+                data: [55, 42, 37, 48, 51, 47],
                 borderColor: '#63B1BC',
                 backgroundColor: '#ED145B'
             },
@@ -48,7 +48,7 @@ function startChart() {
             labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
             datasets: [{
                 label: 'Sensor B',
-                data: [75, 79, 83, 86, 81, 78],
+                data: [75, 79, 83, 86, 81, 87],
                 borderColor: '#63B1BC',
                 backgroundColor: '#ED145B'
             },

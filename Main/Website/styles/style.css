@@ -557,3 +557,16 @@ section{
 .div_grafico_sensor{
     width: 50%;
 }
+
+.umidade_alarme{
+    color: red;
+}
+
+.descricao_situacao{
+    width: 35%;
+    margin: 0 auto;
+}
+
+.div_container_sensor{
+    width: 100%;
+}
