@@ -273,6 +273,7 @@ body{
     flex-direction: row;
 
     width: 50%;
+    height: 5px;
 }
 
 .icon-social{
@@ -546,4 +547,13 @@ section{
     display: flex;
     justify-content: center;
     height: 640px;
+}
+
+.div_container_graficos{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.div_grafico_sensor{
+    width: 50%;
 }

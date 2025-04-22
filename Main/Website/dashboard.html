@@ -8,9 +8,11 @@
   <link rel="stylesheet" href="styles/style.css" />
   <link rel="icon" href="img/logo-VitAgro.ico" />
   <title>VitAgro | dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/chartjs-config.js"></script>
 </head>
   
-<body>
+<body onload="startChart()">
   <div class="header">
     <div class="container">
         
@@ -37,8 +39,27 @@
     </div>
   </div>
 
-<div class="grafico2">
-<img src="img/grafico.png" alt="">
+  <select name="" id="">
+    <option value="">Selecione o Hectare</option>
+    <option value="">Hectare 1</option>
+    <option value="">Hectare 2</option>
+    <option value="">Hectare 3</option>
+    <option value="">Hectare 4</option>
+    <option value="">Hectare 5</option>
+  </select>
+  <div class="div_container_graficos">
+    <div class="div_grafico_sensor">
+        <canvas id="sensorA"></canvas>
+    </div>
+    <div class="div_grafico_sensor">
+        <canvas id="sensorB"></canvas>
+    </div>
+    <div class="div_grafico_sensor">
+        <canvas id="sensorC"></canvas>
+    </div>
+    <div class="div_grafico_sensor">
+        <canvas id="sensorD"></canvas>
+    </div>
 </div>
 
 <div class="footer">
@@ -78,16 +99,16 @@
             <li class="sociais">
               <p>Redes Sociais:<p>
                   <a href="#">
-                      <img class="icon-social" src="img/facebook.png" alt="facebook" height="5px">
+                      <img class="icon-social" src="img/facebook.png" alt="facebook">
                   </a>
                   <a href="#">
-                      <img class="icon-social" src="img/linkedin.png" alt="linkedin" height="5px">
+                      <img class="icon-social" src="img/linkedin.png" alt="linkedin">
                   </a>
                   <a href="#">
-                      <img class="icon-social" src="img/instagram.png" alt="instagram" height="5px">
+                      <img class="icon-social" src="img/instagram.png" alt="instagram">
                   </a>
                   <a href="#">
-                      <img class="icon-social" src="img/twitter.png" alt="twitter" height="5px">
+                      <img class="icon-social" src="img/twitter.png" alt="twitter">
                   </a>
             </li>
           </ul>
