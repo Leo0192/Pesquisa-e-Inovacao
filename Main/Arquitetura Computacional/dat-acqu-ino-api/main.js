@@ -37,7 +37,7 @@ const serial = async (
 
     // lista as portas seriais disponíveis e procura pelo Arduino
     const portas = await serialport.SerialPort.list();
-    const portaArduino = portas.find((porta) => porta.vendorId == '1A86' && porta.productId == 7523); // 2341:43 é o ID do Arduino Uno original sptech, o genérico é '1A86':7523
+    const portaArduino = portas.find((porta) => porta.vendorId == '2341' && porta.productId == 43); // 2341:43 é o ID do Arduino Uno original sptech, o genérico é '1A86':7523
     if (!portaArduino) {
         throw new Error('O arduino não foi encontrado em nenhuma porta serial');
     }
