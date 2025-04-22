@@ -40,35 +40,35 @@
   </div>
 
 
-  <select name="" id="">
-    <option value="">Selecione o Hectare</option>
-    <option value="">Hectare 1</option>
-    <option value="">Hectare 2</option>
-    <option value="">Hectare 3</option>
-    <option value="">Hectare 4</option>
-    <option value="">Hectare 5</option>
+  <select name="" id="escolha_hectare">
+    <option value="#">Selecione o Hectare</option>
+    <option value="1">Hectare 1</option>
+    <option value="2">Hectare 2</option>
+    <option value="3">Hectare 3</option>
+    <option value="4">Hectare 4</option>
+    <option value="5">Hectare 5</option>
   </select>
   <div class="div_container_graficos">
     <div class="div_grafico_sensor">
-      <p class="descricao_situacao">Situação: <span class="umidade_alarme">Escassez de Umidade</span></p>
+      <p class="descricao_situacao">Situação: <span class="umidade_alarme" id="alarme1">Escassez de Umidade</span></p>
       <div class="div_container_sensor">
         <canvas id="sensorA"></canvas>
       </div>
     </div>
     <div class="div_grafico_sensor">
-      <p class="descricao_situacao">Situação: <span class="umidade_alarme">Excesso de Umidade</span></p>
+      <p class="descricao_situacao">Situação: <span class="umidade_alarme" id="alarme2">Excesso de Umidade</span></p>
       <div class="div_container_sensor">
         <canvas id="sensorB"></canvas>
       </div>
     </div>
     <div class="div_grafico_sensor">
-      <p class="descricao_situacao">Situação: <span>Padrão</span></p>
+      <p class="descricao_situacao">Situação: <span id="alarme3">Padrão</span></p>
       <div class="div_container_sensor">
         <canvas id="sensorC"></canvas>
       </div>
     </div>
     <div class="div_grafico_sensor">
-      <p class="descricao_situacao">Situação: <span>Padrão</span></p>
+      <p class="descricao_situacao">Situação: <span id="alarme4">Padrão</span></p>
       <div class="div_container_sensor">
         <canvas id="sensorD"></canvas>
       </div>

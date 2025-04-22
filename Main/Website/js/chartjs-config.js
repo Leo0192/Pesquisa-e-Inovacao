@@ -1,4 +1,37 @@
 function startChart() {
+    let hectare = escolha_hectare.value;
+
+    let valoresSensorA = [55, 42, 37, 48, 51, 47];
+    let valoresSensorB = [75, 79, 83, 86, 81, 87];
+    let valoresSensorC = [59, 55, 57, 59, 56, 59];
+    let valoresSensorD = [60, 62, 60, 65, 63, 66];
+
+    if(hectare == 1){
+        valoresSensorA = [55, 42, 37, 48, 51, 47];
+        valoresSensorB = [75, 79, 83, 86, 81, 87];
+        valoresSensorC = [59, 55, 57, 59, 56, 59];
+        valoresSensorD = [60, 62, 60, 65, 63, 66];
+    // } else if(hectare == 2){
+    //     valoresSensorA = [55, 42, 37, 48, 51, 47];
+    //     valoresSensorB = [75, 79, 83, 86, 81, 87];
+    //     valoresSensorC = [59, 55, 57, 59, 56, 59];
+    //     valoresSensorD = [60, 62, 60, 65, 63, 66];
+    // } else if(hectare == 3){
+    //     valoresSensorA = [55, 42, 37, 48, 51, 47];
+    //     valoresSensorB = [75, 79, 83, 86, 81, 87];
+    //     valoresSensorC = [59, 55, 57, 59, 56, 59];
+    //     valoresSensorD = [60, 62, 60, 65, 63, 66];
+    // } else if(hectare == 4){
+    //     valoresSensorA = [55, 42, 37, 48, 51, 47];
+    //     valoresSensorB = [75, 79, 83, 86, 81, 87];
+    //     valoresSensorC = [59, 55, 57, 59, 56, 59];
+    //     valoresSensorD = [60, 62, 60, 65, 63, 66];
+    // }else if(hectare == 5){
+    //     valoresSensorA = [55, 42, 37, 48, 51, 47];
+    //     valoresSensorB = [75, 79, 83, 86, 81, 87];
+    //     valoresSensorC = [59, 55, 57, 59, 56, 59];
+    //     valoresSensorD = [60, 62, 60, 65, 63, 66];
+    }
 
     var sensorA = new Chart(document.getElementById('sensorA').getContext('2d'), {
         type: 'line',
@@ -6,7 +39,7 @@ function startChart() {
             labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
             datasets: [{
                 label: 'Sensor A',
-                data: [55, 42, 37, 48, 51, 47],
+                data: valoresSensorA,
                 borderColor: '#63B1BC',
                 backgroundColor: '#ED145B'
             },
@@ -48,7 +81,7 @@ function startChart() {
             labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
             datasets: [{
                 label: 'Sensor B',
-                data: [75, 79, 83, 86, 81, 87],
+                data: valoresSensorB,
                 borderColor: '#63B1BC',
                 backgroundColor: '#ED145B'
             },
@@ -90,7 +123,7 @@ function startChart() {
             labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
             datasets: [{
                 label: 'Sensor C',
-                data: [59, 55, 57, 59, 56, 59],
+                data: valoresSensorC,
                 borderColor: '#63B1BC',
                 backgroundColor: '#ED145B'
             },
@@ -132,7 +165,7 @@ function startChart() {
             labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
             datasets: [{
                 label: 'Sensor D',
-                data: [60, 62, 60, 65, 63, 66],
+                data: valoresSensorD,
                 borderColor: '#63B1BC',
                 backgroundColor: '#ED145B'
             },
