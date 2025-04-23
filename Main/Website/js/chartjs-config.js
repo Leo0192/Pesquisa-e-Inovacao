@@ -1,53 +1,80 @@
-function startChart() {
-    let hectare = escolha_hectare.value;
+function testandoUpdate(){
+    var hectare = escolha_hectare.value;
+    for(var i = 0; i < 4; i++){
+        var div = document.getElementsByClassName('div_container_sensor')[i];
+        div.innerHTML = `<canvas id="sensor${i}"></canvas>`;
+    }
+    startChart(hectare);
+    updateSituacao();
+}
 
-    let valoresSensorA = [55, 42, 37, 48, 51, 47];
-    let valoresSensorB = [75, 79, 83, 86, 81, 87];
-    let valoresSensorC = [59, 55, 57, 59, 56, 59];
-    let valoresSensorD = [60, 62, 60, 65, 63, 66];
+function updateSituacao(){
+    ultimoNumeroSensorA = valoresSensorA[valoresSensorA.length - 1];
+    ultimoNumeroSensorB = valoresSensorB[valoresSensorB.length - 1];
+    ultimoNumeroSensorC = valoresSensorC[valoresSensorC.length - 1];
+    ultimoNumeroSensorD = valoresSensorD[valoresSensorD.length - 1];
+    vetorUltimoDado = [ultimoNumeroSensorA, ultimoNumeroSensorB, ultimoNumeroSensorC, ultimoNumeroSensorD];
 
-    if(hectare == 1){
-        valoresSensorA = [55, 42, 37, 48, 51, 47];
+    for(var i = 0; i < 4; i++){
+        var span = document.getElementsByClassName('situacao_sensor')[i];
+        if(vetorUltimoDado[i] > 80){
+            span.innerHTML = `<span style='color: red'>Excesso de Umidade</span>`;
+        } else if(vetorUltimoDado[i] < 50){
+            span.innerHTML = `<span style='color: red'>Escassez de Umidade</span>`;
+        } else {
+            span.innerHTML = `<span>Padrão</span>`;
+        }
+    }
+}
+
+//  class="umidade_alarme"
+
+function startChart(hectare_sensores) {
+
+    if (hectare_sensores == 2) {
+        valoresSensorA = [67, 65, 65, 64, 66, 67];
+        valoresSensorB = [55, 57, 59, 60, 61, 60];
+        valoresSensorC = [67, 69, 70, 72, 69, 68];
+        valoresSensorD = [65, 64, 64, 65, 66, 65];
+    } else if (hectare_sensores == 3) {
+        valoresSensorA = [51, 52, 50, 47, 45, 46];
+        valoresSensorB = [54, 53, 51, 48, 46, 44];
+        valoresSensorC = [55, 54, 55, 53, 55, 52];
+        valoresSensorD = [44, 46, 48, 48, 46, 44];
+    } else if (hectare_sensores == 4) {
+        valoresSensorA = [75, 79, 81, 83, 82, 84];
+        valoresSensorB = [77, 79, 78, 79, 81, 83];
+        valoresSensorC = [76, 78, 77, 75, 74, 75];
+        valoresSensorD = [70, 72, 73, 75, 77, 76];
+    } else if (hectare_sensores == 5) {
+        valoresSensorA = [65, 66, 66, 65, 64, 64];
+        valoresSensorB = [66, 68, 69, 71, 70, 71];
+        valoresSensorC = [59, 61, 63, 61, 60, 59];
+        valoresSensorD = [60, 62, 64, 65, 63, 66];
+    } else {
+        valoresSensorA = [51, 52, 52, 54, 55, 56];
         valoresSensorB = [75, 79, 83, 86, 81, 87];
-        valoresSensorC = [59, 55, 57, 59, 56, 59];
-        valoresSensorD = [60, 62, 60, 65, 63, 66];
-    // } else if(hectare == 2){
-    //     valoresSensorA = [55, 42, 37, 48, 51, 47];
-    //     valoresSensorB = [75, 79, 83, 86, 81, 87];
-    //     valoresSensorC = [59, 55, 57, 59, 56, 59];
-    //     valoresSensorD = [60, 62, 60, 65, 63, 66];
-    // } else if(hectare == 3){
-    //     valoresSensorA = [55, 42, 37, 48, 51, 47];
-    //     valoresSensorB = [75, 79, 83, 86, 81, 87];
-    //     valoresSensorC = [59, 55, 57, 59, 56, 59];
-    //     valoresSensorD = [60, 62, 60, 65, 63, 66];
-    // } else if(hectare == 4){
-    //     valoresSensorA = [55, 42, 37, 48, 51, 47];
-    //     valoresSensorB = [75, 79, 83, 86, 81, 87];
-    //     valoresSensorC = [59, 55, 57, 59, 56, 59];
-    //     valoresSensorD = [60, 62, 60, 65, 63, 66];
-    // }else if(hectare == 5){
-    //     valoresSensorA = [55, 42, 37, 48, 51, 47];
-    //     valoresSensorB = [75, 79, 83, 86, 81, 87];
-    //     valoresSensorC = [59, 55, 57, 59, 56, 59];
-    //     valoresSensorD = [60, 62, 60, 65, 63, 66];
+        valoresSensorC = [54, 52, 52, 51, 50, 48];
+        valoresSensorD = [60, 62, 64, 65, 63, 66];
     }
 
-    var sensorA = new Chart(document.getElementById('sensorA').getContext('2d'), {
+    updateSituacao();
+
+    var sensorA = new Chart(document.getElementById('sensor0').getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
+            labels: ['07:00', '07:01', '07:02', '07:03', '07:04', '07:05'],
             datasets: [{
                 label: 'Sensor A',
                 data: valoresSensorA,
-                borderColor: '#63B1BC',
-                backgroundColor: '#ED145B'
+                borderColor: 'green',
+                backgroundColor: 'green'
             },
             {
                 label: 'Umidade Mínima (%)',
-                data: [50, 50, 50, 50,50,50],
-                borderColor: 'red',
-                backgroundColor: 'red'
+                data: [50, 50, 50, 50, 50, 50],
+                borderColor: 'blue',
+                backgroundColor: 'blue'
             },
             {
                 label: 'Umidade Máxima (%)',
@@ -75,21 +102,21 @@ function startChart() {
             },
         }
     });
-    var sensorB = new Chart(document.getElementById('sensorB').getContext('2d'), {
+    const sensorB = new Chart(document.getElementById('sensor1').getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
+            labels: ['07:00', '07:01', '07:02', '07:03', '07:04', '07:05'],
             datasets: [{
                 label: 'Sensor B',
                 data: valoresSensorB,
-                borderColor: '#63B1BC',
-                backgroundColor: '#ED145B'
+                borderColor: 'green',
+                backgroundColor: 'green'
             },
             {
                 label: 'Umidade Mínima (%)',
-                data: [50, 50, 50, 50,50,50],
-                borderColor: 'red',
-                backgroundColor: 'red'
+                data: [50, 50, 50, 50, 50, 50],
+                borderColor: 'blue',
+                backgroundColor: 'blue'
             },
             {
                 label: 'Umidade Máxima (%)',
@@ -117,21 +144,21 @@ function startChart() {
             },
         }
     });
-    var sensorC = new Chart(document.getElementById('sensorC').getContext('2d'), {
+    const sensorC = new Chart(document.getElementById('sensor2').getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
+            labels: ['07:00', '07:01', '07:02', '07:03', '07:04', '07:05'],
             datasets: [{
                 label: 'Sensor C',
                 data: valoresSensorC,
-                borderColor: '#63B1BC',
-                backgroundColor: '#ED145B'
+                borderColor: 'green',
+                backgroundColor: 'green'
             },
             {
                 label: 'Umidade Mínima (%)',
-                data: [50, 50, 50, 50,50,50],
-                borderColor: 'red',
-                backgroundColor: 'red'
+                data: [50, 50, 50, 50, 50, 50],
+                borderColor: 'blue',
+                backgroundColor: 'blue'
             },
             {
                 label: 'Umidade Máxima (%)',
@@ -159,21 +186,21 @@ function startChart() {
             },
         }
     });
-    var sensorD = new Chart(document.getElementById('sensorD').getContext('2d'), {
+    const sensorD = new Chart(document.getElementById('sensor3').getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['07:00','07:01','07:02','07:03','07:04', '07:05'],
+            labels: ['07:00', '07:01', '07:02', '07:03', '07:04', '07:05'],
             datasets: [{
                 label: 'Sensor D',
                 data: valoresSensorD,
-                borderColor: '#63B1BC',
-                backgroundColor: '#ED145B'
+                borderColor: 'green',
+                backgroundColor: 'green'
             },
             {
                 label: 'Umidade Mínima (%)',
-                data: [50, 50, 50, 50,50,50],
-                borderColor: 'red',
-                backgroundColor: 'red'
+                data: [50, 50, 50, 50, 50, 50],
+                borderColor: 'blue',
+                backgroundColor: 'blue'
             },
             {
                 label: 'Umidade Máxima (%)',
@@ -202,6 +229,7 @@ function startChart() {
         }
     });
 
+/*
     var paginacao = {};
     var tempo = {};
 
@@ -240,4 +268,5 @@ function startChart() {
         obterDados(sensorC, 'C');
         obterDados(sensorD, 'D');
     }, 1000);
+*/
 }

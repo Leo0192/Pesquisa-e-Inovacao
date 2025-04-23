@@ -40,7 +40,7 @@
   </div>
 
 
-  <select name="" id="escolha_hectare">
+  <select name="" id="escolha_hectare" onchange="testandoUpdate()">
     <option value="#">Selecione o Hectare</option>
     <option value="1">Hectare 1</option>
     <option value="2">Hectare 2</option>
@@ -48,29 +48,36 @@
     <option value="4">Hectare 4</option>
     <option value="5">Hectare 5</option>
   </select>
+
+  <div>
+    <h4>Situação Padrão: está dentro dos conformes</h4>
+    <h4>Situação Escassez de Umidade: a umidade do ambiente está abaixo do ideal, podendo causar os seguintes problemas: Estresse hídrico, Diminuição da produtividade</h4>
+    <h4>Situação Excesso de Umidade: a umidade do ambiente está acima do ideal, podendo causar os seguintes problemas: Redução da absorção de água e nutrientes, Proliferação de doenças e fungos</h4>
+  </div>
+
   <div class="div_container_graficos">
     <div class="div_grafico_sensor">
-      <p class="descricao_situacao">Situação: <span class="umidade_alarme" id="alarme1">Escassez de Umidade</span></p>
+      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
       <div class="div_container_sensor">
-        <canvas id="sensorA"></canvas>
+        <canvas id="sensor0"></canvas>
       </div>
     </div>
     <div class="div_grafico_sensor">
-      <p class="descricao_situacao">Situação: <span class="umidade_alarme" id="alarme2">Excesso de Umidade</span></p>
+      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
       <div class="div_container_sensor">
-        <canvas id="sensorB"></canvas>
+        <canvas id="sensor1"></canvas>
       </div>
     </div>
     <div class="div_grafico_sensor">
-      <p class="descricao_situacao">Situação: <span id="alarme3">Padrão</span></p>
+      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
       <div class="div_container_sensor">
-        <canvas id="sensorC"></canvas>
+        <canvas id="sensor2"></canvas>
       </div>
     </div>
     <div class="div_grafico_sensor">
-      <p class="descricao_situacao">Situação: <span id="alarme4">Padrão</span></p>
+      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
       <div class="div_container_sensor">
-        <canvas id="sensorD"></canvas>
+        <canvas id="sensor3"></canvas>
       </div>
     </div>
 </div>
