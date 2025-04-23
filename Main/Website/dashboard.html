@@ -38,22 +38,32 @@
       </ul>
     </div>
   </div>
-
-
-  <select name="" id="escolha_hectare" onchange="testandoUpdate()">
-    <option value="#">Selecione o Hectare</option>
-    <option value="1">Hectare 1</option>
-    <option value="2">Hectare 2</option>
-    <option value="3">Hectare 3</option>
-    <option value="4">Hectare 4</option>
-    <option value="5">Hectare 5</option>
-  </select>
-
-  <div>
+  
+  <div style="width: 70%; margin: 0 auto;">
     <h4>Situação Padrão: está dentro dos conformes</h4>
     <h4>Situação Escassez de Umidade: a umidade do ambiente está abaixo do ideal, podendo causar os seguintes problemas: Estresse hídrico, Diminuição da produtividade</h4>
     <h4>Situação Excesso de Umidade: a umidade do ambiente está acima do ideal, podendo causar os seguintes problemas: Redução da absorção de água e nutrientes, Proliferação de doenças e fungos</h4>
   </div>
+
+  <div style="display: flex; width: 100%; justify-content: center;">
+    <div>
+      
+    </div>
+    <div>
+    <select name="" id="escolha_hectare" onchange="testandoUpdate()">
+      <option value="#">Selecione o Hectare</option>
+      <option value="1">Hectare 1</option>
+      <option value="2">Hectare 2</option>
+      <option value="3">Hectare 3</option>
+      <option value="4">Hectare 4</option>
+      <option value="5">Hectare 5</option>
+    </select>
+      <h3>Padrão: <span id="padrao_span"></span></h3>
+      <h3>Excesso de Umidade: <span id="excesso_span"></span></h3>
+      <h3>Escassez de Umidade: <span id="escassez_span"></span></h3>
+    </div>
+  </div>
+
 
   <div class="div_container_graficos">
     <div class="div_grafico_sensor">

@@ -1,6 +1,9 @@
+var quantidade_sensores = 4;
+var horario = ['07:00', '07:01', '07:02', '07:03', '07:04', '07:05'];
+
 function testandoUpdate(){
     var hectare = escolha_hectare.value;
-    for(var i = 0; i < 4; i++){
+    for(var i = 0; i < quantidade_sensores; i++){
         var div = document.getElementsByClassName('div_container_sensor')[i];
         div.innerHTML = `<canvas id="sensor${i}"></canvas>`;
     }
@@ -9,25 +12,37 @@ function testandoUpdate(){
 }
 
 function updateSituacao(){
-    ultimoNumeroSensorA = valoresSensorA[valoresSensorA.length - 1];
-    ultimoNumeroSensorB = valoresSensorB[valoresSensorB.length - 1];
-    ultimoNumeroSensorC = valoresSensorC[valoresSensorC.length - 1];
-    ultimoNumeroSensorD = valoresSensorD[valoresSensorD.length - 1];
-    vetorUltimoDado = [ultimoNumeroSensorA, ultimoNumeroSensorB, ultimoNumeroSensorC, ultimoNumeroSensorD];
-
-    for(var i = 0; i < 4; i++){
+    var ultimoNumeroSensorA = valoresSensorA[valoresSensorA.length - 1];
+    var ultimoNumeroSensorB = valoresSensorB[valoresSensorB.length - 1];
+    var ultimoNumeroSensorC = valoresSensorC[valoresSensorC.length - 1];
+    var ultimoNumeroSensorD = valoresSensorD[valoresSensorD.length - 1];
+    var vetorUltimoDado = [ultimoNumeroSensorA, ultimoNumeroSensorB, ultimoNumeroSensorC, ultimoNumeroSensorD];
+    var contadorEscassez = 0;
+    var contadorExcesso = 0;
+    
+    for(var i = 0; i < quantidade_sensores; i++){
         var span = document.getElementsByClassName('situacao_sensor')[i];
         if(vetorUltimoDado[i] > 80){
-            span.innerHTML = `<span style='color: red'>Excesso de Umidade</span>`;
+            span.innerHTML = `<span style='color: red'><b>Excesso de Umidade</b></span>`;
+            contadorExcesso++;
         } else if(vetorUltimoDado[i] < 50){
-            span.innerHTML = `<span style='color: red'>Escassez de Umidade</span>`;
+            span.innerHTML = `<span style='color: red'><b>Escassez de Umidade</b></span>`;
+            contadorEscassez++;
         } else {
             span.innerHTML = `<span>Padrão</span>`;
         }
     }
-}
 
-//  class="umidade_alarme"
+    var contadorPadrao = quantidade_sensores - contadorEscassez - contadorExcesso;
+    
+    var porcentPadrao = (contadorPadrao / quantidade_sensores) * 100;
+    var porcentEscassez = (contadorEscassez / quantidade_sensores) * 100;
+    var porcentExcesso = (contadorExcesso / quantidade_sensores) * 100;
+
+    padrao_span.innerHTML = `${contadorPadrao} | (${porcentPadrao}%)`;
+    excesso_span.innerHTML = `${contadorExcesso} | (${porcentExcesso}%)`;
+    escassez_span.innerHTML = `${contadorEscassez} | (${porcentEscassez}%)`;
+}
 
 function startChart(hectare_sensores) {
 
@@ -63,7 +78,7 @@ function startChart(hectare_sensores) {
     var sensorA = new Chart(document.getElementById('sensor0').getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['07:00', '07:01', '07:02', '07:03', '07:04', '07:05'],
+            labels: horario,
             datasets: [{
                 label: 'Sensor A',
                 data: valoresSensorA,
@@ -105,7 +120,7 @@ function startChart(hectare_sensores) {
     const sensorB = new Chart(document.getElementById('sensor1').getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['07:00', '07:01', '07:02', '07:03', '07:04', '07:05'],
+            labels: horario,
             datasets: [{
                 label: 'Sensor B',
                 data: valoresSensorB,
@@ -147,7 +162,7 @@ function startChart(hectare_sensores) {
     const sensorC = new Chart(document.getElementById('sensor2').getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['07:00', '07:01', '07:02', '07:03', '07:04', '07:05'],
+            labels: horario,
             datasets: [{
                 label: 'Sensor C',
                 data: valoresSensorC,
@@ -189,7 +204,7 @@ function startChart(hectare_sensores) {
     const sensorD = new Chart(document.getElementById('sensor3').getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['07:00', '07:01', '07:02', '07:03', '07:04', '07:05'],
+            labels: horario,
             datasets: [{
                 label: 'Sensor D',
                 data: valoresSensorD,
@@ -228,45 +243,10 @@ function startChart(hectare_sensores) {
             },
         }
     });
+}
 
-/*
-    var paginacao = {};
-    var tempo = {};
-
-    function obterDados(grafico, endpoint) {
-        fetch('http://localhost:3300/sensores/' + endpoint)
-            .then(response => response.json())
-            .then(valores => {
-                if (paginacao[endpoint] == null) {
-                    paginacao[endpoint] = 0;
-                }
-                if (tempo[endpoint] == null) {
-                    tempo[endpoint] = 0;
-                }
-
-                var ultimaPaginacao = paginacao[endpoint];
-                paginacao[endpoint] = valores.length;
-                valores = valores.slice(ultimaPaginacao);
-
-                valores.forEach((valor) => {
-                    if (grafico.data.labels.length == 10 && grafico.data.datasets[0].data.length == 10) {
-                        grafico.data.labels.shift();
-                        grafico.data.datasets[0].data.shift();
-                    }
-
-                    grafico.data.labels.push(tempo[endpoint]++);
-                    grafico.data.datasets[0].data.push(parseFloat(valor));
-                    grafico.update();
-                });
-            })
-            .catch(error => console.error('Erro ao obter dados:', error));
+function alarmHorario(){
+    if(valoresSensorA[0] > 80){
+        vetor
     }
-
-    setInterval(() => {
-        obterDados(sensorA, 'A');
-        obterDados(sensorB, 'B');
-        obterDados(sensorC, 'C');
-        obterDados(sensorD, 'D');
-    }, 1000);
-*/
 }
