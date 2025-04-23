@@ -42,6 +42,37 @@ function updateSituacao(){
     padrao_span.innerHTML = `${contadorPadrao} | (${porcentPadrao}%)`;
     excesso_span.innerHTML = `${contadorExcesso} | (${porcentExcesso}%)`;
     escassez_span.innerHTML = `${contadorEscassez} | (${porcentEscassez}%)`;
+
+    const ctxDonut = document.getElementById('donut').getContext('2d');
+
+if (window.graficoDonutInstance) {
+    window.graficoDonutInstance.destroy();
+}
+
+window.graficoDonutInstance = new Chart(ctxDonut, {
+    type: 'doughnut',
+    data: {
+        labels: ['Padrão', 'Escassez', 'Excesso'],
+        datasets: [{
+            data: [contadorPadrao, contadorEscassez, contadorExcesso],
+            backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Situação dos Sensores'
+            }
+        }
+    }
+});
+
 }
 
 function startChart(hectare_sensores) {
@@ -243,8 +274,9 @@ function startChart(hectare_sensores) {
             },
         }
     });
+    
 }
-
+   
 function alarmHorario(){
     if(valoresSensorA[0] > 80){
         vetor
