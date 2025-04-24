@@ -562,10 +562,29 @@ section{
 }
 
 .descricao_situacao{
-    width: 37%;
     margin: 0 auto;
+    width: 37%;
 }
 
 .div_container_sensor{
     width: 100%;
+}
+
+.div_grafico_donut{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 300px;
+    width: 100%;
+}
+
+.container_controle_situacao{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.div_eplicacao_situacao{
+    margin: 0 auto;
+    width: 70%;
 }
