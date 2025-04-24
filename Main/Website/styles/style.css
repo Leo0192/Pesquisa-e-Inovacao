@@ -253,11 +253,10 @@ body{
 
 .footer .container .contato{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-
-    height: auto;
+    min-height: 150px;
     width: auto;
 }
 
@@ -272,7 +271,7 @@ body{
     
     flex-direction: row;
 
-    width: 50%;
+    width: 100%;
     height: 5px;
 }
 
