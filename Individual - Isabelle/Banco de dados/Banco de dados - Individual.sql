@@ -4,6 +4,7 @@ CREATE DATABASE vitagro;
 
 USE vitagro;
 
+
 -- Empresa
 CREATE TABLE empresa (
     id_empresa INT PRIMARY KEY AUTO_INCREMENT,
