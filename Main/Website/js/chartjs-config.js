@@ -19,6 +19,11 @@ function updateSituacao(){
     var vetorUltimoDado = [ultimoNumeroSensorA, ultimoNumeroSensorB, ultimoNumeroSensorC, ultimoNumeroSensorD];
     var contadorEscassez = 0;
     var contadorExcesso = 0;
+
+    // var referencia
+    // var ano2023
+    // var ano2024
+    // var ano2025
     
     for(var i = 0; i < quantidade_sensores; i++){
         var span = document.getElementsByClassName('situacao_sensor')[i];
@@ -97,11 +102,16 @@ function startChart(hectare_sensores) {
         valoresSensorB = [66, 68, 69, 71, 70, 71];
         valoresSensorC = [59, 61, 63, 61, 60, 59];
         valoresSensorD = [60, 62, 64, 65, 63, 66];
+    // } else if (hectare_sensores == 6 ){
+    //     referencia = [77, 75, 76, 74, 75, 73, 71, 68, 71, 73, 73, 74, 74];
+    //     ano2023 = [75, 72, 73, 71, 72, 71, 71, 66, 70, 74, 74 ,73, 74];
+    //     ano2024 = [78, 76, 77, 74, 75, 74, 74, 70, 73, 74, 74 ,75, 74];
+    //     ano2025 = [76, 77, 74, 77];
     } else {
-        valoresSensorA = [51, 52, 52, 54, 55, 56];
-        valoresSensorB = [75, 79, 83, 86, 81, 87];
-        valoresSensorC = [54, 52, 52, 51, 50, 48];
-        valoresSensorD = [60, 62, 64, 65, 63, 66];
+        valoresSensorA = [51, 52, 50, 47, 45, 46];
+        valoresSensorB = [54, 53, 51, 48, 46, 44];
+        valoresSensorC = [55, 54, 55, 53, 55, 52];
+        valoresSensorD = [44, 46, 48, 48, 46, 44];
     }
 
     updateSituacao();
@@ -276,6 +286,95 @@ function startChart(hectare_sensores) {
     });
     
 }
+// const ctx = document.getElementById('myChart');
+      
+//         new Chart(ctx, {
+//           type: 'bar',
+//           data: {
+//             labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho','julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+//             datasets: [{
+//               label: 'Média mensal de umidade - Dados',
+//               data: [77, 75, 76, 74, 75, 73, 71, 68, 71, 73, 73, 74, 74],
+//               borderWidth: 1
+//             }]
+//           },
+//           options: {
+//             scales: {
+//               y: {
+//                 beginAtZero: true
+//               }
+//             }
+//           }
+//         });
+        
+    
+
+//         const ctx2 = document.getElementById('myChart2');
+      
+//         new Chart(ctx2, {
+//           type: 'bar',
+//           data: {
+//             labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+//             datasets: [{
+//               label: 'Média mensal - 2023',
+//               data: [75, 72, 73, 71, 72, 71, 71, 66, 70, 74, 74 ,73, 74],
+//               borderWidth: 1
+//             }]
+//           },
+//           options: {
+//             scales: {
+//               y: {
+//                 beginAtZero: true
+//               }
+//             }
+//           }
+//         });
+        
+    
+   
+//         const ctx3 = document.getElementById('myChart3');
+      
+//         new Chart(ctx3, {
+//           type: 'bar',
+//           data: {
+//             labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+//             datasets: [{
+//               label: 'Média mensal - 2024',
+//               data: [78, 76, 77, 74, 75, 74, 74, 70, 73, 74, 74 ,75, 74],
+//               borderWidth: 1
+//             }]
+//           },
+//           options: {
+//             scales: {
+//               y: {
+//                 beginAtZero: true
+//               }
+//             }
+//           }
+//         });
+        
+  
+//         const ctx4 = document.getElementById('myChart4');
+      
+//         new Chart(ctx4, {
+//           type: 'bar',
+//           data: {
+//             labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril'],
+//             datasets: [{
+//               label: 'Média mensal - 2025',
+//               data: [76, 77, 74, 77],
+//               borderWidth: 1
+//             }]
+//           },
+//           options: {
+//             scales: {
+//               y: {
+//                 beginAtZero: true
+//               }
+//             }
+//           }
+//         });
+        
    
 function alarmHorario(){
     if(valoresSensorA[0] > 80){
