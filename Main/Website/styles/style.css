@@ -584,7 +584,21 @@ section{
     flex-direction: column;
 }
 
-.div_eplicacao_situacao{
+.div_explicacao_situacao{
     margin: 0 auto;
     width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.coloracao-padrao{
+    color: #4CAF50;
+}
+
+.coloracao-excesso{
+    color: #F44336;
+}
+
+.coloracao-escassez{
+    color: #FFC107;
 }

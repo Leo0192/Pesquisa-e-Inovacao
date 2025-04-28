@@ -39,31 +39,34 @@
     </div>
   </div>
 
-  <div class="div_eplicacao_situacao">
-    <h4>Situação Padrão: está dentro dos conformes</h4>
-    <h4>Situação Escassez de Umidade: a umidade do ambiente está abaixo do ideal, podendo causar os seguintes problemas:
+  <div class="div_explicacao_situacao">
+    <h1 style="align-self: center;">Índice Situacional:</h1>
+    <h4 class="coloracao-padrao">Situação Padrão: está dentro dos conformes</h4>
+    <h4 class="coloracao-escassez">Situação Escassez de Umidade: a umidade do ambiente está abaixo do ideal, podendo
+      causar os seguintes problemas:
       Estresse hídrico, Diminuição da produtividade</h4>
-    <h4>Situação Excesso de Umidade: a umidade do ambiente está acima do ideal, podendo causar os seguintes problemas:
+    <h4 class="coloracao-excesso">Situação Excesso de Umidade: a umidade do ambiente está acima do ideal, podendo causar
+      os seguintes problemas:
       Redução da absorção de água e nutrientes, Proliferação de doenças e fungos</h4>
   </div>
 
   <div class="container_controle_situacao">
-    <select name="" id="escolha_hectare" onchange="testandoUpdate()">
+    <select name="" id="escolha_hectare" onchange="updateTalhao()">
       <option value="#">Selecione o Hectare</option>
-      <option value="1">Hectare 1</option>
-      <option value="2">Hectare 2</option>
-      <option value="3">Hectare 3</option>
-      <option value="4">Hectare 4</option>
-      <option value="5">Hectare 5</option>
-      <!-- <option value="6">Umidade Mensal</option> -->
+      <option value="1">Talhão 1</option>
+      <option value="2">Talhão 2</option>
+      <option value="3">Talhão 3</option>
+      <option value="4">Talhão 4</option>
+      <option value="5">Talhão 5</option>
+      <option value="6">Umidade Mensal</option>
     </select>
     <div style="display: flex; width: 100%; justify-content: center; align-items: center;">
       <div class="div_grafico_donut">
         <canvas id="donut"></canvas>
         <div>
-          <h3 style="color: #4CAF50;">Padrão: <span id="padrao_span"></span></h3>
-          <h3 style="color: #F44336;">Excesso de Umidade: <span id="excesso_span"></span></h3>
-          <h3 style="color: #FFC107;">Escassez de Umidade: <span id="escassez_span"></span></h3>
+          <h3 class="coloracao-padrao">Padrão: <span id="padrao_span"></span></h3>
+          <h3 class="coloracao-excesso">Excesso de Umidade: <span id="excesso_span"></span></h3>
+          <h3 class="coloracao-escassez">Escassez de Umidade: <span id="escassez_span"></span></h3>
         </div>
       </div>
     </div>
@@ -71,12 +74,6 @@
 
 
   <div class="div_container_graficos">
-    <div class="div_grafico_sensor">
-      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-      <div class="div_container_sensor">
-        <canvas id="sensor0"></canvas>
-      </div>
-    </div>
     <div class="div_grafico_sensor">
       <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
       <div class="div_container_sensor">
@@ -95,33 +92,13 @@
         <canvas id="sensor3"></canvas>
       </div>
     </div>
-
-    <!-- <div class="div_grafico_sensor">
-      <div class="div_container_sensor">
-        <canvas id="myChart"></canvas>
-      </div>
-    </div>
-    
-    
     <div class="div_grafico_sensor">
+      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
       <div class="div_container_sensor">
-        <canvas id="myChart2"></canvas>
-      </div>
-    </div>
-    
-    
-    <div class="div_grafico_sensor">
-      <div class="div_container_sensor">
-        <canvas id="myChart3"></canvas>
+        <canvas id="sensor4"></canvas>
       </div>
     </div>
   </div>
-  
-  <div class="div_grafico_sensor">
-    <div class="div_container_sensor">
-      <canvas id="myChart4"></canvas>
-    </div>
-  </div> -->
 
   <div class="footer">
     <div class="container">
