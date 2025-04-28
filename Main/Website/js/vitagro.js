@@ -174,20 +174,25 @@ function checkAllLoginSubmit(){
     let emailValid = input_email.value;
     let passwordValid = input_password.value;
     let validAll = checkAllLogin();
-    if (login_i == 3) {
+    const arrayEmail = ['hercules@vitagro.com', 'guilherme@vitagro.com', 'leonardo@vitagro.com', 'isabelle@vitagro.com', 'miguel@vitagro.com']
+    const arrayPassword = ['Hercules123!', 'Guilherme123!', 'Leonardo123!', 'Isabelle123!', 'Miguel123!']
+
+    if (login_i == 2) {
         invalid_data.innerHTML = "<img src='img/denied.png'> <span class='denied'> Você excedeu o número de tentativas, contate a sua empresa. </span>";
         input_email.style.border = "2px solid red";
         input_password.style.border = "2px solid red";
         input_password.value = "";
         login_submit_button.disabled = true;
         login_submit_button.style.cursor = "not-allowed";
+        return;
     }
-    while (login_i < 3) {
-        if (validAll && emailValid=='adm@vitagro.com' && passwordValid=='Vitagro123!') {
+    for (i=0; i< arrayEmail.length; i++) {
+        if (validAll && emailValid==arrayEmail[i] && passwordValid==arrayPassword[i]) {
             invalid_data.innerHTML ='';
             window.location.href = "dashboard.html";
+            login_i=0;
             return true;
-        } else if(validAll && emailValid=='adm@vitagro.com' && passwordValid!='Vitagro123!'){
+        } else if(validAll && emailValid==arrayEmail[i] && passwordValid!=arrayPassword[i]){
             invalid_data.innerHTML = "<img src='img/denied.png'> <span class='denied'> A senha inserida não confere! </span>";
             input_password.style.border = "2px solid red";
             input_password.value = "";
@@ -204,6 +209,5 @@ function checkAllLoginSubmit(){
             input_password.value = "";
             invalid_password.innerHTML = "<img src='img/denied.png'> <span class='denied'> Insira a senha novamente! </span>"; 
         }
-    }
-    
+   }
 }
