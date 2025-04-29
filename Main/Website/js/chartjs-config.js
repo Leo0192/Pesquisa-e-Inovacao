@@ -308,7 +308,7 @@ function startChart(hectare_sensores) {
             data: {
                 labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                 datasets: [{
-                    label: 'Média mensal de umidade - Dados',
+                    label: 'Dados de referência de local de instalação',
                     data: referencia,
                     borderWidth: 1
                 }]
