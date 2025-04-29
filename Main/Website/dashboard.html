@@ -50,8 +50,37 @@
       Redução da absorção de água e nutrientes, Proliferação de doenças e fungos</h4>
   </div>
 
+  <div class="container_alertas">
+    <h1 style="align-self: center;">SITUAÇÃO:</h1>
+    <div class="alertas">
+      
+      <div class="alerta_item">
+       
+        <p style="color: red;">(3)ALERTA!⚠️</p>
+        <canvas class="grafico_alerta" id="donut_alerta1"></canvas>
+      </div>
+      <div class="alerta_item">
+        <p style="color: green;">Operação Normal</p>
+        <canvas class="grafico_alerta" id="donut_alerta2"></canvas>
+      </div>
+      <div class="alerta_item">
+        <p style="color: red;">(3)ALERTA!⚠️</p>
+        <canvas class="grafico_alerta" id="donut_alerta3"></canvas>
+      </div>
+      <div class="alerta_item">
+        <p style="color: red;">(2)ALERTA!⚠️</p>
+        <canvas class="grafico_alerta" id="donut_alerta4"></canvas>
+      </div>
+      <div class="alerta_item">
+        <p style="color: green;">Operação Normal</p>
+        <canvas class="grafico_alerta" id="donut_alerta5"></canvas>
+      </div>
+    </div>
+  </div>
+
   <div class="container_controle_situacao">
-    <select name="" id="escolha_hectare" onchange="updateTalhao()">
+    <h1 style="align-self: center;">PAINEL DE SENSORES:</h1>
+    <select id="escolha_hectare" onchange="updateTalhao()">
       <option value="#">Selecione o Hectare</option>
       <option value="1">Talhão 1</option>
       <option value="2">Talhão 2</option>
@@ -60,14 +89,15 @@
       <option value="5">Talhão 5</option>
       <option value="6">Umidade Mensal</option>
     </select>
-    <div style="display: flex; width: 100%; justify-content: center; align-items: center;">
-      <div class="div_grafico_donut">
+    
+    <div class="div_grafico_donut">
+      <div class="donut_container">
         <canvas id="donut"></canvas>
-        <div>
-          <h3 class="coloracao-padrao">Padrão: <span id="padrao_span"></span></h3>
-          <h3 class="coloracao-excesso">Excesso de Umidade: <span id="excesso_span"></span></h3>
-          <h3 class="coloracao-escassez">Escassez de Umidade: <span id="escassez_span"></span></h3>
-        </div>
+      </div>
+      <div class="legenda_container">
+        <h3 class="coloracao-padrao">Padrão: <span id="padrao_span"></span></h3>
+        <h3 class="coloracao-excesso">Excesso de Umidade: <span id="excesso_span"></span></h3>
+        <h3 class="coloracao-escassez">Escassez de Umidade: <span id="escassez_span"></span></h3>
       </div>
     </div>
   </div>

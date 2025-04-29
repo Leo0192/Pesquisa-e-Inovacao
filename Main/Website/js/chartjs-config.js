@@ -12,6 +12,16 @@ function updateTalhao() {
             div.innerHTML = `<canvas id="sensor${i + 1}"></canvas>`;
         }
     }
+
+    const situacoes = document.querySelectorAll('.descricao_situacao');
+
+    if (document.getElementById('escolha_hectare').value === '6') {
+    situacoes.forEach(s => s.style.display = 'none');
+    } else {
+    situacoes.forEach(s => s.style.display = 'block');
+    }
+
+
     startChart(hectare);
     updateSituacao();
 }
@@ -384,4 +394,140 @@ function startChart(hectare_sensores) {
             }
         });
     }
+
+    const alert1 = document.getElementById('donut_alerta1')
+
+    new Chart(alert1, {
+        type: 'doughnut',
+        data: {
+            labels: ['Padrão', 'Escassez', 'Excesso'],
+            datasets: [{
+                data: [25, 75, 0],
+                backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Situação dos Sensores (Talhão 1)'
+                }
+            }
+        }
+    });
+
+    const alert2 = document.getElementById('donut_alerta2')
+
+    new Chart(alert2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Padrão', 'Escassez', 'Excesso'],
+            datasets: [{
+                data: [100, 0, 0],
+                backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Situação dos Sensores (Talhão 2)'
+                }
+            }
+        }
+    });
+
+    const alert3 = document.getElementById('donut_alerta3')
+
+    new Chart(alert3, {
+        type: 'doughnut',
+        data: {
+            labels: ['Padrão', 'Escassez', 'Excesso'],
+            datasets: [{
+                data: [25, 75, 0],
+                backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Situação dos Sensores (Talhão 3)'
+                }
+            }
+        }
+    });
+
+    const alert4 = document.getElementById('donut_alerta4')
+
+    new Chart(alert4, {
+        type: 'doughnut',
+        data: {
+            labels: ['Padrão', 'Escassez', 'Excesso'],
+            datasets: [{
+                data: [50, 0, 50],
+                backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Situação dos Sensores (Talhão 4)'
+                }
+            }
+        }
+    });
+
+    const alert5 = document.getElementById('donut_alerta5')
+
+    new Chart(alert5, {
+        type: 'doughnut',
+        data: {
+            labels: ['Padrão', 'Escassez', 'Excesso'],
+            datasets: [{
+                data: [100, 0, 0],
+                backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Situação dos Sensores (Talhão 5)'
+                }
+            }
+        }
+    });
+
 }
