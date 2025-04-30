@@ -141,8 +141,8 @@ function startChart(hectare_sensores) {
                 {
                     label: 'Umidade Mínima (%)',
                     data: [50, 50, 50, 50, 50, 50],
-                    borderColor: 'blue',
-                    backgroundColor: 'blue'
+                    borderColor: 'yellow',
+                    backgroundColor: 'yellow'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -184,8 +184,8 @@ function startChart(hectare_sensores) {
                 {
                     label: 'Umidade Mínima (%)',
                     data: [50, 50, 50, 50, 50, 50],
-                    borderColor: 'blue',
-                    backgroundColor: 'blue'
+                    borderColor: 'yellow',
+                    backgroundColor: 'yellow'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -227,8 +227,8 @@ function startChart(hectare_sensores) {
                 {
                     label: 'Umidade Mínima (%)',
                     data: [50, 50, 50, 50, 50, 50],
-                    borderColor: 'blue',
-                    backgroundColor: 'blue'
+                    borderColor: 'yellow',
+                    backgroundColor: 'yellow'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -270,8 +270,8 @@ function startChart(hectare_sensores) {
                 {
                     label: 'Umidade Mínima (%)',
                     data: [50, 50, 50, 50, 50, 50],
-                    borderColor: 'blue',
-                    backgroundColor: 'blue'
+                    borderColor: 'yellow',
+                    backgroundColor: 'yellow'
                 },
                 {
                     label: 'Umidade Máxima (%)',
