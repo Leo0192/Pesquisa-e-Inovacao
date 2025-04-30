@@ -9,7 +9,7 @@ function Calcular() {
     evaporacao_minima = 0.19; // menor taxa de evaporação baseada na umidade
     evaporacao_maxima = 0.9; // maior taxa de evaporação baseada na umidade
 
-    preco_saca_hectare = valor_saca * hectares;
+    preco_saca_hectare = valor_saca * quantidade_saca_por_hectares * hectares;
 
     preco_hectares_por_aplicacao = Number((herbicida_litro * litro_hectares * hectares).toFixed(2));
 
