@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AquaTech | Cadastro</title>
+
+  <script src="./js/sessao.js"></script>
+
+  <link rel="stylesheet" href="Main/Website/styles/style.css" />
+  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+</head>
+
+<body onload="listar()">
+  <div class="header">
+    <div class="container">
+
+      <a href="#" class="titulo">
+        <img src="img/logo-VitAgro.png" alt="Logo VitAgro" height="80px">
+      </a>
+
+      <ul class="navbar">
+        <a href="index.html">Home</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="sobrenos.html">Sobre Nós</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="calculadora.html">Calculadora Financeira</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="cadastro.html">Cadastro</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="login.html">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="login">
+    <div class="container">
+      <div class="card card-cadastro">
+        <h2>Bem-vindo!</h2>
+        <div class="forms">
+          <div class="campo">
+            <span>Nome:</span>
+            <input id="input_name" type="text" placeholder="Seu nome" oninput="emptyName()" />
+            <div id="invalid_name" class="invalid-feedback">Insira o Nome</div>
+          </div>
+          <div class="campo">
+            <span>Sobrenome:</span>
+            <input id="input_lastname" type="text" placeholder="Seu sobrenome" oninput="emptyLastname()" />
+            <div id="invalid_lastname" class="invalid-feedback">Insira o Sobrenome</div>
+          </div>
+          <div class="campo">
+            <span>CPF:</span>
+            <input id="input_cpf" type="text" placeholder="123.456.788-90" oninput="cpf()" />
+            <div id="invalid_cpf" class="invalid-feedback">Insira o CPF</div>
+          </div>
+          <div class="campo">
+            <span>token:</span>
+            <input id="input_token" type="text" placeholder="Insira aqui seu código" oninput="token()" />
+            <div id="invalid_token" class="invalid-feedback">Insira o Token</div>
+          </div>
+          <div class="campo">
+            <span>E-mail:</span>
+            <input id="input_email" type="text" placeholder="email@vitagro.com" oninput="email()" />
+            <div id="invalid_email" class="invalid-feedback">Insira o Email</div>
+          </div>
+          <div class="campo">
+            <span>Telefone celular:</span>
+            <input id="input_phone" type="text" placeholder="+55 (11) 91234-5678" oninput="phone()" />
+            <div id="invalid_phone" class="invalid-feedback">Insira o Telefone</div>
+          </div>
+          <div class="campo">
+            <span>Senha:</span>
+            <input id="input_password" type="password" placeholder="******" oninput="password()" />
+            <div id="invalid_password" class="invalid-feedback">Insira a Senha</div>
+          </div>
+          <div class="campo">
+            <span>Confirmação da Senha:</span>
+            <input id="input_confirm_password" type="password" placeholder="******" oninput="confirmPassword()" />
+            <div id="invalid_confirm_password" class="invalid-feedback">Insira a senha novamente</div>
+          </div>
+          <button class="credential-submit" id="credential_submit_button" onclick="cadastrar()">Cadastrar</button>
+        </div>
+        <div class="login-redirect">
+          <p>Já tem uma conta? <a href="login.html">Faça login</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+
+      <img class="icon-footer" src="img/logo_vitagro.png" alt="Logo VitAgro">
+
+      <div class="links">
+        <p class="titulo-footer">Páginas do site</p>
+        <ul class="link">
+          <li>
+            <a href="index.html">Página Inicial
+            </a>
+          </li>
+          <li>
+            <a href="sobrenos.html">Sobre Nós</a>
+          </li>
+          <li>
+            <a href="calculadora.html">Calculadora Financeira</a>
+          </li>
+          <li>
+            <a href="cadastro.html">Página de Cadastro</a>
+          </li>
+          <li>
+            <a href="login.html">Página de Login</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="contato">
+        <h2 class="titulo-contato">Contato:</h2>
+        <ul class="contatos">
+          <li>
+            <p>Email: VitAgro@sptech.school</p>
+          </li>
+          <li>
+            <p>Localização: Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001</p>
+          </li>
+          <li class="sociais">
+            <p>Redes Sociais:
+            <p>
+              <a href="#">
+                <img class="icon-social" src="img/facebook.png" alt="facebook">
+              </a>
+              <a href="#">
+                <img class="icon-social" src="img/linkedin.png" alt="linkedin">
+              </a>
+              <a href="#">
+                <img class="icon-social" src="img/instagram.png" alt="instagram">
+              </a>
+              <a href="#">
+                <img class="icon-social" src="img/twitter.png" alt="twitter">
+              </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+
+  // Array para armazenar empresas cadastradas para validação de código de ativação 
+  let listaEmpresasCadastradas = [];
+
+  var nomeVar = "";
+  var lastnameVar = "";
+  var cpfVar = "";
+  var codigoVar = "";
+  var emailVar = "";
+  var phoneVar = "";
+  var senhaVar = "";
+  var confirmacaoSenhaVar = "";
+  var idEmpresaVincular = 0;
+
+  function emptyName(){
+    nomeVar = input_name.value;
+    if(nomeVar == ""){
+        input_name.style.border = "2px solid red";
+        invalid_name.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> Nome Inválido! </span>";
+        return false;
+    } else{
+        input_name.style.border = "2px solid green";
+        invalid_name.innerHTML = "<img src='/Main/Website/img/accept.png'> <span class='accept'> Nome Ok! </span>";
+        return true;
+    }
+}
+
+function emptyLastname(){
+    lastnameVar = input_lastname.value;
+    if(lastnameVar == ""){
+        input_lastname.style.border = "2px solid red";
+        invalid_lastname.innerHTML = "<img src='/Main/Website/img/denied.png'><span class='denied'> Sobrenome Inválido! </span>";
+        return false;
+    } else{
+        input_lastname.style.border = "2px solid green";
+        invalid_lastname.innerHTML = "<img src='/Main/Website/img/accept.png'> <span class='accept'> Sobrenome Ok! </span>";
+        return true;
+    }
+}
+
+function cpf(){
+    cpfVar = input_cpf.value;
+    cpfVar = cpfVar.replaceAll('.','');
+    cpfVar = cpfVar.replaceAll('-','');
+    let cpfLength = cpfVar.length;
+    let text='';
+    if (cpfLength < 11 || cpfLength > 11){
+        input_cpf.style.border = "2px solid red";
+        invalid_cpf.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> O CPF deve ter 11 dígitos!</span>";
+        return false;
+    } else{
+        text = cpfVar.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        input_cpf.value = text;
+        input_cpf.style.border = "2px solid green";
+        invalid_cpf.innerHTML = "<img src='/Main/Website/img/accept.png'> <span class='accept'> CPF Ok! </span>";
+        return true;
+    }   
+}
+
+function token(){
+  codigoVar = input_token.value;
+      // Verificando se o código de ativação é de alguma empresa cadastrada
+      for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+        if (listaEmpresasCadastradas[i].token == codigoVar) {
+          input_token.style.border = "2px solid green";
+          invalid_token.innerHTML = "<img src='/Main/Website/img/accept.png'> <span class='accept'> Token Ok! </span>";
+        idEmpresaVincular = listaEmpresasCadastradas[i].idEmpresa
+        console.log("Código de ativação válido.");
+        break;
+      } else {
+        input_token.style.border = "2px solid red";
+        invalid_token.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> Token Inválido! </span>";
+        // finalizarAguardar();
+      }
+    }
+  }
+
+function email(){
+    emailVar = input_email.value;
+    let haveAt = emailVar.indexOf('@');
+    if(haveAt == -1){
+        input_email.style.border = "2px solid red";
+        invalid_email.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> Email Inválido! </span>";
+        return false;
+    }else{
+        input_email.style.border = "2px solid green";
+        invalid_email.innerHTML = "<img src='/Main/Website/img/accept.png'> <span class='accept'> Email Ok! </span>";
+        return true;
+    }
+}
+
+function phone(){
+    phoneVar = input_phone.value;
+    phoneVar = phoneVar.replaceAll('-','');
+    phoneVar = phoneVar.replaceAll('(','');
+    phoneVar = phoneVar.replaceAll(')','');
+    phoneVar = phoneVar.replaceAll(' ','');
+    phoneVar = phoneVar.replaceAll('+','');
+    let phoneLength = phoneVar.length;
+    let text='';
+    if (phoneLength < 13 || phoneLength > 13){
+        input_phone.style.border = "2px solid red";
+        invalid_phone.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> Número Inválido! </span>";
+        return false;
+    } else{
+        if(phoneVar[4] != 9){
+            input_phone.style.border = "2px solid red";
+            invalid_phone.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> O primeiro dígito do número deve ser '9'! </span>";
+            return false;
+        }
+        text = phoneVar.replace(/(\d{2})(\d{2})(\d{5})(\d{4})/, "+$1 ($2) $3-$4");
+        input_phone.value=text;
+        invalid_phone.innerHTML = "<img src='/Main/Website/img/accept.png'> <span class='accept'> Telefone Ok! </span>";
+        input_phone.style.border = "2px solid green";
+        return true;
+    }
+}
+
+function password(){
+    senhaVar = input_password.value;
+    let passwordLength = senhaVar.length;
+    let haveNumber = /\d/.test(senhaVar);
+    let haveSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(senhaVar);
+    let haveLower = /[a-z]/.test(senhaVar);
+    let haveUpper = /[A-Z]/.test(senhaVar);
+    if(passwordLength < 8 || passwordLength > 20){
+        input_password.style.border = "2px solid red";
+        invalid_password.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> A senha deve ter entre 8 e 20 dígitos! </span>";
+        return false;
+    } else if(!haveNumber || !haveSpecial || !haveLower || !haveUpper){
+        input_password.style.border = "2px solid red";
+        invalid_password.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais! </span>";
+        return false;
+    } else{
+        input_password.style.border = "2px solid green";
+        invalid_password.innerHTML = "<img src='/Main/Website/img/accept.png'> <span class='accept'> Senha Ok! </span>";
+        return true;
+    }
+}
+
+function confirmPassword(){
+    confirmacaoSenhaVar = input_confirm_password.value;
+    if(confirmacaoSenhaVar != input_password.value ){
+        input_confirm_password.style.border = "2px solid red";
+        invalid_confirm_password.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> As senhas não conferem! </span>";
+        return false;
+    } else if(input_confirm_password.value == ""){
+        input_confirm_password.style.border = "2px solid red";
+        invalid_confirm_password.innerHTML = "<img src='/Main/Website/img/denied.png'> <span class='denied'> Esse campo não pode ficar vazio! </span>";
+        return false;
+    } else{
+        input_confirm_password.style.border = "2px solid green";
+        invalid_confirm_password.innerHTML = "<img src='/Main/Website/img/accept.png'> <span class='accept'> Senha Ok! </span>";
+        return true;
+    }
+}
+
+function checkAll(){
+  let nameValid = emptyName();
+    let lastnameValid = emptyLastname();
+    let tokenValid = token();
+    let cpfValid = cpf();
+    let emailValid = email();
+    let phoneValid = phone();
+    let passwordValid = password();
+    let confirmPasswordValid = confirmPassword();
+    if(nameValid && lastnameValid && tokenValid && cpfValid && emailValid && phoneValid && passwordValid && confirmPasswordValid){
+        credential_submit_button.disabled = false;
+        credential_submit_button.style.cursor = "pointer";
+        return true;
+      }else{
+        credential_submit_button.disabled = true;
+        credential_submit_button.style.cursor = "not-allowed";
+        return false;
+      }
+    }
+    
+    function cadastrar() {
+      // aguardar();
+      
+      //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    
+    // if(checkAll()){
+    // } else{
+    //   // finalizarAguardar();
+    //   return false;
+    // }
+    
+    // if(checkAll()){
+      setInterval(sumirMensagem, 5000);
+      // Enviando o valor da nova input
+
+//       console.log({
+//   nomeVar, lastnameVar, emailVar, cpfVar, phoneVar, senhaVar, idEmpresaVincular
+// });
+      fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        lastnameServer: lastnameVar,
+        emailServer: emailVar,
+        cpfServer: cpfVar,
+        phoneServer: phoneVar,
+        senhaServer: senhaVar,
+        idEmpresaVincularServer: idEmpresaVincular
+      }),
+    })
+    .then(function (resposta) {
+      console.log("resposta: ", resposta);
+      
+      if (resposta.ok) {
+        cardErro.style.display = "block";
+        
+        mensagem_erro.innerHTML =
+        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+        
+        setTimeout(() => {
+          window.location = "login.html";
+        }, "2000");
+        
+        limparFormulario();
+        // finalizarAguardar();
+      } else {
+        throw "Houve um erro ao tentar realizar o cadastro!";
+      }
+    })
+    .catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      // finalizarAguardar();
+    });
+  // }
+
+    return false;  
+  }
+
+  // Listando empresas cadastradas 
+  function listar() {
+    fetch("/empresas/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((empresa) => {
+            listaEmpresasCadastradas.push(empresa);
+
+            console.log("listaEmpresasCadastradas")
+            console.log(listaEmpresasCadastradas[0].token)
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function sumirMensagem() {
+    // cardErro.style.display = "none";
+  }
+</script>
