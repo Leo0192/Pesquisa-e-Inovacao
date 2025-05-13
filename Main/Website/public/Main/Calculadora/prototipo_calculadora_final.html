@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora financeira</title>
+</head>
+<nav class="nav">
+    <img src="logo_vitagro.png" alt="Logo da Vit'Agro" class="nav_img">
+</nav>
+<style>
+    body {
+        text-align: center;
+        font-family: 'Gill Sans MT';
+        background-color: #DAC8B3;
+        font-size: larger;
+        color: #009444;
+    }
+
+    .button {
+        border-radius: 10px;
+        width: 400px;
+        height: 30px;
+        text-align: center;
+        font-family: 'Gill Sans MT';
+        font-weight: bold;
+    }
+
+    .ipt {
+        border-radius: 10px;
+        width: 400px;
+        height: 30px;
+        text-align: center;
+        font-family: 'Gill Sans MT';
+        font-weight: bold;
+    }
+
+    .nav {
+        text-align: left;
+        background-color: white;
+        height: 100px;
+    }
+
+    .nav_img {
+        width: 150px;
+        height: 100px;
+    }
+
+    .valoresganho {
+        font-weight: bold;
+        color: #009444;
+    }
+
+    .valoresperda {
+        font-weight: bold;
+        color: red;
+    }
+
+    .div {
+        font-size: larger;
+        color: black;
+    }
+
+    .qnt {
+        font-size: larger;
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <h2><b>Insira a quantidade média de soja colhida por safra (KG)</b></h2>
+    <input type="number" id="ipt_kgColheita" class="ipt"><br>
+    <h2><b>Insira a quantidade média de água utilizada por safra (L)</b></h2>
+    <input type="number" id="ipt_agua" class="ipt"><br>
+    <h2><b>Insira a quantidade média de herbicidas utilizados por safra (L)</b></h2>
+    <input type="number" id="ipt_herbicida" class="ipt"><br><br><br>
+    <div id="div1" class="div">
+        <button onclick="calculo()" class="button">Calcular</button>
+    </div>
+</body>
+<script>
+    function calculo() {
+        var kg_colheita = Number(ipt_kgColheita.value);
+        var agua = Number(ipt_agua.value);
+        var herbicida = Number(ipt_herbicida.value);
+        if (kg_colheita > 0 && agua > 0 && herbicida > 0) {
+            var perdaprod = kg_colheita * 0.15;
+            var ganhoprod = kg_colheita * 0.2;
+            var sacas_perda = perdaprod / 60;
+            var sacas_ganho = ganhoprod / 60;
+            var preju = sacas_perda * 131.19;
+            var lucro = sacas_ganho * 131.19;
+            var perdamin_pest = herbicida * 0.1;
+            var perdamax_pest = herbicida * 0.5;
+            var prejumin_herbicida_estimado = perdamin_pest * 65.5;
+            var prejumax_herbicida_estimado = perdamax_pest * 65.5;
+            var reducao_agua = agua * 0.2;
+            div1.innerHTML = `<br>◉ A perda total estimada da produção por problemas de umidade do ar é de <span class='valoresperda'>${perdaprod.toFixed(1)}kg</span> na produção.<br>
+            Essa quantia equivale a <span class='qnt'>${sacas_perda.toFixed(1)} sacas</span> e um prejuízo de <span class='valoresperda'>R$${preju.toFixed(2)}</span> por safra.<br><br>`;
+            div1.innerHTML += `◉ O ganho estimado com a utilização do nosso sistema é de <span class='valoresganho'>${ganhoprod.toFixed(1)}kg</span> na produção.<br>
+            Essa quantia equivale a <span class='qnt'>${sacas_ganho.toFixed(1)} sacas</span> e um lucro de <span class='valoresganho'>R$${lucro.toFixed(2)}</span> por safra.<br><br>`;
+            div1.innerHTML += `◉ A perda estimada de herbicidas devido a problemas de umidade de ar, tomando como base o glifosato,<br> herbicida 
+            mais usado em plantações de soja, pode variar de <span class='valoresperda'>${perdamin_pest.toFixed(1)}L</span> a <span class='valoresperda'>${perdamax_pest.toFixed(1)}L</span>, 
+            gerando prejuízos que vão de <span class='valoresperda'>R$${prejumin_herbicida_estimado.toFixed(2)}</span> a <span class='valoresperda'>R$${prejumax_herbicida_estimado.toFixed(2)}</span>.<br><br>`;
+            div1.innerHTML += `◉ A redução da quantidade de água utilizada será de <span class='valoresganho'>${reducao_agua}L</span>.<br><br>`;
+            div1.innerHTML += `<button onclick="calculo()" class="button">Calcular</button>`;
+        } else {
+            if (kg_colheita <= 0) {
+                div1.innerHTML = `<h2><b>Insira uma quantidade de soja positiva e diferente de 0 e tente novamente.<b><h2>`;
+            } else if (agua <= 0) {
+                div1.innerHTML = `<h2><b>Insira uma quantidade de água positiva e diferente de 0 e tente novamente.<b><h2>`;
+            } else if (herbicida <= 0) {
+                div1.innerHTML = `<h2><b>Insira uma quantidade de herbicida positiva e diferente de 0 e tente novamente.<b><h2>`;
+            }
+            div1.innerHTML += `<button onclick="calculo()" class="button">Tentar novamente</button>`;
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="icon" href="img/logo-VitAgro.ico" />
+  <title>VitAgro | dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/chartjs-config.js"></script>
+</head>
+
+<body onload="startChart()">
+  <div class="header">
+    <div class="container">
+
+      <a href="#" class="titulo">
+        <img src="img/logo-VitAgro.png" alt="Logo VitAgro" height="80px">
+      </a>
+
+      <ul class="navbar">
+        <a href="index.html">Home</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="sobrenos.html">Sobre Nós</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="calculadora.html">Calculadora Financeira</a>
+        </li>
+        <li class="pipe">|</li>
+        <li>
+          <a href="dashboard.html">Dashboard</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="div_explicacao_situacao">
+    <h1 style="align-self: center;">Índice Situacional:</h1>
+    <h4 class="coloracao-padrao">Situação Padrão: está dentro dos conformes</h4>
+    <h4 class="coloracao-escassez">Situação Escassez de Umidade: a umidade do ambiente está abaixo do ideal, podendo
+      causar os seguintes problemas:
+      Estresse hídrico, Diminuição da produtividade</h4>
+    <h4 class="coloracao-excesso">Situação Excesso de Umidade: a umidade do ambiente está acima do ideal, podendo causar
+      os seguintes problemas:
+      Redução da absorção de água e nutrientes, Proliferação de doenças e fungos</h4>
+  </div>
+
+  <div class="container_alertas">
+    <h1 style="align-self: center;">SITUAÇÃO:</h1>
+    <div class="alertas">
+      
+      <div class="alerta_item">
+       
+        <p style="color: red;">(3)ALERTA!⚠️</p>
+        <canvas class="grafico_alerta" id="donut_alerta1"></canvas>
+      </div>
+      <div class="alerta_item">
+        <p style="color: green;">Operação Normal</p>
+        <canvas class="grafico_alerta" id="donut_alerta2"></canvas>
+      </div>
+      <div class="alerta_item">
+        <p style="color: red;">(3)ALERTA!⚠️</p>
+        <canvas class="grafico_alerta" id="donut_alerta3"></canvas>
+      </div>
+      <div class="alerta_item">
+        <p style="color: red;">(2)ALERTA!⚠️</p>
+        <canvas class="grafico_alerta" id="donut_alerta4"></canvas>
+      </div>
+      <div class="alerta_item">
+        <p style="color: green;">Operação Normal</p>
+        <canvas class="grafico_alerta" id="donut_alerta5"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="container_controle_situacao">
+    <h1 style="align-self: center;">PAINEL DE SENSORES:</h1>
+    <select id="escolha_hectare" onchange="updateTalhao()">
+      <option value="#">Selecione o Hectare</option>
+      <option value="1">Talhão 1</option>
+      <option value="2">Talhão 2</option>
+      <option value="3">Talhão 3</option>
+      <option value="4">Talhão 4</option>
+      <option value="5">Talhão 5</option>
+      <option value="6">Umidade Mensal</option>
+    </select>
+    
+    <div class="div_grafico_donut">
+      <div class="donut_container">
+        <canvas id="donut"></canvas>
+      </div>
+      <div class="legenda_container">
+        <h3 class="coloracao-padrao">Padrão: <span id="padrao_span"></span></h3>
+        <h3 class="coloracao-excesso">Excesso de Umidade: <span id="excesso_span"></span></h3>
+        <h3 class="coloracao-escassez">Escassez de Umidade: <span id="escassez_span"></span></h3>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="div_container_graficos">
+    <div class="div_grafico_sensor">
+      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+      <div class="div_container_sensor">
+        <canvas id="sensor1"></canvas>
+      </div>
+    </div>
+    <div class="div_grafico_sensor">
+      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+      <div class="div_container_sensor">
+        <canvas id="sensor2"></canvas>
+      </div>
+    </div>
+    <div class="div_grafico_sensor">
+      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+      <div class="div_container_sensor">
+        <canvas id="sensor3"></canvas>
+      </div>
+    </div>
+    <div class="div_grafico_sensor">
+      <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+      <div class="div_container_sensor">
+        <canvas id="sensor4"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+
+      <img class="icon-footer" src="img/Vit_agro_preto-removebg-preview 1.png" alt="Logo VitAgro">
+
+      <div class="links">
+        <p class="titulo-footer">Páginas do site</p>
+        <ul class="link">
+          <li>
+            <a href="index.html">Página Inicial
+            </a>
+          </li>
+          <li>
+            <a href="sobrenos.html">Sobre Nós</a>
+          </li>
+          <li>
+            <a href="calculadora.html">Calculadora Financeira</a>
+          </li>
+          <li>
+            <a href="dashboard.html">Dashboard</a>
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="contato">
+        <h2 class="titulo-contato">Contato:</h2>
+        <ul class="contatos">
+          <li>
+            <p>Email: VitAgro@sptech.school</p>
+          </li>
+          <li>
+            <p>Localização: Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001</p>
+          </li>
+          <li class="sociais">
+            <p>Redes Sociais:
+            <p>
+              <a href="#">
+                <img class="icon-social" src="img/facebook.png" alt="facebook">
+              </a>
+              <a href="#">
+                <img class="icon-social" src="img/linkedin.png" alt="linkedin">
+              </a>
+              <a href="#">
+                <img class="icon-social" src="img/instagram.png" alt="instagram">
+              </a>
+              <a href="#">
+                <img class="icon-social" src="img/twitter.png" alt="twitter">
+              </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
