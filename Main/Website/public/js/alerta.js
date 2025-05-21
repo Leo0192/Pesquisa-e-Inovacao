@@ -53,8 +53,8 @@ function alertar(resposta, idTalhao) {
 
     var card;
 
-    if (document.getElementById(`temp_aquario_${idTalhao}`) != null) {
-        document.getElementById(`temp_aquario_${idTalhao}`).innerHTML = umd + "°C";
+    if (document.getElementById(`umd_talhao${idTalhao}`) != null) {
+        document.getElementById(`umd_talhao${idTalhao}`).innerHTML = umd + "%";
     }
 
     if (document.getElementById(`card_${idTalhao}`)) {
