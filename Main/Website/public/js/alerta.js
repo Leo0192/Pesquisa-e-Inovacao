@@ -34,19 +34,13 @@ function alertar(resposta, idTalhao) {
 
     var classe_temperatura = 'cor-alerta';
 
-    if (umd >= limites.muito_quente) {
+    if (umd >= limites.excesso) {
         classe_temperatura = 'cor-alerta perigo-quente';
-        grauDeAviso = 'perigo quente'
+        grauDeAviso = 'perigo excesso de umidade'
         grauDeAvisoCor = 'cor-alerta perigo-quente'
         exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
     }
-    else if (umd < limites.muito_quente && umd >= limites.quente) {
-        classe_temperatura = 'cor-alerta alerta-quente';
-        grauDeAviso = 'alerta quente'
-        grauDeAvisoCor = 'cor-alerta alerta-quente'
-        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
-    }
-    else if (umd < limites.quente && umd > limites.frio) {
+    else if (umd < limites.excesso && umd > limites.escassez) {
         classe_temperatura = 'cor-alerta ideal';
         removerAlerta(idTalhao);
     }
@@ -56,9 +50,9 @@ function alertar(resposta, idTalhao) {
         grauDeAvisoCor = 'cor-alerta alerta-frio'
         exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
     }
-    else if (umd <= limites.muito_frio) {
+    else if (umd <= limites.escassez) {
         classe_temperatura = 'cor-alerta perigo-frio';
-        grauDeAviso = 'perigo frio'
+        grauDeAviso = 'perigo escassez de umidade'
         grauDeAvisoCor = 'cor-alerta perigo-frio'
         exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
     }
