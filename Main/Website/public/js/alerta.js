@@ -26,11 +26,10 @@ function alertar(resposta, idTalhao) {
     var grauDeAviso = '';
 
     var limites = {
-        muito_quente: 23,
-        quente: 22,
-        ideal: 20,
-        frio: 10,
-        muito_frio: 5
+        excesso: 80,
+        idealMaximo: 79,
+        idealMinimo: 49,
+        escassez: 50,
     };
 
     var classe_temperatura = 'cor-alerta';
