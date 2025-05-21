@@ -28,7 +28,7 @@ function alertar(resposta, idTalhao) {
     var limites = {
         excesso: 80,
         idealMaximo: 79,
-        idealMinimo: 49,
+        idealMinimo: 51,
         escassez: 50,
     };
 
@@ -38,57 +38,57 @@ function alertar(resposta, idTalhao) {
         classe_temperatura = 'cor-alerta perigo-quente';
         grauDeAviso = 'perigo quente'
         grauDeAvisoCor = 'cor-alerta perigo-quente'
-        exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor)
+        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
     }
     else if (umd < limites.muito_quente && umd >= limites.quente) {
         classe_temperatura = 'cor-alerta alerta-quente';
         grauDeAviso = 'alerta quente'
         grauDeAvisoCor = 'cor-alerta alerta-quente'
-        exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor)
+        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
     }
     else if (umd < limites.quente && umd > limites.frio) {
         classe_temperatura = 'cor-alerta ideal';
-        removerAlerta(idAquario);
+        removerAlerta(idTalhao);
     }
     else if (umd <= limites.frio && umd > limites.muito_frio) {
         classe_temperatura = 'cor-alerta alerta-frio';
         grauDeAviso = 'alerta frio'
         grauDeAvisoCor = 'cor-alerta alerta-frio'
-        exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor)
+        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
     }
     else if (umd <= limites.muito_frio) {
         classe_temperatura = 'cor-alerta perigo-frio';
         grauDeAviso = 'perigo frio'
         grauDeAvisoCor = 'cor-alerta perigo-frio'
-        exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor)
+        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
     }
 
     var card;
 
-    if (document.getElementById(`temp_aquario_${idAquario}`) != null) {
-        document.getElementById(`temp_aquario_${idAquario}`).innerHTML = umd + "°C";
+    if (document.getElementById(`temp_aquario_${idTalhao}`) != null) {
+        document.getElementById(`temp_aquario_${idTalhao}`).innerHTML = umd + "°C";
     }
 
-    if (document.getElementById(`card_${idAquario}`)) {
-        card = document.getElementById(`card_${idAquario}`)
+    if (document.getElementById(`card_${idTalhao}`)) {
+        card = document.getElementById(`card_${idTalhao}`)
         card.className = classe_temperatura;
     }
 }
 
-function exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor) {
-    var indice = alertas.findIndex(item => item.idAquario == idAquario);
+function exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor) {
+    var indice = alertas.findIndex(item => item.idTalhao == idTalhao);
 
     if (indice >= 0) {
-        alertas[indice] = { idAquario, umd, grauDeAviso, grauDeAvisoCor }
+        alertas[indice] = { idTalhao, umd, grauDeAviso, grauDeAvisoCor }
     } else {
-        alertas.push({ idAquario, umd, grauDeAviso, grauDeAvisoCor });
+        alertas.push({ idTalhao, umd, grauDeAviso, grauDeAvisoCor });
     }
 
     exibirCards();
 }
 
-function removerAlerta(idAquario) {
-    alertas = alertas.filter(item => item.idAquario != idAquario);
+function removerAlerta(idTalhao) {
+    alertas = alertas.filter(item => item.idTalhao != idTalhao);
     exibirCards();
 }
 
@@ -101,9 +101,9 @@ function exibirCards() {
     }
 }
 
-function transformarEmDiv({ idAquario, umd, grauDeAviso, grauDeAvisoCor }) {
+function transformarEmDiv({ idTalhao, umd, grauDeAviso, grauDeAvisoCor }) {
 
-    var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
+    var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idTalhao).descricao;
     return `
     <div class="mensagem-alarme">
         <div class="informacao">
