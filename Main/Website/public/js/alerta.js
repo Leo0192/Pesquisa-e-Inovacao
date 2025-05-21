@@ -21,7 +21,7 @@ function obterdados(idTalhao) {
 }
 
 function alertar(resposta, idTalhao) {
-    var umd = resposta[0].temperatura;
+    var umd = resposta[0].umidade;
 
     var grauDeAviso = '';
 
@@ -32,26 +32,20 @@ function alertar(resposta, idTalhao) {
         escassez: 50,
     };
 
-    var classe_temperatura = 'cor-alerta';
+    var classe_umidade = 'cor-alerta';
 
     if (umd >= limites.excesso) {
-        classe_temperatura = 'cor-alerta perigo-quente';
+        classe_umidade = 'cor-alerta perigo-quente';
         grauDeAviso = 'perigo excesso de umidade'
         grauDeAvisoCor = 'cor-alerta perigo-quente'
         exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
     }
     else if (umd < limites.excesso && umd > limites.escassez) {
-        classe_temperatura = 'cor-alerta ideal';
+        classe_umidade = 'cor-alerta ideal';
         removerAlerta(idTalhao);
     }
-    else if (umd <= limites.frio && umd > limites.muito_frio) {
-        classe_temperatura = 'cor-alerta alerta-frio';
-        grauDeAviso = 'alerta frio'
-        grauDeAvisoCor = 'cor-alerta alerta-frio'
-        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
-    }
     else if (umd <= limites.escassez) {
-        classe_temperatura = 'cor-alerta perigo-frio';
+        classe_umidade = 'cor-alerta perigo-frio';
         grauDeAviso = 'perigo escassez de umidade'
         grauDeAvisoCor = 'cor-alerta perigo-frio'
         exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
@@ -65,7 +59,7 @@ function alertar(resposta, idTalhao) {
 
     if (document.getElementById(`card_${idTalhao}`)) {
         card = document.getElementById(`card_${idTalhao}`)
-        card.className = classe_temperatura;
+        card.className = classe_umidade;
     }
 }
 
@@ -103,7 +97,7 @@ function transformarEmDiv({ idTalhao, umd, grauDeAviso, grauDeAvisoCor }) {
         <div class="informacao">
             <div class="${grauDeAvisoCor}">&#12644;</div> 
             <h3>${descricao} está em estado de ${grauDeAviso}!</h3>
-            <small>Temperatura capturada: ${umd}°C.</small>   
+            <small>umidade capturada: ${umd}°C.</small>   
         </div>
         <div class="alarme-sino"></div>
     </div>
