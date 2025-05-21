@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
+    <title>Vitagro | Dashboards</title>
 
     
     <link rel="stylesheet" href="./../css/dashboards.css">
@@ -32,7 +32,7 @@
 
     <div class="janela">
         <div class="header-left">
-            <h1>AquaTech</h1>
+            <h1>Vitagro</h1>
 
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
@@ -66,7 +66,7 @@
             <div id="alerta">
             </div>
 
-            <div class="btns-dash" id="btnAquario">
+            <div class="btns-dash" id="btnTalhoes">
                 <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
             </div>
             <div id="graficos">
@@ -89,14 +89,14 @@
     function exibirTalhoesDoUsuario() {
         var talhoes = JSON.parse(sessionStorage.TALHOES);
         talhoes.forEach(item => {
-            document.getElementById("btnAquario").innerHTML += `
-            <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
+            document.getElementById("btnTalhoes").innerHTML += `
+            <button class="btn-chart" onclick="exibirTalhao(${item.id})" id="btnTalhoes${item.id}">${item.descricao}</button>
             `
 
             document.getElementById("graficos").innerHTML += `
                 <div id="grafico${item.id}" class="display-none">
                     <h3 class="tituloGraficos">
-                        <span id="tituloAquario${item.id}">${item.descricao}</span>
+                        <span id="tituloTalhao${item.id}">${item.descricao}</span>
                     </h3>
                     <div class="graph">
                         <canvas id="myChartCanvas${item.id}"></canvas>
@@ -111,17 +111,17 @@
         });
 
         if (talhoes.length > 0) {
-            exibirAquario(talhoes[0].idTalhao)
+            exibirTalhao(talhoes[0].idTalhao)
         }
     }
 
     function alterarTitulo(idTalhao) {
-        var tituloAquario = document.getElementById(`tituloAquario${idTalhao}`)
+        var tituloTalhao = document.getElementById(`tituloTalhao${idTalhao}`)
         var descricao = JSON.parse(sessionStorage.TALHOES).find(item => item.id == idTalhao).descricao;
-        tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
+        tituloTalhao.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
     }
 
-    function exibirAquario(idTalhao) {
+    function exibirTalhao(idTalhao) {
         let todosOsGraficos = JSON.parse(sessionStorage.TALHOES);
 
         for (i = 0; i < todosOsGraficos.length; i++) {
@@ -134,7 +134,7 @@
                 elementoAtual.classList.add("display-none")
 
                 // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
+                let btnAtual = document.getElementById(`btnTalhoes${todosOsGraficos[i].id}`)
                 if (btnAtual.classList.contains("btn-pink")) {
                     btnAtual.classList.remove("btn-pink")
                 }
@@ -148,7 +148,7 @@
         graficoExibir.classList.add("display-block")
 
         // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnAquario${idTalhao}`)
+        let btnExibir = document.getElementById(`btnTalhoes${idTalhao}`)
         btnExibir.classList.remove("btn-white")
         btnExibir.classList.add("btn-pink")
     }

@@ -101,13 +101,13 @@
     function exibirTalhoes() {
         JSON.parse(sessionStorage.TALHOES).forEach(item => {
             document.getElementById("cardTalhoes").innerHTML += `
-                    <div class="card-aquario">
-                        <div class="title-aquario">
+                    <div class="card-talhao">
+                        <div class="title-talhao">
                             <h1>${item.descricao}</h1>
                         </div>
-                        <div class="desc-aquario">
+                        <div class="desc-talhao">
                         <div class="temperatura">
-                            <p id="temp_aquario_${item.id}">-°C</p>
+                            <p id="temp_talhao_${item.id}">-°C</p>
                         </div>
                         <div class="cor-alerta" id="card_${item.id}"></div>
                     </div>
