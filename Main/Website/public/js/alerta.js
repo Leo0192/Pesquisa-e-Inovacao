@@ -1,17 +1,17 @@
 var alertas = [];
 
-function obterdados(idAquario) {
-    fetch(`/medidas/tempo-real/${idAquario}`)
+function obterdados(idTalhao) {
+    fetch(`/medidas/tempo-real/${idTalhao}`)
         .then(resposta => {
             if (resposta.status == 200) {
                 resposta.json().then(resposta => {
 
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                    alertar(resposta, idAquario);
+                    alertar(resposta, idTalhao);
                 });
             } else {
-                console.error(`Nenhum dado encontrado para o id ${idAquario} ou erro na API`);
+                console.error(`Nenhum dado encontrado para o id ${idTalhao} ou erro na API`);
             }
         })
         .catch(function (error) {
@@ -20,8 +20,8 @@ function obterdados(idAquario) {
 
 }
 
-function alertar(resposta, idAquario) {
-    var temp = resposta[0].temperatura;
+function alertar(resposta, idTalhao) {
+    var umd = resposta[0].temperatura;
 
     var grauDeAviso = '';
 
@@ -35,39 +35,39 @@ function alertar(resposta, idAquario) {
 
     var classe_temperatura = 'cor-alerta';
 
-    if (temp >= limites.muito_quente) {
+    if (umd >= limites.muito_quente) {
         classe_temperatura = 'cor-alerta perigo-quente';
         grauDeAviso = 'perigo quente'
         grauDeAvisoCor = 'cor-alerta perigo-quente'
-        exibirAlerta(temp, idAquario, grauDeAviso, grauDeAvisoCor)
+        exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor)
     }
-    else if (temp < limites.muito_quente && temp >= limites.quente) {
+    else if (umd < limites.muito_quente && umd >= limites.quente) {
         classe_temperatura = 'cor-alerta alerta-quente';
         grauDeAviso = 'alerta quente'
         grauDeAvisoCor = 'cor-alerta alerta-quente'
-        exibirAlerta(temp, idAquario, grauDeAviso, grauDeAvisoCor)
+        exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor)
     }
-    else if (temp < limites.quente && temp > limites.frio) {
+    else if (umd < limites.quente && umd > limites.frio) {
         classe_temperatura = 'cor-alerta ideal';
         removerAlerta(idAquario);
     }
-    else if (temp <= limites.frio && temp > limites.muito_frio) {
+    else if (umd <= limites.frio && umd > limites.muito_frio) {
         classe_temperatura = 'cor-alerta alerta-frio';
         grauDeAviso = 'alerta frio'
         grauDeAvisoCor = 'cor-alerta alerta-frio'
-        exibirAlerta(temp, idAquario, grauDeAviso, grauDeAvisoCor)
+        exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor)
     }
-    else if (temp <= limites.muito_frio) {
+    else if (umd <= limites.muito_frio) {
         classe_temperatura = 'cor-alerta perigo-frio';
         grauDeAviso = 'perigo frio'
         grauDeAvisoCor = 'cor-alerta perigo-frio'
-        exibirAlerta(temp, idAquario, grauDeAviso, grauDeAvisoCor)
+        exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor)
     }
 
     var card;
 
     if (document.getElementById(`temp_aquario_${idAquario}`) != null) {
-        document.getElementById(`temp_aquario_${idAquario}`).innerHTML = temp + "°C";
+        document.getElementById(`temp_aquario_${idAquario}`).innerHTML = umd + "°C";
     }
 
     if (document.getElementById(`card_${idAquario}`)) {
@@ -76,13 +76,13 @@ function alertar(resposta, idAquario) {
     }
 }
 
-function exibirAlerta(temp, idAquario, grauDeAviso, grauDeAvisoCor) {
+function exibirAlerta(umd, idAquario, grauDeAviso, grauDeAvisoCor) {
     var indice = alertas.findIndex(item => item.idAquario == idAquario);
 
     if (indice >= 0) {
-        alertas[indice] = { idAquario, temp, grauDeAviso, grauDeAvisoCor }
+        alertas[indice] = { idAquario, umd, grauDeAviso, grauDeAvisoCor }
     } else {
-        alertas.push({ idAquario, temp, grauDeAviso, grauDeAvisoCor });
+        alertas.push({ idAquario, umd, grauDeAviso, grauDeAvisoCor });
     }
 
     exibirCards();
@@ -102,7 +102,7 @@ function exibirCards() {
     }
 }
 
-function transformarEmDiv({ idAquario, temp, grauDeAviso, grauDeAvisoCor }) {
+function transformarEmDiv({ idAquario, umd, grauDeAviso, grauDeAvisoCor }) {
 
     var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
     return `
@@ -110,7 +110,7 @@ function transformarEmDiv({ idAquario, temp, grauDeAviso, grauDeAvisoCor }) {
         <div class="informacao">
             <div class="${grauDeAvisoCor}">&#12644;</div> 
             <h3>${descricao} está em estado de ${grauDeAviso}!</h3>
-            <small>Temperatura capturada: ${temp}°C.</small>   
+            <small>Temperatura capturada: ${umd}°C.</small>   
         </div>
         <div class="alarme-sino"></div>
     </div>
