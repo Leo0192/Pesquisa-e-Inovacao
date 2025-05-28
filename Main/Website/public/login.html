@@ -195,9 +195,7 @@ function checkAllLoginSubmit(){
 
             if (resposta.ok) {
                 console.log(resposta);
-
                 resposta.json().then(json => {
-                    console.log('foiii')
                     console.log(json);
                     console.log(JSON.stringify(json));
                     sessionStorage.ID_USUARIO = json.idUsuario;

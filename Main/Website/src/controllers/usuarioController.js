@@ -1,5 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/talhaoModel");
+var talhaoModel = require("../models/talhaoModel");
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -24,8 +24,8 @@ function autenticar(req, res) {
                             .then((resultadoTalhoes) => {
                                 if (resultadoTalhoes.length > 0) {
                                     res.json({
-                                        idUsuario: resultadoAutenticar[0].id,
-                                        nome: resultadoAutenticar[0].nome,
+                                        idUsuario: resultadoAutenticar[0].idRepresentante,
+                                        nome: resultadoAutenticar[0].nome_representante,
                                         talhoes: resultadoTalhoes
                                     });
                                 } else {
