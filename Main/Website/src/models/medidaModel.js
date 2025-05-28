@@ -3,12 +3,13 @@ var database = require("../database/config");
 function buscarUltimasMedidas(idTalhao, limite_linhas) {
 
     var instrucaoSql = `SELECT 
+                        fkSensor
                         umidade,
                         data,
                         DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
                     FROM historico_sensor
                     WHERE fkSensor = ${idTalhao}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
+                    ORDER BY fkSensor DESC LIMIT ${limite_linhas}`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
