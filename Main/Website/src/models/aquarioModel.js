@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function buscarAquariosPorEmpresa(empresaId) {
+function buscarTalhoesPorEmpresa(empresaId) {
 
   var instrucaoSql = `SELECT * FROM talhao a WHERE fkPlantacao = ${empresaId}`;
 
@@ -18,6 +18,6 @@ function cadastrar(empresaId, localizacao) {
 
 
 module.exports = {
-  buscarAquariosPorEmpresa,
+  buscarTalhoesPorEmpresa,
   cadastrar
 }
