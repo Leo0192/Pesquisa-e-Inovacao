@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
-function buscarPorId(id) {
-  var instrucaoSql = `SELECT * FROM empresa WHERE id = '${id}'`;
+function buscarPorId(idEmpresa) {
+  var instrucaoSql = `SELECT * FROM empresa WHERE id = '${idEmpresa}'`;
 
   return database.executar(instrucaoSql);
 }
@@ -19,7 +19,14 @@ function buscarPorCnpj(cnpj) {
 }
 
 function cadastrar(razaoSocial, cnpj) {
-  var instrucaoSql = `INSERT INTO empresa (nome_empresa, cnpj) VALUES ('${razaoSocial}', '${cnpj}')`;
+  let caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%*()0123456789";
+  let token = "";
+
+    for (let i = 0; i < 6; i++) {
+      token += Math.floor(Math.random() * caracteres.length);
+    }
+
+  var instrucaoSql = `INSERT INTO empresa (nome_empresa, token, cnpj) VALUES ('${razaoSocial}', '${token} ', '${cnpj}')`;
 
   return database.executar(instrucaoSql);
 }
