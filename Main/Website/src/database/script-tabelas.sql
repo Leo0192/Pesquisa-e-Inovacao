@@ -61,6 +61,7 @@ create table contato_representante (
 );
 /* Criação da tabela plantacao, que visa armazenar os dados das diferentes plantações nas quais nosso sistema está instalado,
 junto com a relação da plantação com a empresa parceira, dona do talhao */
+/*
 CREATE TABLE plantacao(
     idPlantacao INT PRIMARY KEY AUTO_INCREMENT, -- Identificador único da plantação
     fazenda VARCHAR(60) NOT NULL, -- Fazenda da plantação
@@ -68,14 +69,15 @@ CREATE TABLE plantacao(
     fkEmpresa INT NOT NULL, -- Identificador da empresa responsável
     CONSTRAINT fk_idEmpresa FOREIGN KEY(fkEmpresa) REFERENCES empresa(idEmpresa) -- Criação da relação da chave estrangeira
 );
+*/
 
 /* Criação da tabela talhao, que irá separar os sensores instalados em grupos para melhor visualização do usuário e 
 aumento de eficiência no momento da consulta (1 talhao tem 4 sensores dentro do grupo, um talhão possui 500mx1000m) */
 CREATE TABLE talhao(
     idTalhao INT PRIMARY KEY AUTO_INCREMENT, -- Identificador único do talhão
     localizacao VARCHAR(25) NOT NULL, -- Localização do talhao em coordenadas
-    fkPlantacao INT NOT NULL, -- Identificador de qual plantação esse talhao faz parte
-    CONSTRAINT fk_idPlantacao FOREIGN KEY(fkPlantacao) REFERENCES plantacao(idPlantacao) -- Criação da relação da chave estrangeira
+    fkEmpresa INT NOT NULL, -- Identificador de qual plantação esse talhao faz parte
+    CONSTRAINT fk_idEmpresa FOREIGN KEY(fkEmpresa) REFERENCES empresa (idEmpresa) -- Criação da relação da chave estrangeira
 );
 
 /* Criação da tabela sensor, que irá armazenar todos os sensores instalados para sua identificação,
@@ -133,13 +135,15 @@ VALUES ('joao@empresa.com', '55', '11', '912345678', 1),
        ('carlos@sojaterra.com', '55', '64', '965432109', 3);
        
 -- Inserindo uma plantação vinculada à empresa
+/*
 INSERT INTO plantacao (fazenda, estado, fkEmpresa)
 VALUES ('Fazenda Primavera', 'Goiás', 1),
        ('Fazenda Bela Vista', 'Mato Grosso', 2),
        ('Fazenda Novo Horizonte', 'Mato Grosso do Sul', 3);
+*/
 
 -- Inserindo um grupo de sensores na plantação
-INSERT INTO talhao (localizacao, fkPlantacao)
+INSERT INTO talhao (localizacao, fkEmpresa)
 VALUES ('-22.123456,-47.654321', 1),
        ('-13.456789,-56.789123', 2),
        ('-14.123456,-55.987654', 3);
@@ -151,6 +155,8 @@ VALUES ('-22.123456,-47.654321', 1),
        ('-73.486283,-21.489327', 1),
        ('-14.123456,-55.987654', 1);
 
+select * from representante;
+select * from contato_representante;
 -- Seleção para verificação das inserções e consulta
 SELECT * FROM empresa;
 SELECT * FROM plantacao;

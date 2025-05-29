@@ -2,7 +2,7 @@ var database = require("../database/config");
 
 function buscarTalhoesPorEmpresa(empresaId) {
 
-  var instrucaoSql = `SELECT * FROM talhao a WHERE fkPlantacao = ${empresaId}`;
+  var instrucaoSql = `SELECT * FROM talhao a WHERE fkEmpresa = ${empresaId}`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -10,7 +10,7 @@ function buscarTalhoesPorEmpresa(empresaId) {
 
 function cadastrar(empresaId, localizacao) {
   
-  var instrucaoSql = `INSERT INTO talhao (localizacao, fkPlantacao) VALUES (${localizacao}, ${empresaId})`;
+  var instrucaoSql = `INSERT INTO talhao (localizacao, fkEmpresa) VALUES (${localizacao}, ${empresaId})`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

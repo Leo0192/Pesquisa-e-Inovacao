@@ -27,10 +27,10 @@ const serial = async (
     let poolBancoDados = mysql.createPool(
         {
             host: 'localhost',
-            user: 'vitagro',
-            password: 'Vitagro12345!',
+            user: 'aluno',
+            password: 'sptech',
             database: 'vitagro',
-            port: 3307,
+            port: 3306,
             connectTimeout: 30000
         }
     ).promise();
@@ -75,7 +75,7 @@ const serial = async (
 
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO historico_sensor (fk_idSensor, umidade) VALUES (?, ?), (?, ?), (?, ?), (?, ?)',
+                'INSERT INTO historico_sensor (fkSensor, umidade) VALUES (?, ?), (?, ?), (?, ?), (?, ?)',
                 [1, sensorA, 2, sensorB, 3, sensorC, 4, sensorD]
             );
             console.log("valores inseridos no banco: ", sensorA + ", " + sensorB + ", "+ sensorC + ", " + sensorD);
