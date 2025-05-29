@@ -9,8 +9,8 @@
     <title>Vitagro | Dashboards</title>
 
     
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="../Main/Website/styles/style.css" />
+    <link rel="stylesheet" href="../css/dashboards.css">
+    <link rel="stylesheet" href="../css/estilo.css" />
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
@@ -90,24 +90,24 @@
         var talhoes = JSON.parse(sessionStorage.TALHOES);
         talhoes.forEach(item => {
             document.getElementById("btnTalhoes").innerHTML += `
-            <button class="btn-chart" onclick="exibirTalhao(${item.id})" id="btnTalhoes${item.id}">${item.localizacao}</button>
+            <button class="btn-chart" onclick="exibirTalhao(${item.idTalhao})" id="btnTalhoes${item.idTalhao}">${item.localizacao}</button>
             `
 
             document.getElementById("graficos").innerHTML += `
-                <div id="grafico${item.id}" class="display-none">
+                <div id="grafico${item.idTalhao}" class="display-none">
                     <h3 class="tituloGraficos">
-                        <span id="tituloTalhao${item.id}">${item.localizacao}</span>
+                        <span id="tituloTalhao${item.idTalhao}">${item.localizacao}</span>
                     </h3>
                     <div class="graph">
-                        <canvas id="myChartCanvas${item.id}"></canvas>
+                        <canvas id="myChartCanvas${item.idTalhao}"></canvas>
                     </div>
                     <div class="label-captura">
-                        <p id="avisoCaptura${item.id}" style="color: white"></p>
+                        <p id="avisoCaptura${item.idTalhao}" style="color: white"></p>
                     </div>
                 </div>
             `
 
-            obterDadosGrafico(item.id)
+            obterDadosGrafico(item.idTalhao)
         });
 
         if (talhoes.length > 0) {
@@ -115,26 +115,26 @@
         }
     }
 
-    function alterarTitulo(idTalhao) {
-        var tituloTalhao = document.getElementById(`tituloTalhao${idTalhao}`)
-        var localizacao = JSON.parse(sessionStorage.TALHOES).find(item => item.id == idTalhao).localizacao;
+    function alterarTitulo(paramId) {
+        var tituloTalhao = document.getElementById(`tituloTalhao${paramId}`)
+        var localizacao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).localizacao;
         tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>" + localizacao + "</span>"
     }
 
-    function exibirTalhao(idTalhao) {
+    function exibirTalhao(paramId) {
         let todosOsGraficos = JSON.parse(sessionStorage.TALHOES);
 
         for (i = 0; i < todosOsGraficos.length; i++) {
             // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].id != idTalhao) {
-                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
+            if (todosOsGraficos[i].idTalhao != paramId) {
+                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].idTalhao}`)
                 if (elementoAtual.classList.contains("display-block")) {
                     elementoAtual.classList.remove("display-block")
                 }
                 elementoAtual.classList.add("display-none")
 
                 // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnTalhoes${todosOsGraficos[i].id}`)
+                let btnAtual = document.getElementById(`btnTalhoes${todosOsGraficos[i].idTalhao}`)
                 if (btnAtual.classList.contains("btn-pink")) {
                     btnAtual.classList.remove("btn-pink")
                 }
@@ -143,12 +143,12 @@
         }
 
         // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${idTalhao}`)
+        let graficoExibir = document.getElementById(`grafico${paramId}`)
         graficoExibir.classList.remove("display-none")
         graficoExibir.classList.add("display-block")
 
         // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnTalhoes${idTalhao}`)
+        let btnExibir = document.getElementById(`btnTalhoes${paramId}`)
         btnExibir.classList.remove("btn-white")
         btnExibir.classList.add("btn-pink")
     }
@@ -164,21 +164,21 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(idTalhao) {
+    function obterDadosGrafico(paramId) {
 
-        alterarTitulo(idTalhao)
+        alterarTitulo(paramId)
 
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/medidas/ultimas/${idTalhao}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/ultimas/${paramId}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGrafico(resposta, idTalhao);
+                    plotarGrafico(resposta, paramId);
 
                 });
             } else {
@@ -193,7 +193,7 @@
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idTalhao) {
+    function plotarGrafico(resposta, paramId) {
 
         console.log('iniciando plotagem do gráfico...');
 
@@ -239,11 +239,11 @@
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idTalhao}`),
+            document.getElementById(`myChartCanvas${paramId}`),
             config
         );
 
-        setTimeout(() => atualizarGrafico(idTalhao, dados, myChart), 2000);
+        setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
     }
 
 
@@ -252,21 +252,21 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idTalhao, dados, myChart) {
+    function atualizarGrafico(paramId, dados, myChart) {
 
 
 
-        fetch(`/medidas/tempo-real/${idTalhao}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/tempo-real/${paramId}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
-                    obterdados(idTalhao);
-                    alertar(novoRegistro, idTalhao); -- 
+                    obterdados(paramId);
+                    alertar(novoRegistro, paramId); -- 
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
 
-                    let avisoCaptura = document.getElementById(`avisoCaptura${idTalhao}`)
+                    let avisoCaptura = document.getElementById(`avisoCaptura${paramId}`)
                     avisoCaptura.innerHTML = ""
 
 
@@ -291,12 +291,12 @@
                     }
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idTalhao, dados, myChart), 2000);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idTalhao, dados, myChart), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
             }
         })
             .catch(function (error) {
