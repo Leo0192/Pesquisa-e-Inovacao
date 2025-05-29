@@ -2,14 +2,16 @@ var database = require("../database/config");
 
 function buscarUltimasMedidas(idTalhao, limite_linhas) {
 
-    var instrucaoSql = `SELECT 
-                        fkSensor
-                        umidade,
-                        data,
-                        DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
-                    FROM historico_sensor
-                    WHERE fkSensor = ${idTalhao}
-                    ORDER BY fkSensor DESC LIMIT ${limite_linhas}`;
+    var instrucaoSql = `
+    SELECT
+	    idHistorico,
+	    fkSensor,
+	    umidade,
+	    data,
+	    DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
+    FROM historico_sensor
+    ORDER BY idHistorico DESC LIMIT ${limite_linhas * 4};
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -17,12 +19,16 @@ function buscarUltimasMedidas(idTalhao, limite_linhas) {
 
 function buscarMedidasEmTempoReal(idTalhao) {
 
-    var instrucaoSql = `SELECT 
-                        umidade,
-                        DATE_FORMAT(data,'%H:%i:%s') as momento_grafico, 
-                        fkSensor 
-                        FROM historico_sensor WHERE fkSensor = ${idTalhao} 
-                    ORDER BY id DESC LIMIT 1`;
+    var instrucaoSql = `
+    SELECT
+	    idHistorico,
+	    fkSensor,
+	    umidade,
+	    data,
+	    DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
+    FROM historico_sensor
+    ORDER BY idHistorico DESC LIMIT 4;
+    `
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
