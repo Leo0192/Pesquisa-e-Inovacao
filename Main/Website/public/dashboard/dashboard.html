@@ -86,17 +86,17 @@
 
     window.onload = exibirTalhoesDoUsuario();
 
-    function exibirTalhoesDoUsuario() {
+     function exibirTalhoesDoUsuario() {
         var talhoes = JSON.parse(sessionStorage.TALHOES);
         talhoes.forEach(item => {
             document.getElementById("btnTalhoes").innerHTML += `
-            <button class="btn-chart" onclick="exibirTalhao(${item.idTalhao})" id="btnTalhoes${item.idTalhao}">${item.localizacao}</button>
+            <button class="btn-chart" onclick="exibirTalhao(${item.idTalhao})" id="btnTalhoes${item.idTalhao}">Talhão ${item.idTalhao}</button>
             `
 
             document.getElementById("graficos").innerHTML += `
                 <div id="grafico${item.idTalhao}" class="display-none">
                     <h3 class="tituloGraficos">
-                        <span id="tituloTalhao${item.idTalhao}">${item.localizacao}</span>
+                        <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
                     </h3>
                     <div class="graph">
                         <canvas id="myChartCanvas${item.idTalhao}"></canvas>
@@ -117,9 +117,10 @@
 
     function alterarTitulo(paramId) {
         var tituloTalhao = document.getElementById(`tituloTalhao${paramId}`)
-        var localizacao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).localizacao;
-        tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>" + localizacao + "</span>"
+        var talhao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).idTalhao;
+        tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>Talhão " + talhao + "</span>"
     }
+
 
     function exibirTalhao(paramId) {
         let todosOsGraficos = JSON.parse(sessionStorage.TALHOES);
@@ -291,12 +292,12 @@
                     }
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 60000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 60000);
             }
         })
             .catch(function (error) {
