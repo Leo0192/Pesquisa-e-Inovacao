@@ -9,7 +9,10 @@ function buscarUltimasMedidas(idTalhao, limite_linhas) {
 	    umidade,
 	    data,
 	    DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
-    FROM historico_sensor
+        FROM historico_sensor hs
+    JOIN sensor s ON s.idSensor = hs.fkSensor
+    join talhao t on s.fktalhao = t.idtalhao
+    where fkTalhao = ${idTalhao}
     ORDER BY idHistorico DESC LIMIT ${limite_linhas * 4};
     `;
 
@@ -26,7 +29,10 @@ function buscarMedidasEmTempoReal(idTalhao) {
 	    umidade,
 	    data,
 	    DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
-    FROM historico_sensor
+    FROM historico_sensor hs
+    JOIN sensor s ON s.idSensor = hs.fkSensor
+    join talhao t on s.fktalhao = t.idtalhao
+    where fkTalhao = ${idTalhao}
     ORDER BY idHistorico DESC LIMIT 4;
     `
 

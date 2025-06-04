@@ -2,79 +2,185 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vitagro | Dashboards</title>
-
-    
-    <link rel="stylesheet" href="../css/dashboards.css">
-    <link rel="stylesheet" href="../css/estilo.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../Main/Website/styles/style.css" />
+    <link rel="icon" href="../Main/Website/img/logo-VitAgro.ico" />
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-
-    <!-- scripts do Chart.js - 2022-1 -->
+    <title>VitAgro | dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!--FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+    <script src="js/chartjs-config.js"></script>
 </head>
 
-<body onload=" atualizarFeed()">
-
-<!-- <body> -->
-
-    <div class="janela">
-        <div class="header-left">
-            <h1>Vitagro</h1>
-
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./cards.html">
-                    <h3>Talhões</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav">
-
-                <h3>Gráficos</h3>
-
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
+<body>
+    <div class="header">
+        <div class="container">
+    
+          <a href="#" class="titulo">
+            <img src="../Main/Website/img/logo-VitAgro.png" alt="Logo VitAgro" height="80px">
+          </a>
+    
+          <ul class="navbar">
+            <a href="index.html">Home</a>
+            </li>
+            <li class="pipe">|</li>
+            <li>
+              <a href="sobrenos.html">Sobre Nós</a>
+            </li>
+            <li class="pipe">|</li>
+            <li>
+              <a href="calculadora.html">Calculadora Financeira</a>
+            </li>
+            <li class="pipe">|</li>
+            <li>
+              <a href="dashboard.html">Dashboard</a>
+            </li>
+          </ul>
         </div>
+      </div>
 
-        <div class="dash">
-            <div id="alerta">
-            </div>
+    <div class="div_explicacao_situacao">
+        <h1 style="align-self: center;">Índice Situacional:</h1>
+        <h4 class="coloracao-padrao">Situação Padrão: está dentro dos conformes</h4>
+        <h4 class="coloracao-escassez">Situação Escassez de Umidade: a umidade do ambiente está abaixo do ideal, podendo
+            causar os seguintes problemas:
+            Estresse hídrico, Diminuição da produtividade</h4>
+        <h4 class="coloracao-excesso">Situação Excesso de Umidade: a umidade do ambiente está acima do ideal, podendo
+            causar
+            os seguintes problemas:
+            Redução da absorção de água e nutrientes, Proliferação de doenças e fungos</h4>
+    </div>
 
-            <div class="btns-dash" id="btnTalhoes">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
+    <div class="container_alertas">
+        <h1 style="align-self: center;">SITUAÇÃO:</h1>
+        <div class="alertas">
+            <div class="alerta_item">
+                <canvas class="grafico_alerta" id="donut_alerta1"></canvas>
             </div>
-            <div id="graficos">
+            <div class="alerta_item">
+                <canvas class="grafico_alerta" id="donut_alerta2"></canvas>
+            </div>
+            <div class="alerta_item">
+                <canvas class="grafico_alerta" id="donut_alerta3"></canvas>
+            </div>
+            <div class="alerta_item">
+                <canvas class="grafico_alerta" id="donut_alerta4"></canvas>
+            </div>
+            <div class="alerta_item">
+                <canvas class="grafico_alerta" id="donut_alerta5"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="container_controle_situacao">
+        <h1 style="align-self: center;">PAINEL DE SENSORES:</h1>
+        <select id="escolha_hectare" onchange="updateTalhao()">
+            <option value="#">Selecione o Talhão</option>
+            <option value="1">Talhão 1</option>
+            <option value="2">Talhão 2</option>
+            <option value="3">Talhão 3</option>
+            <option value="4">Talhão 4</option>
+            <option value="5">Talhão 5</option>
+            <option value="6">Umidade Mensal</option>
+        </select>
+
+        <div class="div_grafico_donut">
+            <div class="donut_container">
+                <canvas id="donut"></canvas>
+            </div>
+            <div class="legenda_container">
+                <h3 class="coloracao-padrao">Padrão: <span id="padrao_span"></span></h3>
+                <h3 class="coloracao-excesso">Excesso de Umidade: <span id="excesso_span"></span></h3>
+                <h3 class="coloracao-escassez">Escassez de Umidade: <span id="escassez_span"></span></h3>
             </div>
         </div>
     </div>
 
 
+    <div class="div_container_graficos">
+        <div class="div_grafico_sensor">
+            <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+            <div class="div_container_sensor">
+                <canvas id="sensor1"></canvas>
+            </div>
+        </div>
+        <div class="div_grafico_sensor">
+            <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+            <div class="div_container_sensor">
+                <canvas id="sensor2"></canvas>
+            </div>
+        </div>
+        <div class="div_grafico_sensor">
+            <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+            <div class="div_container_sensor">
+                <canvas id="sensor3"></canvas>
+            </div>
+        </div>
+        <div class="div_grafico_sensor">
+            <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+            <div class="div_container_sensor">
+                <canvas id="sensor4"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+
+            <img class="icon-footer" src="../Main/Website/img/Vit_agro_preto-removebg-preview 1.png" alt="Logo VitAgro">
+
+            <div class="links">
+                <p class="titulo-footer">Páginas do site</p>
+                <ul class="link">
+                    <li>
+                        <a href="index.html">Página Inicial
+                        </a>
+                    </li>
+                    <li>
+                        <a href="sobrenos.html">Sobre Nós</a>
+                    </li>
+                    <li>
+                        <a href="calculadora.html">Calculadora Financeira</a>
+                    </li>
+                    <li>
+                        <a href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="contato">
+                <h2 class="titulo-contato">Contato:</h2>
+                <ul class="contatos">
+                    <li>
+                        <p>Email: VitAgro@sptech.school</p>
+                    </li>
+                    <li>
+                        <p>Localização: Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001</p>
+                    </li>
+                    <li class="sociais">
+                        <p>Redes Sociais:
+                        <p>
+                            <a href="#">
+                                <img class="icon-social" src="../Main/Website/img/facebook.png" alt="facebook">
+                            </a>
+                            <a href="#">
+                                <img class="icon-social" src="../Main/Website/img/linkedin.png" alt="linkedin">
+                            </a>
+                            <a href="#">
+                                <img class="icon-social" src="../Main/Website/img/instagram.png" alt="instagram">
+                            </a>
+                            <a href="#">
+                                <img class="icon-social" src="../Main/Website/img/twitter.png" alt="twitter">
+                            </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
 </body>
 
 </html>
@@ -86,26 +192,26 @@
 
     window.onload = exibirTalhoesDoUsuario();
 
-     function exibirTalhoesDoUsuario() {
+    function exibirTalhoesDoUsuario() {
         var talhoes = JSON.parse(sessionStorage.TALHOES);
         talhoes.forEach(item => {
-            document.getElementById("btnTalhoes").innerHTML += `
+document.getElementById("btnTalhoes").innerHTML += `
             <button class="btn-chart" onclick="exibirTalhao(${item.idTalhao})" id="btnTalhoes${item.idTalhao}">Talhão ${item.idTalhao}</button>
             `
 
             document.getElementById("graficos").innerHTML += `
-                <div id="grafico${item.idTalhao}" class="display-none">
-                    <h3 class="tituloGraficos">
-                        <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
-                    </h3>
-                    <div class="graph">
-                        <canvas id="myChartCanvas${item.idTalhao}"></canvas>
-                    </div>
-                    <div class="label-captura">
+            <div id="grafico${item.idTalhao}" class="display-none">
+                <h3 class="tituloGraficos">
+                    <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
+                </h3>
+                <div class="graph">
+                <canvas id="myChartCanvas${item.idTalhao}"></canvas>
+            </div>
+            <div class="label-captura">
                         <p id="avisoCaptura${item.idTalhao}" style="color: white"></p>
                     </div>
                 </div>
-            `
+        `
 
             obterDadosGrafico(item.idTalhao)
         });
@@ -226,7 +332,7 @@
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
+console.log('Labels:')
         console.log(labels)
         console.log('Dados:')
         console.log(dados.datasets)
@@ -236,7 +342,7 @@
         const config = {
             type: 'line',
             data: dados,
-        };
+                    };
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
@@ -262,7 +368,7 @@
                 response.json().then(function (novoRegistro) {
 
                     obterdados(paramId);
-                    alertar(novoRegistro, paramId); -- 
+                    alertar(novoRegistro, paramId); --
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
@@ -270,7 +376,7 @@
                     let avisoCaptura = document.getElementById(`avisoCaptura${paramId}`)
                     avisoCaptura.innerHTML = ""
 
-
+                    
                     if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
