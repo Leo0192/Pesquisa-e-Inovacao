@@ -9,9 +9,9 @@
     <link rel="icon" href="../Main/Website/img/logo-VitAgro.ico" />
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
-    <title>VitAgro | dashboard</title>
+    <title>VitAgro | Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/chartjs-config.js"></script>
+    
 </head>
 
 <body>
@@ -55,22 +55,7 @@
 
     <div class="container_alertas">
         <h1 style="align-self: center;">SITUAÇÃO:</h1>
-        <div class="alertas">
-            <div class="alerta_item">
-                <canvas class="grafico_alerta" id="donut_alerta1"></canvas>
-            </div>
-            <div class="alerta_item">
-                <canvas class="grafico_alerta" id="donut_alerta2"></canvas>
-            </div>
-            <div class="alerta_item">
-                <canvas class="grafico_alerta" id="donut_alerta3"></canvas>
-            </div>
-            <div class="alerta_item">
-                <canvas class="grafico_alerta" id="donut_alerta4"></canvas>
-            </div>
-            <div class="alerta_item">
-                <canvas class="grafico_alerta" id="donut_alerta5"></canvas>
-            </div>
+        <div class="alertas" id="alertas">
         </div>
     </div>
 
@@ -186,229 +171,279 @@
 </html>
 
 <script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    let proximaAtualizacao;
 
-    window.onload = exibirTalhoesDoUsuario();
+let proximaAtualizacao;
 
-    function exibirTalhoesDoUsuario() {
-        var talhoes = JSON.parse(sessionStorage.TALHOES);
-        talhoes.forEach(item => {
-document.getElementById("btnTalhoes").innerHTML += `
-            <button class="btn-chart" onclick="exibirTalhao(${item.idTalhao})" id="btnTalhoes${item.idTalhao}">Talhão ${item.idTalhao}</button>
-            `
+window.onload = exibirTalhoesDoUsuario();
 
-            document.getElementById("graficos").innerHTML += `
-            <div id="grafico${item.idTalhao}" class="display-none">
-                <h3 class="tituloGraficos">
-                    <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
-                </h3>
-                <div class="graph">
-                <canvas id="myChartCanvas${item.idTalhao}"></canvas>
-            </div>
+function exibirTalhoesDoUsuario() {
+    var talhoes = JSON.parse(sessionStorage.TALHOES);
+    talhoes.forEach(item => {
+        document.getElementById("alertas").innerHTML += `
+        <div class="alerta_item">
+            <p style="color: red;">(3)ALERTA!⚠️</p>
+            <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
+            <canvas class="grafico_alerta" id="myChartCanvas${item.idTalhao}"></canvas>
             <div class="label-captura">
                         <p id="avisoCaptura${item.idTalhao}" style="color: white"></p>
                     </div>
-                </div>
+        </div>
         `
 
-            obterDadosGrafico(item.idTalhao)
+        obterDadosGrafico(item.idTalhao)
+    });
+
+    if (talhoes.length > 0) {
+        exibirTalhao(talhoes[0].idTalhao)
+    }
+}
+
+function alterarTitulo(paramId) {
+    var tituloTalhao = document.getElementById(`tituloTalhao${paramId}`)
+    var talhao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).idTalhao;
+    tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>Talhão " + talhao + "</span>"
+}
+
+function exibirTalhao(paramId) {
+    let todosOsGraficos = JSON.parse(sessionStorage.TALHOES);
+
+    for (i = 0; i < todosOsGraficos.length; i++) {
+        // exibindo - ou não - o gráfico
+        if (todosOsGraficos[i].idTalhao != paramId) {
+            let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].idTalhao}`)
+            if (elementoAtual.classList.contains("display-block")) {
+                elementoAtual.classList.remove("display-block")
+            }
+
+            elementoAtual.classList.add("display-none")
+
+            
+        }
+    }
+
+    // exibindo - ou não - o gráfico
+    let graficoExibir = document.getElementById(`alertas${paramId}`)
+
+}
+
+// O gráfico é construído com três funções:
+// 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+// 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+// 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+// Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+// para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+// A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+//     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+//     Para ajustar o "select", ajuste o comando sql em src/models
+function obterDadosGrafico(paramId) {
+
+    alterarTitulo(paramId)
+
+    if (proximaAtualizacao != undefined) {
+        clearTimeout(proximaAtualizacao);
+    }
+
+    fetch(`/medidas/tempo-real/${paramId}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+
+                plotarGrafico(resposta, paramId);
+
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
 
-        if (talhoes.length > 0) {
-            exibirTalhao(talhoes[0].idTalhao)
-        }
-    }
+        fetch(`/medidas/sensor-talhao/${paramId}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
 
-    function alterarTitulo(paramId) {
-        var tituloTalhao = document.getElementById(`tituloTalhao${paramId}`)
-        var talhao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).idTalhao;
-        tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>Talhão " + talhao + "</span>"
-    }
+                plotarGrafico(resposta, paramId);
 
-
-    function exibirTalhao(paramId) {
-        let todosOsGraficos = JSON.parse(sessionStorage.TALHOES);
-
-        for (i = 0; i < todosOsGraficos.length; i++) {
-            // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].idTalhao != paramId) {
-                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].idTalhao}`)
-                if (elementoAtual.classList.contains("display-block")) {
-                    elementoAtual.classList.remove("display-block")
-                }
-                elementoAtual.classList.add("display-none")
-
-                // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnTalhoes${todosOsGraficos[i].idTalhao}`)
-                if (btnAtual.classList.contains("btn-pink")) {
-                    btnAtual.classList.remove("btn-pink")
-                }
-                btnAtual.classList.add("btn-white")
-            }
-        }
-
-        // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${paramId}`)
-        graficoExibir.classList.remove("display-none")
-        graficoExibir.classList.add("display-block")
-
-        // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnTalhoes${paramId}`)
-        btnExibir.classList.remove("btn-white")
-        btnExibir.classList.add("btn-pink")
-    }
-
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
-
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(paramId) {
-
-        alterarTitulo(paramId)
-
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
-
-        fetch(`/medidas/ultimas/${paramId}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-
-                    plotarGrafico(resposta, paramId);
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-    }
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
 
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, paramId) {
+// Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+// Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+// A função *plotarGrafico* também invoca a função *atualizarGrafico*
+function plotarGrafico(resposta, paramId) {
 
-        console.log('iniciando plotagem do gráfico...');
+    var talhao = sessionStorage.TALHOES;
 
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
+    console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
-            datasets: [{
-                label: 'Umidade',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        };
+    // Criando estrutura para plotar gráfico - dados
+    let dados = {
+        labels: ['Padrão', 'Escassez', 'Excesso'],
+        datasets: [{
+            label: 'Porcentagem',
+            data: [],
+            backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+            borderColor: 'brown',
+            borderWidth: 1,
+        }]
+    };
 
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.umidade);
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+
+    let contadorEscassez = 0;
+    let contadorExcesso = 0;
+    let contadorPadrao = 0;
+    let contadorTotal = 0;
+
+    for (i = 0; i < resposta.length; i++) {
+        let ultimoValor = resposta[i].umidade;
+
+        if (ultimoValor < 50) {
+            contadorEscassez++;
+            contadorTotal++;
+        } else if (ultimoValor > 50) {
+            contadorExcesso++;
+            contadorTotal++;
+        } else {
+            contadorPadrao++;
+            contadorTotal++;
         }
 
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-console.log('Labels:')
-        console.log(labels)
-        console.log('Dados:')
-        console.log(dados.datasets)
-        console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const config = {
-            type: 'line',
-            data: dados,
-                    };
-
-        // Adicionando gráfico criado em div na tela
-        let myChart = new Chart(
-            document.getElementById(`myChartCanvas${paramId}`),
-            config
-        );
-
-        setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
     }
 
+    dados.datasets[0].data.push((contadorPadrao / contadorTotal) * 100);
+    dados.datasets[0].data.push((contadorEscassez / contadorTotal) * 100);
+    dados.datasets[0].data.push((contadorExcesso / contadorTotal) * 100);
 
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Dados:')
+    console.log(dados.datasets[0].data)
+    console.log('----------------------------------------------')
 
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(paramId, dados, myChart) {
+    // Criando estrutura para plotar gráfico - config
+    const config = {
+        type: 'doughnut',
+        data: dados,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: `Situação dos Sensores do ${talhao}`
+                }
+            }
+        }
+    };
+
+    // Adicionando gráfico criado em div na tela
+    let myChart = new Chart(
+        document.getElementById(`myChartCanvas${paramId}`),
+        config
+    );
+
+    setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
+}
+
+
+// Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+// buscando a última medida inserida em tabela contendo as capturas, 
+
+//     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+//     Para ajustar o "select", ajuste o comando sql em src/models
+function atualizarGrafico(paramId, dados, myChart) {
 
 
 
-        fetch(`/medidas/tempo-real/${paramId}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
+    fetch(`/medidas/tempo-real/${paramId}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (novoRegistro) {
 
-                    obterdados(paramId);
-                    alertar(novoRegistro, paramId); --
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
+                obterdados(paramId);
+                // alertar(novoRegistro, paramId); -- REATIVAR QUANDO AVISO FUNCIONAR
+                console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                console.log(`Dados atuais do gráfico:`);
+                console.log(dados);
 
-                    let avisoCaptura = document.getElementById(`avisoCaptura${paramId}`)
-                    avisoCaptura.innerHTML = ""
+                let avisoCaptura = document.getElementById(`avisoCaptura${paramId}`)
+                avisoCaptura.innerHTML = ""
 
-                    
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
+                let contadorEscassez = 0;
+                let contadorExcesso = 0;
+                let contadorPadrao = 0;
+                let contadorTotal = 0;
+
+                for (i = 0; i < novoRegistro.length; i++) {
+                    let ultimoValor = novoRegistro[i].umidade;
+
+                    if (ultimoValor < 50) {
+                        contadorEscassez++;
+                        contadorTotal++;
+                    } else if (ultimoValor > 80) {
+                        contadorExcesso++;
+                        contadorTotal++;
                     } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
-
-                        myChart.update();
+                        contadorPadrao++;
+                        contadorTotal++;
                     }
 
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 60000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 60000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+                }
+                porcentPadrao = (contadorPadrao/contadorTotal) * 100;
+                porcentEscassez = (contadorEscassez/contadorTotal) * 100;
+                porcentExcesso = (contadorExcesso/contadorTotal) * 100;
 
-    }
+                if (porcentPadrao == dados.datasets[0].data[0] && porcentEscassez == dados.datasets[0].data[1] && porcentExcesso == dados.datasets[0].data[2]) {
+                    console.log("---------------------------------------------------------------")
+                    console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                    avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                    console.log("Horário do novo dado capturado:")
+                    console.log(novoRegistro[0].momento_grafico)
+                    console.log("Horário do último dado capturado:")
+                    console.log(dados.labels[dados.labels.length - 1])
+                    console.log("---------------------------------------------------------------")
+                } else {
+                    dados.datasets[0].data.splice(0);
+                    dados.datasets[0].data.push(porcentPadrao);
+                    dados.datasets[0].data.push(porcentEscassez);
+                    dados.datasets[0].data.push(porcentExcesso);
+
+                    myChart.update();
+                }
+
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+}
 </script>
