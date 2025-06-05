@@ -40,7 +40,22 @@ function buscarMedidasEmTempoReal(idTalhao) {
     return database.executar(instrucaoSql);
 }
 
+function buscarSensorPorTalhão(idTalhao){
+
+    var instrucaoSql = `
+        select  
+            *
+        from sensor s 
+        join talhao t on t.idtalhao = s.fktalhao
+        where fktalhao = ${idTalhao};
+    `
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    buscarSensorPorTalhão
 }
