@@ -23,19 +23,19 @@
           </a>
     
           <ul class="navbar">
-            <a href="index.html">Home</a>
+            <a href="../index.html">Home</a>
             </li>
             <li class="pipe">|</li>
             <li>
-              <a href="sobrenos.html">Sobre Nós</a>
+              <a href="../sobrenos.html">Sobre Nós</a>
             </li>
             <li class="pipe">|</li>
             <li>
-              <a href="calculadora.html">Calculadora Financeira</a>
+              <a href="../calculadora.html">Calculadora Financeira</a>
             </li>
             <li class="pipe">|</li>
             <li>
-              <a href="dashboard.html">Dashboard</a>
+              <a href="../dashboard.html">Dashboard</a>
             </li>
           </ul>
         </div>
@@ -193,38 +193,12 @@ function exibirTalhoesDoUsuario() {
 
         obterDadosGrafico(item.idTalhao)
     });
-
-    if (talhoes.length > 0) {
-        exibirTalhao(talhoes[0].idTalhao)
-    }
 }
 
 function alterarTitulo(paramId) {
     var tituloTalhao = document.getElementById(`tituloTalhao${paramId}`)
     var talhao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).idTalhao;
     tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>Talhão " + talhao + "</span>"
-}
-
-function exibirTalhao(paramId) {
-    let todosOsGraficos = JSON.parse(sessionStorage.TALHOES);
-
-    for (i = 0; i < todosOsGraficos.length; i++) {
-        // exibindo - ou não - o gráfico
-        if (todosOsGraficos[i].idTalhao != paramId) {
-            let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].idTalhao}`)
-            if (elementoAtual.classList.contains("display-block")) {
-                elementoAtual.classList.remove("display-block")
-            }
-
-            elementoAtual.classList.add("display-none")
-
-            
-        }
-    }
-
-    // exibindo - ou não - o gráfico
-    let graficoExibir = document.getElementById(`alertas${paramId}`)
-
 }
 
 // O gráfico é construído com três funções:

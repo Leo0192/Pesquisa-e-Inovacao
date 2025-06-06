@@ -606,7 +606,7 @@ section{
 .grafico_alerta {
     width: 150px !important;  
     height: 300px !important; 
-    max-width: 150px;
+    max-width: 300px;
     max-height: 300px;
     margin: 5px auto;
     display: block;
