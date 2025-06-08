@@ -32,7 +32,7 @@ function buscarMedidasEmTempoReal(idTalhao) {
     FROM historico_sensor hs
     JOIN sensor s ON s.idSensor = hs.fkSensor
     join talhao t on s.fktalhao = t.idtalhao
-    where fkTalhao = ${idTalhao}
+    where fkSensor = ${idTalhao}
     ORDER BY idHistorico DESC LIMIT 4;
     `
 

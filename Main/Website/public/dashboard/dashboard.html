@@ -260,8 +260,6 @@ function obterDadosGrafico(paramId) {
 // A função *plotarGrafico* também invoca a função *atualizarGrafico*
 function plotarGrafico(resposta, paramId) {
 
-    var talhao = sessionStorage.TALHOES;
-
     console.log('iniciando plotagem do gráfico...');
 
     // Criando estrutura para plotar gráfico - dados
@@ -326,7 +324,7 @@ function plotarGrafico(resposta, paramId) {
                 },
                 title: {
                     display: true,
-                    text: `Situação dos Sensores do ${talhao}`
+                    text: `Situação dos Sensores do ${paramId}`
                 }
             }
         }
