@@ -44,32 +44,21 @@ CREATE TABLE representante (
     status CHAR(7) NOT NULL DEFAULT 'Ativo', -- Status do representante (Ativo/Inativo)
     PRIMARY KEY (idRepresentante),
     CONSTRAINT chk_status_representante CHECK(status IN ('Ativo','Inativo')), -- Restrição para status permitido
-	CONSTRAINT fk_representante_empresa FOREIGN KEY (fkEmpresa)
-        REFERENCES empresa (idEmpresa) -- Relacionamento com a tabela empresa
+    CONSTRAINT fk_representante_empresa FOREIGN KEY (fkEmpresa)
+    REFERENCES empresa (idEmpresa) -- Relacionamento com a tabela empresa
 );
 
 create table contato_representante (
-	idContato INT AUTO_INCREMENT,
+    idContato INT AUTO_INCREMENT,
     email_representante VARCHAR(100) NOT NULL, -- E-mail do representante
-	codigo_internacional CHAR(2) NOT NULL, -- Código internacional do telefone do representante
+    codigo_internacional CHAR(2) NOT NULL, -- Código internacional do telefone do representante
     ddd CHAR(2) NOT NULL, -- DDD do telefone do representante
     telefone CHAR(9) NOT NULL, -- Número do telefone do representante
     fkRepresentante INT NOT NULL UNIQUE,
     PRIMARY KEY (idContato),
-	CONSTRAINT fk_contato_representante FOREIGN KEY (fkRepresentante)
-		REFERENCES representante (idRepresentante) -- Relacionamento com a tabela representante
+    CONSTRAINT fk_contato_representante FOREIGN KEY (fkRepresentante)
+    REFERENCES representante (idRepresentante) -- Relacionamento com a tabela representante
 );
-/* Criação da tabela plantacao, que visa armazenar os dados das diferentes plantações nas quais nosso sistema está instalado,
-junto com a relação da plantação com a empresa parceira, dona do talhao */
-/*
-CREATE TABLE plantacao(
-    idPlantacao INT PRIMARY KEY AUTO_INCREMENT, -- Identificador único da plantação
-    fazenda VARCHAR(60) NOT NULL, -- Fazenda da plantação
-    estado VARCHAR(19) NOT NULL, -- Fazenda da plantação (Não exite nenhum estado brasileiro com mais de 19 caracteres)
-    fkEmpresa INT NOT NULL, -- Identificador da empresa responsável
-    CONSTRAINT fk_idEmpresa FOREIGN KEY(fkEmpresa) REFERENCES empresa(idEmpresa) -- Criação da relação da chave estrangeira
-);
-*/
 
 /* Criação da tabela talhao, que irá separar os sensores instalados em grupos para melhor visualização do usuário e 
 aumento de eficiência no momento da consulta (1 talhao tem 4 sensores dentro do grupo, um talhão possui 500mx1000m) */
@@ -94,11 +83,14 @@ CREATE TABLE sensor(
 /* Criação da tabela 'histórico sensor' onde os registros de umidade medidos pelos sensores serão armazenados, juntamente com o horário em que foi
 feita a medição */
 CREATE TABLE historico_sensor(
-    idHistorico INT PRIMARY KEY AUTO_INCREMENT, -- Identificador único do histórico
+    idHistorico INT AUTO_INCREMENT, -- Identificador único do histórico
     fkSensor INT NOT NULL, -- Identificador do sensor
+    fkTalhao INT NOT NULL,
     umidade int, -- Porcentagem da umidade no momento do registro
     data DATETIME DEFAULT CURRENT_TIMESTAMP, -- Data e horário em que a medição foi feita
-    CONSTRAINT fk_idSensor FOREIGN KEY(fkSensor) REFERENCES sensor(idSensor) -- Criação da relação da chave estrangeira
+    CONSTRAINT fk_idSensor FOREIGN KEY(fkSensor) REFERENCES sensor(idSensor),-- Criação da relação da chave estrangeira
+    CONSTRAINT fk_idTalhao FOREIGN KEY(fkTalhao) REFERENCES talhao(idTalhao),
+    PRIMARY KEY (idHistorico, fkSensor, fkTalhao)
 );
 
 -- Inserindo uma empresa
@@ -131,7 +123,7 @@ VALUES
 
 INSERT INTO contato_representante (email_representante, codigo_internacional, ddd, telefone, fkRepresentante)
 VALUES ('joao@empresa.com', '55', '11', '912345678', 1),
-	   ('maria@agroforte.com', '55', '62', '987654321', 2),
+       ('maria@agroforte.com', '55', '62', '987654321', 2),
        ('carlos@sojaterra.com', '55', '64', '965432109', 3);
 
 -- Inserindo um grupo de sensores na plantação
@@ -154,3 +146,103 @@ SELECT * FROM empresa;
 SELECT * FROM talhao;
 SELECT * FROM sensor;
 SELECT * FROM historico_sensor ORDER BY data DESC;
+    
+SELECT
+    idHistorico,
+    fkSensor,
+    idTalhao,
+    umidade,
+    data,
+    DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
+FROM historico_sensor hs
+JOIN sensor s ON s.idSensor = hs.fkSensor
+join talhao t on s.fktalhao = t.idtalhao
+where idTalhao = 1
+ORDER BY idHistorico DESC, fkSensor LIMIT 4;
+
+    
+select idTalhao from talhao 
+inner join empresa on fkEmpresa=idEmpresa where idEmpresa=1;
+    
+desc historico_sensor;
+    
+INSERT INTO `historico_sensor` VALUES (1,1,1,0,'2025-06-09 11:48:42'),
+(2,2,1,47,'2025-06-09 11:48:42'),
+(3,3,1,0,'2025-06-09 11:48:42'),
+(4,4,1,0,'2025-06-09 11:48:42'),
+(5,1,1,8,'2025-06-09 11:48:42'),
+(6,2,1,0,'2025-06-09 11:48:42'),
+(7,3,1,0,'2025-06-09 11:48:42'),
+(8,4,1,0,'2025-06-09 11:48:42'),
+(9,1,1,65,'2025-06-09 11:48:42'),
+(10,2,1,58,'2025-06-09 11:48:42'),
+(11,3,1,52,'2025-06-09 11:48:42'),
+(12,4,1,47,'2025-06-09 11:48:42');
+
+    
+INSERT INTO `historico_sensor` VALUES (13,1,2,0,'2025-06-09 11:48:42'),
+(14,2,2,47,'2025-06-09 11:48:42'),
+(15,3,2,0,'2025-06-09 11:48:42'),
+(16,4,2,0,'2025-06-09 11:48:42'),
+(17,1,2,8,'2025-06-09 11:48:42'),
+(18,2,2,0,'2025-06-09 11:48:42'),
+(19,3,2,0,'2025-06-09 11:48:42'),
+(20,4,2,0,'2025-06-09 11:48:42'),
+(21,1,2,65,'2025-06-09 11:48:42'),
+(22,2,2,58,'2025-06-09 11:48:42'),
+(23,3,2,52,'2025-06-09 11:48:42'),
+(24,4,2,47,'2025-06-09 11:48:42');
+
+INSERT INTO `historico_sensor` VALUES (36,1,3,0,'2025-06-09 11:48:42'),
+(25,2,3,47,'2025-06-09 11:48:42'),
+(26,3,3,0,'2025-06-09 11:48:42'),
+(27,4,3,0,'2025-06-09 11:48:42'),
+(28,1,3,8,'2025-06-09 11:48:42'),
+(29,2,3,0,'2025-06-09 11:48:42'),
+(30,3,3,0,'2025-06-09 11:48:42'),
+(31,4,3,0,'2025-06-09 11:48:42'),
+(32,1,3,65,'2025-06-09 11:48:42'),
+(33,2,3,58,'2025-06-09 11:48:42'),
+(34,3,3,52,'2025-06-09 11:48:42'),
+(35,4,3,47,'2025-06-09 11:48:42');
+
+SELECT distinct
+    fkSensor,
+    idHistorico,
+    idTalhao,
+    umidade,
+    data,
+    DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
+FROM historico_sensor hs
+JOIN sensor s ON s.idSensor = hs.fkSensor
+join talhao t on s.fktalhao = t.idtalhao
+where idTalhao = 1
+ORDER BY idHistorico DESC, fkSensor LIMIT 4;
+
+SELECT
+    fkSensor,
+    idHistorico,
+    hs.fkTalhao,
+    umidade,
+    data,
+    DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
+FROM historico_sensor hs
+JOIN sensor s ON s.idSensor = hs.fkSensor
+join talhao t on s.fktalhao = t.idtalhao
+where hs.fkTalhao = 
+ORDER BY idHistorico DESC, fkSensor LIMIT 4;
+
+SELECT
+    hs.fkSensor,
+    hs.idHistorico,
+    hs.fkTalhao,
+    hs.umidade,
+    hs.data,
+    DATE_FORMAT(hs.data,'%H:%i:%s') as momento_grafico
+FROM historico_sensor hs
+JOIN sensor s ON s.idSensor = hs.fkSensor
+join talhao t on s.fktalhao = t.idtalhao
+where hs.fkTalhao = 3
+ORDER BY hs.idHistorico DESC, hs.fkSensor LIMIT 4;
+
+select * from historico_sensor order by idHistorico desc;
