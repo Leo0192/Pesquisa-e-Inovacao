@@ -267,7 +267,7 @@ function plotarGrafico(resposta, paramId) {
         if (ultimoValor < 50) {
             contadorEscassez++;
             contadorTotal++;
-        } else if (ultimoValor > 50) {
+        } else if (ultimoValor > 80) {
             contadorExcesso++;
             contadorTotal++;
         } else {
@@ -316,8 +316,6 @@ function plotarGrafico(resposta, paramId) {
 
 function atualizarGrafico(paramId, dados, myChart) {
 
-
-
     fetch(`/medidas/tempo-real/${paramId}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (novoRegistro) {
@@ -342,7 +340,7 @@ function atualizarGrafico(paramId, dados, myChart) {
                     if (ultimoValor < 50) {
                         contadorEscassez++;
                         contadorTotal++;
-                    } else if (ultimoValor > 50) {
+                    } else if (ultimoValor > 80) {
                         contadorExcesso++;
                         contadorTotal++;
                     } else {
@@ -385,6 +383,5 @@ function atualizarGrafico(paramId, dados, myChart) {
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
-
-}
+    }
 </script>
