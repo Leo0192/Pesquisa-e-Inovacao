@@ -24,16 +24,17 @@ function buscarMedidasEmTempoReal(idTalhao) {
 
     var instrucaoSql = `
     SELECT
-	    idHistorico,
-	    fkSensor,
-	    umidade,
-	    data,
-	    DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
-    FROM historico_sensor hs
-    JOIN sensor s ON s.idSensor = hs.fkSensor
-    join talhao t on s.fktalhao = t.idtalhao
-    where fkSensor = ${idTalhao}
-    ORDER BY idHistorico DESC LIMIT 4;
+		hs.fkSensor,
+	    hs.idHistorico,
+        hs.fkTalhao,
+	    hs.umidade,
+	    hs.data,
+	    DATE_FORMAT(hs.data,'%H:%i:%s') as momento_grafico
+FROM historico_sensor hs
+JOIN sensor s ON s.idSensor = hs.fkSensor
+join talhao t on s.fktalhao = t.idtalhao
+where hs.fkTalhao = ${idTalhao}
+ORDER BY hs.idHistorico DESC, hs.fkSensor LIMIT 4;
     `
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
