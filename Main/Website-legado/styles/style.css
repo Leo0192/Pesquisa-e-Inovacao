@@ -691,3 +691,36 @@ section{
     align-items: center;
     flex-direction: column;
   }
+
+  /*CSS da aplicação bobIA*/
+
+  #bot-bobia-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: white;
+  width: 45px;
+  height: 45px;
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00000088;
+  z-index: 1000;
+}
+
+#bobia-frame {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  width: 320px;
+  height: 450px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #000000aa;
+  z-index: 1000;
+}
