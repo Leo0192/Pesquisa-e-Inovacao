@@ -72,12 +72,28 @@ const serial = async (
 
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
+            let numRandom = Math.floor(Math.random() * 101);
 
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO historico_sensor (fkSensor, umidade) VALUES (?, ?), (?, ?), (?, ?), (?, ?)',
-                [1, sensorA, 2, sensorB, 3, sensorC, 4, sensorD]
+                'INSERT INTO historico_sensor (fkSensor, fkTalhao, umidade) VALUES (?, ?, ?), (?, ?, ?), (?, ?, ?), (?, ?, ?)',
+                [1, 1, sensorA, 2, 1, sensorB, 3, 1, sensorC, 4, 1, sensorD]
             );
+
+            await poolBancoDados.execute(
+                'INSERT INTO historico_sensor (fkSensor, fkTalhao, umidade) VALUES (?, ?, ?), (?, ?, ?), (?, ?, ?), (?, ?, ?)',
+                [1, 2, numRandom, 2, 2, numRandom * 1.1, 3, 2, numRandom * 1.2, 4, 2, numRandom * 1.3]
+            );
+
+            await poolBancoDados.execute(
+                'INSERT INTO historico_sensor (fkSensor, fkTalhao, umidade) VALUES (?, ?, ?), (?, ?, ?), (?, ?, ?), (?, ?, ?)',
+                [1, 3, numRandom, 2, 3, numRandom * 0.9, 3, 3, numRandom * 0.8, 4, 3, numRandom * 0.9]
+            );
+
+            // await poolBancoDados.execute(
+            //     'INSERT INTO historico_sensor (fkSensor, fkTalhao, umidade) VALUES (?, ?, ?), (?, ?, ?), (?, ?, ?), (?, ?, ?)',
+            //     [1, 4, (sensorA * 0.7), 2, 4, (sensorB * 1.3), 3, 4, (sensorC * 1), 4, 4, (sensorD * 1.1)]
+            // );
             console.log("valores inseridos no banco: ", sensorA + ", " + sensorB + ", "+ sensorC + ", " + sensorD);
 
         }
