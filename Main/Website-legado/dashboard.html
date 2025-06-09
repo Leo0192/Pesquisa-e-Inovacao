@@ -53,9 +53,8 @@
   <div class="container_alertas">
     <h1 style="align-self: center;">SITUAÇÃO:</h1>
     <div class="alertas">
-      
+
       <div class="alerta_item">
-       
         <p style="color: red;">(3)ALERTA!⚠️</p>
         <canvas class="grafico_alerta" id="donut_alerta1"></canvas>
       </div>
@@ -89,7 +88,7 @@
       <option value="5">Talhão 5</option>
       <option value="6">Umidade Mensal</option>
     </select>
-    
+
     <div class="div_grafico_donut">
       <div class="donut_container">
         <canvas id="donut"></canvas>
@@ -101,7 +100,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="div_container_graficos">
     <div class="div_grafico_sensor">
@@ -132,59 +130,53 @@
 
   <div class="footer">
     <div class="container">
-
       <img class="icon-footer" src="img/Vit_agro_preto-removebg-preview 1.png" alt="Logo VitAgro">
-
       <div class="links">
         <p class="titulo-footer">Páginas do site</p>
         <ul class="link">
-          <li>
-            <a href="index.html">Página Inicial
-            </a>
-          </li>
-          <li>
-            <a href="sobrenos.html">Sobre Nós</a>
-          </li>
-          <li>
-            <a href="calculadora.html">Calculadora Financeira</a>
-          </li>
-          <li>
-            <a href="dashboard.html">Dashboard</a>
-          </li>
+          <li><a href="index.html">Página Inicial</a></li>
+          <li><a href="sobrenos.html">Sobre Nós</a></li>
+          <li><a href="calculadora.html">Calculadora Financeira</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
         </ul>
       </div>
-
-
       <div class="contato">
         <h2 class="titulo-contato">Contato:</h2>
         <ul class="contatos">
-          <li>
-            <p>Email: VitAgro@sptech.school</p>
-          </li>
-          <li>
-            <p>Localização: Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001</p>
-          </li>
+          <li><p>Email: VitAgro@sptech.school</p></li>
+          <li><p>Localização: Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001</p></li>
           <li class="sociais">
-            <p>Redes Sociais:
-            <p>
-              <a href="#">
-                <img class="icon-social" src="img/facebook.png" alt="facebook">
-              </a>
-              <a href="#">
-                <img class="icon-social" src="img/linkedin.png" alt="linkedin">
-              </a>
-              <a href="#">
-                <img class="icon-social" src="img/instagram.png" alt="instagram">
-              </a>
-              <a href="#">
-                <img class="icon-social" src="img/twitter.png" alt="twitter">
-              </a>
+            <p>Redes Sociais:</p>
+            <a href="#"><img class="icon-social" src="img/facebook.png" alt="facebook"></a>
+            <a href="#"><img class="icon-social" src="img/linkedin.png" alt="linkedin"></a>
+            <a href="#"><img class="icon-social" src="img/instagram.png" alt="instagram"></a>
+            <a href="#"><img class="icon-social" src="img/twitter.png" alt="twitter"></a>
           </li>
         </ul>
       </div>
-
     </div>
   </div>
-</body>
 
+  
+  <div id="bot-bobia-icon" onclick="toggleBobIA()">🤖</div>
+
+  
+  <iframe id="bobia-frame" src="http://localhost:3001" style="display: none;"></iframe>
+
+  <script>
+    function toggleBobIA() {
+      const frame = document.getElementById('bobia-frame');
+      frame.style.display = frame.style.display === 'none' ? 'block' : 'none';
+    }
+
+    
+    window.onload = function () {
+      const usuarioLogado = sessionStorage.getItem("usuarioLogado");
+      if (!usuarioLogado) {
+        window.location.href = "login.html";
+      }
+    };
+  </script>
+
+</body>
 </html>
