@@ -133,20 +133,12 @@ INSERT INTO contato_representante (email_representante, codigo_internacional, dd
 VALUES ('joao@empresa.com', '55', '11', '912345678', 1),
 	   ('maria@agroforte.com', '55', '62', '987654321', 2),
        ('carlos@sojaterra.com', '55', '64', '965432109', 3);
-       
--- Inserindo uma plantação vinculada à empresa
-/*
-INSERT INTO plantacao (fazenda, estado, fkEmpresa)
-VALUES ('Fazenda Primavera', 'Goiás', 1),
-       ('Fazenda Bela Vista', 'Mato Grosso', 2),
-       ('Fazenda Novo Horizonte', 'Mato Grosso do Sul', 3);
-*/
 
 -- Inserindo um grupo de sensores na plantação
 INSERT INTO talhao (localizacao, fkEmpresa)
 VALUES ('-22.123456,-47.654321', 1),
-       ('-13.456789,-56.789123', 2),
-       ('-14.123456,-55.987654', 3);
+       ('-13.456789,-56.789123', 1),
+       ('-14.123456,-55.987654', 1);
 
 -- Inserindo um sensor no grupo
 INSERT INTO sensor (localizacao, fktalhao)
@@ -159,7 +151,6 @@ select * from representante;
 select * from contato_representante;
 -- Seleção para verificação das inserções e consulta
 SELECT * FROM empresa;
-SELECT * FROM plantacao;
 SELECT * FROM talhao;
 SELECT * FROM sensor;
 SELECT * FROM historico_sensor ORDER BY data DESC;
