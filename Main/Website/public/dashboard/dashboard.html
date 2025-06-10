@@ -491,7 +491,7 @@
                     borderColor: 'yellow',
                     backgroundColor: 'yellow',
                     usePointStyle: true,
-                        pointStyle: 'line'
+                    pointStyle: 'line'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -499,7 +499,7 @@
                     borderColor: 'crimson',
                     backgroundColor: 'crimson',
                     usePointStyle: true,
-                        pointStyle: 'line'
+                    pointStyle: 'line'
                 }]
             },
             options: {
@@ -526,7 +526,7 @@
     (function CriarGraficos4() {
         if (graficoBarra4) {
             graficoBarra4.destroy();
-        }   
+        }
         const grafico = document.getElementById('graficoLinha4');
         graficoBarra4 = new Chart(grafico.getContext("2d"), {
             type: 'line',
@@ -545,7 +545,7 @@
                     borderColor: 'yellow',
                     backgroundColor: 'yellow',
                     usePointStyle: true,
-                        pointStyle: 'line'
+                    pointStyle: 'line'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -553,7 +553,7 @@
                     borderColor: 'crimson',
                     backgroundColor: 'crimson',
                     usePointStyle: true,
-                        pointStyle: 'line'
+                    pointStyle: 'line'
                 }]
             },
             options: {
@@ -599,7 +599,7 @@
                     borderColor: 'yellow',
                     backgroundColor: 'yellow',
                     usePointStyle: true,
-                        pointStyle: 'line'
+                    pointStyle: 'line'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -607,7 +607,7 @@
                     borderColor: 'crimson',
                     backgroundColor: 'crimson',
                     usePointStyle: true,
-                        pointStyle: 'line'
+                    pointStyle: 'line'
                 }]
             },
             options: {
@@ -653,7 +653,7 @@
                     borderColor: 'yellow',
                     backgroundColor: 'yellow',
                     usePointStyle: true,
-                        pointStyle: 'line'
+                    pointStyle: 'line'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -661,7 +661,7 @@
                     borderColor: 'crimson',
                     backgroundColor: 'crimson',
                     usePointStyle: true,
-                        pointStyle: 'line'
+                    pointStyle: 'line'
                 }]
             },
             options: {
@@ -686,14 +686,27 @@
         });
     })();
     function AtualizarGraficos(grafico, novoLabels, novoDados) {
-        if (grafico.data.labels.length == 7 && grafico.data.datasets[0].data.length == 7) {
-            grafico.data.labels.shift();
-            grafico.data.datasets[0].data.shift();
+        console.log("Esse é o último dado: ", grafico.data.datasets.data[grafico.data.datasets.data.length - 1]);
+        console.log("Esse é o dado que vai tentar entrar: ", novoDados);
+        if (grafico.data.datasets.data[grafico.data.datasets.data.length - 1] == novoDados) {
+            console.log("---------------------------------------------------------------")
+            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+            avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+            console.log("Horário do novo dado capturado:")
+            console.log(novoLabels)
+            console.log("Horário do último dado capturado:")
+            console.log(grafico.data.datasets.data[grafico.data.datasets.data.length - 1])
+            console.log("---------------------------------------------------------------")
+        } else {
+            if (grafico.data.labels.length == 7 && grafico.data.datasets[0].data.length == 7) {
+                grafico.data.labels.shift();
+                grafico.data.datasets[0].data.shift();
+            }
+            grafico.data.labels = novoLabels;
+            grafico.data.datasets[0].data = novoDados;
+            grafico.update();
+            return grafico;
         }
-        grafico.data.labels = novoLabels;
-        grafico.data.datasets[0].data = novoDados;
-        grafico.update();
-        return grafico;
     }
 
     function toggleBobIA() {
