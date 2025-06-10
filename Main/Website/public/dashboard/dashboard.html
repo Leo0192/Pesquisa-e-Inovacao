@@ -82,25 +82,25 @@
     <div class="div_container_graficos" id="div_container_graficos">
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor" style=" width: 30%;">
+            <div class="div_container_sensor" style=" width: 50%;">
                 <canvas id="graficoLinha1"></canvas>
             </div>
         </div>
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor" style=" width: 30%;">
+            <div class="div_container_sensor" style=" width: 50%;">
                 <canvas id="graficoLinha2"></canvas>
             </div>
         </div>
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor" style=" width: 30%;">
+            <div class="div_container_sensor" style=" width: 50%;">
                 <canvas id="graficoLinha3"></canvas>
             </div>
         </div>
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor" style=" width: 30%;">
+            <div class="div_container_sensor" style=" width: 50%;">
                 <canvas id="graficoLinha4"></canvas>
             </div>
         </div> 
@@ -398,7 +398,7 @@ function ObterGraficos(id) {
     labels3 = [];
     qtd3 = [];
     labels4 = [];
-    lqtd4 = [];
+    qtd4 = [];
     proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
     
 }
@@ -416,7 +416,7 @@ function ObterDados(id){
             resposta.forEach(dados => {
                 if (dados.fkSensor == 1) {
                     console.log('fk1');
-                    labels1.push(dados.data);
+                    labels1.push(dados.data); 
                     qtd1.push(dados.umidade);
                 } else if (dados.fkSensor == 2) {
                     console.log('fk2');
@@ -481,7 +481,7 @@ function ObterDados(id){
         graficoBarra4.destroy();
     }
     const grafico = document.getElementById('graficoLinha4');
-    graficoBarra4= new Chart(grafico.getContext("2d"), {
+    graficoBarra4 = new Chart(grafico.getContext("2d"), {
         type: 'line',
         data: {
             labels: [],
@@ -552,6 +552,10 @@ function ObterDados(id){
     });
 }) ();
 function AtualizarGraficos(grafico, novoLabels, novoDados) {
+        if (grafico.data.labels.length == 7 && grafico.data.datasets[0].data.length == 7) {
+            grafico.data.labels.shift();
+            grafico.data.datasets[0].data.shift();
+        }
         grafico.data.labels = novoLabels;
         grafico.data.datasets[0].data = novoDados;
         grafico.update();
