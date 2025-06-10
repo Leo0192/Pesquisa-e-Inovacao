@@ -26,10 +26,10 @@ function alertar(resposta, idTalhao) {
     var grauDeAviso = '';
 
     var limites = {
-        excesso: 80,
-        idealMaximo: 79,
-        idealMinimo: 51,
-        escassez: 50,
+        excesso: 0,
+        idealMaximo: 0,
+        idealMinimo: 0,
+        escassez: 0,
     };
 
     var classe_umidade = 'cor-alerta';
@@ -91,13 +91,13 @@ function exibirCards() {
 
 function transformarEmDiv({ idTalhao, umd, grauDeAviso, grauDeAvisoCor }) {
 
-    var descricao = JSON.parse(sessionStorage.TALHOES).find(item => item.id == idTalhao).descricao;
+    // var descricao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == idTalhao).descricao;
     return `
     <div class="mensagem-alarme">
         <div class="informacao">
-            <div class="${grauDeAvisoCor}">&#12644;</div> 
-            <h3>${descricao} está em estado de ${grauDeAviso}!</h3>
-            <small>umidade capturada: ${umd}°C.</small>   
+            <div class="cor-alerta perigo-frio">&#12644;</div> 
+            <h3>está em estado de !</h3>
+            <small>umidade capturada: 30°C.</small>   
         </div>
         <div class="alarme-sino"></div>
     </div>
