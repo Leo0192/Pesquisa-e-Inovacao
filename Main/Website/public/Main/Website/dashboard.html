@@ -183,6 +183,18 @@
         </ul>
       </div>
 
+
+ <div id="bot-bobia-icon" onclick="toggleBobIA()"  class="robo-bobIA">🤖</div>
+
+  <iframe id="bobia-frame" src="http://localhost:3001" style="display: none;" class="iframe-bobIA"></iframe>
+
+<script>
+    function toggleBobIA() {
+      const frame = document.getElementById('bobia-frame');
+      frame.style.display = frame.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+
     </div>
   </div>
 </body>

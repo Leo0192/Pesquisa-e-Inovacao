@@ -26,11 +26,11 @@ const serial = async (
     // grant insert on vitagro.historico_sensor to 'vitagro;
     let poolBancoDados = mysql.createPool(
         {
-            host: 'localhost',
+            host: '10.18.32.100',
             user: 'aluno',
-            password: 'sptech',
+            password: 'Sptech#2024',
             database: 'vitagro',
-            port: 3306,
+            port: 3307,
             connectTimeout: 30000
         }
     ).promise();
