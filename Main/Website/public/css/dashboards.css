@@ -269,7 +269,7 @@ body {
 }
 
 .graph {
-  width: 70%;
+  width: 100%;
   margin: auto;
   padding-top: 10px;
 }
@@ -306,6 +306,7 @@ body {
 
 .label-captura {
   height: 80px;
+  max-width: 250px;
 }
 
 .display-none {

@@ -713,3 +713,10 @@ section{
     border: 2px #644132 solid;
     height: 500px;
 }
+
+.label-captura {
+    height: 80px;
+    max-width: 250px;
+    justify-content: center;
+    text-align: center;
+  }

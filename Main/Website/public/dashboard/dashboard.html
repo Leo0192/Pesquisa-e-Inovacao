@@ -41,7 +41,7 @@
         </div>
       </div>
 
-    <div class="div_explicacao_situacao">
+    <div class="div_explicacao_situacao" id="div_explicacao_situacao">
         <h1 style="align-self: center;">Índice Situacional:</h1>
         <h4 class="coloracao-padrao">Situação Padrão: está dentro dos conformes</h4>
         <h4 class="coloracao-escassez">Situação Escassez de Umidade: a umidade do ambiente está abaixo do ideal, podendo
@@ -57,54 +57,41 @@
         <h1 style="align-self: center;">SITUAÇÃO:</h1>
         <div>
             <div id="teste_container_avisos"></div>
-            <div id="teste_container_dashboards" class="semNd" style="display: flex;"></div>
+            <div id="teste_container_dashboards" class="semNd" style="display: flex; justify-content: center;"></div>
         </div>
         <div class="alertas" id="alertas">
         </div>
     </div>
 
-    <div class="container_controle_situacao">
+    <div style="display: flex; flex-direction: column;">
         <h1 style="align-self: center;">PAINEL DE SENSORES:</h1>
-
-        <div class="div_grafico_donut">
-            <div class="donut_container">
-                <canvas id="donut"></canvas>
-            </div>
-            <div class="legenda_container">
-                <h3 class="coloracao-padrao">Padrão: <span id="padrao_span"></span></h3>
-                <h3 class="coloracao-excesso">Excesso de Umidade: <span id="excesso_span"></span></h3>
-                <h3 class="coloracao-escassez">Escassez de Umidade: <span id="escassez_span"></span></h3>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="div_container_graficos" id="div_container_graficos">
+        <div class="div_container_graficos" id="div_container_graficos">
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor" style=" width: 50%;">
+            <center><div class="div_container_sensor" style=" width: 60%;">
                 <canvas id="graficoLinha1"></canvas>
-            </div>
+            </div></center>
         </div>
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor" style=" width: 50%;">
+            <center><div class="div_container_sensor" style=" width: 60%;">
                 <canvas id="graficoLinha2"></canvas>
-            </div>
+            </div></center>
         </div>
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor" style=" width: 50%;">
+            <center><div class="div_container_sensor" style=" width: 60%;">
                 <canvas id="graficoLinha3"></canvas>
-            </div>
+            </div></center>
         </div>
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor" style=" width: 50%;">
+            <center><div class="div_container_sensor" style=" width: 60%;">
                 <canvas id="graficoLinha4"></canvas>
-            </div>
+            </div></center>
         </div> 
     </div>
+</div>
 
     <div class="footer">
         <div class="container">
@@ -172,6 +159,10 @@
 </html>
 
 <script>
+    function sumirExplicacao(){
+        div_explicacao_situacao.style.display='none'
+    }
+    setTimeout(sumirExplicacao, 8000);
 
 let proximaAtualizacao;
 let graficoBarra1=null; 
@@ -186,18 +177,19 @@ let labels3 = [];
 let qtd3 = [];
 let labels4 = [];
 let qtd4 = [];
+let controlee=0;
 window.onload = exibirTalhoesDoUsuario();
 
 function exibirTalhoesDoUsuario() {
     var talhoes = JSON.parse(sessionStorage.TALHOES);
     talhoes.forEach(item => {
         document.getElementById("teste_container_dashboards").innerHTML += `
-            <div id="grafico${item.idTalhao}" style=" width: 30%;">
+            <div id="grafico${item.idTalhao}" style=" width: 90%;">
                 <h3 class="tituloGraficos">
                     <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
                 </h3>
                 <div id = "alerta"> </div>
-                <a class="semNd" href="javascript:ObterGraficos(${item.idTalhao})">
+                <a class="semNd" href="javascript:controle(${item.idTalhao})">
                 <div class="graph">
                     <canvas id="myChartCanvas${item.idTalhao}"></canvas>
                 </div>
@@ -213,15 +205,15 @@ function exibirTalhoesDoUsuario() {
     });
 }
 
-function alterarTitulo(paramId) {
-    var tituloTalhao = document.getElementById(`tituloTalhao${paramId}`)
-    var talhao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).idTalhao;
-    tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>Talhão " + talhao + "</span>"
-}
+// function alterarTitulo(paramId) {
+//     var tituloTalhao = document.getElementById(`tituloTalhao${paramId}`)
+//     var talhao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).idTalhao;
+//     tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>Talhão " + talhao + "</span>"
+// }
 
 function obterDadosGrafico(paramId) {
 
-    alterarTitulo(paramId)
+    // alterarTitulo(paramId)
 
     if (proximaAtualizacao != undefined) {
         clearTimeout(proximaAtualizacao);
@@ -311,7 +303,7 @@ function plotarGrafico(resposta, paramId) {
                 },
                 title: {
                     display: true,
-                    text: 'Situação dos Sensores'
+                    text: `Situação do Talhão ${paramId}`
                 }
             }
         }
@@ -397,6 +389,11 @@ function atualizarGrafico(paramId, dados, myChart) {
         });
     }
 
+function controle(id){
+    controlee=id
+    ObterGraficos(id)
+
+}
 function ObterGraficos(id) {
     labels1 = [];
     qtd1 = [];
@@ -410,6 +407,9 @@ function ObterGraficos(id) {
     
 }
 function ObterDados(id){
+    if (controlee!=id){
+        return
+    }
     fetch(`/medidas/tempo-real/${id}`, { cache: 'no-store' })
         .then(response => {
             if (response.ok) {
@@ -423,19 +423,19 @@ function ObterDados(id){
             resposta.forEach(dados => {
                 if (dados.fkSensor == 1) {
                     console.log('fk1');
-                    labels1.push(dados.data); 
+                    labels1.push(dados.momento_grafico); 
                     qtd1.push(dados.umidade);
                 } else if (dados.fkSensor == 2) {
                     console.log('fk2');
-                    labels2.push(dados.data);
+                    labels2.push(dados.momento_grafico);
                     qtd2.push(dados.umidade);
                 } else if (dados.fkSensor == 3) {
                     console.log('fk3');
-                    labels3.push(dados.data);
+                    labels3.push(dados.momento_grafico);
                     qtd3.push(dados.umidade);
                 } else if (dados.fkSensor == 4) {
                     console.log('fk4');
-                    labels4.push(dados.data);
+                    labels4.push(dados.momento_grafico);
                     qtd4.push(dados.umidade);
                 }
             });
@@ -452,7 +452,7 @@ function ObterDados(id){
             graficoBarra3 = AtualizarGraficos(graficoBarra3, labels3, qtd3);
             graficoBarra4 = AtualizarGraficos(graficoBarra4, labels4, qtd4);
             let proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
-            
+            return
         })
         .catch(error => {
             console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
