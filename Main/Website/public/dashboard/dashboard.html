@@ -11,35 +11,35 @@
     <script src="./../js/alerta.js"></script>
     <title>VitAgro | Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
 </head>
 
 <body>
     <div class="header">
         <div class="container">
-    
-          <a href="#" class="titulo">
-            <img src="../Main/Website/img/logo-VitAgro.png" alt="Logo VitAgro" height="80px">
-          </a>
-    
-          <ul class="navbar">
-            <a href="../index.html">Home</a>
-            </li>
-            <li class="pipe">|</li>
-            <li>
-              <a href="../sobrenos.html">Sobre Nós</a>
-            </li>
-            <li class="pipe">|</li>
-            <li>
-              <a href="../calculadora.html">Calculadora Financeira</a>
-            </li>
-            <li class="pipe">|</li>
-            <li>
-              <a href="../dashboard.html">Dashboard</a>
-            </li>
-          </ul>
+
+            <a href="#" class="titulo">
+                <img src="../Main/Website/img/logo-VitAgro.png" alt="Logo VitAgro" height="80px">
+            </a>
+
+            <ul class="navbar">
+                <a href="../index.html">Home</a>
+                </li>
+                <li class="pipe">|</li>
+                <li>
+                    <a href="../sobrenos.html">Sobre Nós</a>
+                </li>
+                <li class="pipe">|</li>
+                <li>
+                    <a href="../calculadora.html">Calculadora Financeira</a>
+                </li>
+                <li class="pipe">|</li>
+                <li>
+                    <a href="../dashboard.html">Dashboard</a>
+                </li>
+            </ul>
         </div>
-      </div>
+    </div>
 
     <div class="div_explicacao_situacao" id="div_explicacao_situacao">
         <h1 style="align-self: center;">Índice Situacional:</h1>
@@ -63,35 +63,43 @@
         </div>
     </div>
 
-    <div style="display: flex; flex-direction: column;">
+    <div style="display: none; flex-direction: column;" id="painel_sensores">
         <h1 style="align-self: center;">PAINEL DE SENSORES:</h1>
         <div class="div_container_graficos" id="div_container_graficos">
-        <div class="div_grafico_sensor">
-            <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <center><div class="div_container_sensor" style=" width: 60%;">
-                <canvas id="graficoLinha1"></canvas>
-            </div></center>
+            <div class="div_grafico_sensor">
+                <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+                <center>
+                    <div class="div_container_sensor" style=" width: 80%;">
+                        <canvas id="graficoLinha1"></canvas>
+                    </div>
+                </center>
+            </div>
+            <div class="div_grafico_sensor">
+                <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+                <center>
+                    <div class="div_container_sensor" style=" width: 80%;">
+                        <canvas id="graficoLinha2"></canvas>
+                    </div>
+                </center>
+            </div>
+            <div class="div_grafico_sensor">
+                <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+                <center>
+                    <div class="div_container_sensor" style=" width: 80%;">
+                        <canvas id="graficoLinha3"></canvas>
+                    </div>
+                </center>
+            </div>
+            <div class="div_grafico_sensor">
+                <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
+                <center>
+                    <div class="div_container_sensor" style=" width: 80%;">
+                        <canvas id="graficoLinha4"></canvas>
+                    </div>
+                </center>
+            </div>
         </div>
-        <div class="div_grafico_sensor">
-            <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <center><div class="div_container_sensor" style=" width: 60%;">
-                <canvas id="graficoLinha2"></canvas>
-            </div></center>
-        </div>
-        <div class="div_grafico_sensor">
-            <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <center><div class="div_container_sensor" style=" width: 60%;">
-                <canvas id="graficoLinha3"></canvas>
-            </div></center>
-        </div>
-        <div class="div_grafico_sensor">
-            <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <center><div class="div_container_sensor" style=" width: 60%;">
-                <canvas id="graficoLinha4"></canvas>
-            </div></center>
-        </div> 
     </div>
-</div>
 
     <div class="footer">
         <div class="container">
@@ -149,41 +157,41 @@
         </div>
     </div>
 
-    <div id="bot-bobia-icon" onclick="toggleBobIA()"  class="robo-bobIA">🤖</div>
+    <div id="bot-bobia-icon" onclick="toggleBobIA()" class="robo-bobIA">🤖</div>
 
-  
-  <iframe id="bobia-frame" src="http://localhost:3001" style="display: none;" class="iframe-bobIA"></iframe>
+
+    <iframe id="bobia-frame" src="http://localhost:3001" style="display: none;" class="iframe-bobIA"></iframe>
 
 </body>
 
 </html>
 
 <script>
-    function sumirExplicacao(){
-        div_explicacao_situacao.style.display='none'
+    function sumirExplicacao() {
+        div_explicacao_situacao.style.display = 'none'
     }
     setTimeout(sumirExplicacao, 8000);
 
-let proximaAtualizacao;
-let graficoBarra1=null; 
-let graficoBarra2=null;
-let graficoBarra3=null;
-let graficoBarra4=null;
-let labels1 = [];
-let qtd1 = [];
-let labels2 = [];
-let qtd2 = [];
-let labels3 = [];
-let qtd3 = [];
-let labels4 = [];
-let qtd4 = [];
-let controlee=0;
-window.onload = exibirTalhoesDoUsuario();
+    let proximaAtualizacao;
+    let graficoBarra1 = null;
+    let graficoBarra2 = null;
+    let graficoBarra3 = null;
+    let graficoBarra4 = null;
+    let labels1 = [];
+    let qtd1 = [];
+    let labels2 = [];
+    let qtd2 = [];
+    let labels3 = [];
+    let qtd3 = [];
+    let labels4 = [];
+    let qtd4 = [];
+    let controlee = 0;
+    window.onload = exibirTalhoesDoUsuario();
 
-function exibirTalhoesDoUsuario() {
-    var talhoes = JSON.parse(sessionStorage.TALHOES);
-    talhoes.forEach(item => {
-        document.getElementById("teste_container_dashboards").innerHTML += `
+    function exibirTalhoesDoUsuario() {
+        var talhoes = JSON.parse(sessionStorage.TALHOES);
+        talhoes.forEach(item => {
+            document.getElementById("teste_container_dashboards").innerHTML += `
             <div id="grafico${item.idTalhao}" style=" width: 90%;">
                 <h3 class="tituloGraficos">
                     <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
@@ -201,364 +209,481 @@ function exibirTalhoesDoUsuario() {
             
         `
 
-        obterDadosGrafico(item.idTalhao)
-    });
-}
-
-// function alterarTitulo(paramId) {
-//     var tituloTalhao = document.getElementById(`tituloTalhao${paramId}`)
-//     var talhao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).idTalhao;
-//     tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>Talhão " + talhao + "</span>"
-// }
-
-function obterDadosGrafico(paramId) {
-
-    // alterarTitulo(paramId)
-
-    if (proximaAtualizacao != undefined) {
-        clearTimeout(proximaAtualizacao);
-    }
-
-    fetch(`/medidas/tempo-real/${paramId}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
-
-                plotarGrafico(resposta, paramId);
-
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            obterDadosGrafico(item.idTalhao)
         });
-}
-
-function plotarGrafico(resposta, paramId) {
-
-    console.log('iniciando plotagem do gráfico...');
-
-    // Criando estrutura para plotar gráfico - dados
-    let dados = {
-        labels: ['Padrão', 'Escassez', 'Excesso'],
-        datasets: [{
-            label: 'Porcentagem',
-            data: [],
-            backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
-            borderColor: 'brown',
-            borderWidth: 1,
-        }]
-    };
-
-    console.log('----------------------------------------------')
-    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-    console.log(resposta)
-
-
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
-
-    let contadorEscassez = 0;
-    let contadorExcesso = 0;
-    let contadorPadrao = 0;
-    let contadorTotal = 0;
-
-    for (i = 0; i < resposta.length; i++) {
-        let ultimoValor = resposta[i].umidade;
-
-        if (ultimoValor < 50) {
-            contadorEscassez++;
-            contadorTotal++;
-        } else if (ultimoValor > 80) {
-            contadorExcesso++;
-            contadorTotal++;
-        } else {
-            contadorPadrao++;
-            contadorTotal++;
-        }
-
     }
 
-    dados.datasets[0].data.push((contadorPadrao / contadorTotal) * 100);
-    dados.datasets[0].data.push((contadorEscassez / contadorTotal) * 100);
-    dados.datasets[0].data.push((contadorExcesso / contadorTotal) * 100);
+    // function alterarTitulo(paramId) {
+    //     var tituloTalhao = document.getElementById(`tituloTalhao${paramId}`)
+    //     var talhao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == paramId).idTalhao;
+    //     tituloTalhao.innerHTML = "Últimas medidas de Umidade do <span style='color: #e6005a'>Talhão " + talhao + "</span>"
+    // }
 
-    console.log('----------------------------------------------')
-    console.log('O gráfico será plotado com os respectivos valores:')
-    console.log('Dados:')
-    console.log(dados.datasets[0].data)
-    console.log('----------------------------------------------')
+    function obterDadosGrafico(paramId) {
 
-    // Criando estrutura para plotar gráfico - config
-    const config = {
-        type: 'doughnut',
-        data: dados,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                },
-                title: {
-                    display: true,
-                    text: `Situação do Talhão ${paramId}`
+        // alterarTitulo(paramId)
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(`/medidas/tempo-real/${paramId}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, paramId);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGrafico(resposta, paramId) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: ['Padrão', 'Escassez', 'Excesso'],
+            datasets: [{
+                label: 'Porcentagem',
+                data: [],
+                backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+                borderColor: 'brown',
+                borderWidth: 1,
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+
+        let contadorEscassez = 0;
+        let contadorExcesso = 0;
+        let contadorPadrao = 0;
+        let contadorTotal = 0;
+
+        for (i = 0; i < resposta.length; i++) {
+            let ultimoValor = resposta[i].umidade;
+
+            if (ultimoValor < 50) {
+                contadorEscassez++;
+                contadorTotal++;
+            } else if (ultimoValor > 80) {
+                contadorExcesso++;
+                contadorTotal++;
+            } else {
+                contadorPadrao++;
+                contadorTotal++;
+            }
+
+        }
+
+        dados.datasets[0].data.push((contadorPadrao / contadorTotal) * 100);
+        dados.datasets[0].data.push((contadorEscassez / contadorTotal) * 100);
+        dados.datasets[0].data.push((contadorExcesso / contadorTotal) * 100);
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Dados:')
+        console.log(dados.datasets[0].data)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'doughnut',
+            data: dados,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: `Situação do Talhão ${paramId}`
+                    }
                 }
             }
-        }
-    };
+        };
 
-    // Adicionando gráfico criado em div na tela
-    let myChart = new Chart(
-        document.getElementById(`myChartCanvas${paramId}`),
-        config
-    );
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChartCanvas${paramId}`),
+            config
+        );
 
-    setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
-}
+        setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
+    }
 
-function atualizarGrafico(paramId, dados, myChart) {
+    function atualizarGrafico(paramId, dados, myChart) {
 
-    fetch(`/medidas/tempo-real/${paramId}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (novoRegistro) {
+        fetch(`/medidas/tempo-real/${paramId}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
 
-                obterdados(paramId);
-                // alertar(novoRegistro, paramId); -- REATIVAR QUANDO AVISO FUNCIONAR
-                console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                console.log(`Dados atuais do gráfico:`);
-                console.log(dados);
+                    obterdados(paramId);
+                    // alertar(novoRegistro, paramId); -- REATIVAR QUANDO AVISO FUNCIONAR
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
 
-                let avisoCaptura = document.getElementById(`avisoCaptura${paramId}`)
-                avisoCaptura.innerHTML = ""
+                    let avisoCaptura = document.getElementById(`avisoCaptura${paramId}`)
+                    avisoCaptura.innerHTML = ""
 
-                let contadorEscassez = 0;
-                let contadorExcesso = 0;
-                let contadorPadrao = 0;
-                let contadorTotal = 0;
+                    let contadorEscassez = 0;
+                    let contadorExcesso = 0;
+                    let contadorPadrao = 0;
+                    let contadorTotal = 0;
 
-                for (i = 0; i < novoRegistro.length; i++) {
-                    let ultimoValor = novoRegistro[i].umidade;
+                    for (i = 0; i < novoRegistro.length; i++) {
+                        let ultimoValor = novoRegistro[i].umidade;
 
-                    if (ultimoValor < 50) {
-                        contadorEscassez++;
-                        contadorTotal++;
-                    } else if (ultimoValor > 80) {
-                        contadorExcesso++;
-                        contadorTotal++;
+                        if (ultimoValor < 50) {
+                            contadorEscassez++;
+                            contadorTotal++;
+                        } else if (ultimoValor > 80) {
+                            contadorExcesso++;
+                            contadorTotal++;
+                        } else {
+                            contadorPadrao++;
+                            contadorTotal++;
+                        }
+
+                    }
+                    porcentPadrao = (contadorPadrao / contadorTotal) * 100;
+                    porcentEscassez = (contadorEscassez / contadorTotal) * 100;
+                    porcentExcesso = (contadorExcesso / contadorTotal) * 100;
+
+                    if (porcentPadrao == dados.datasets[0].data[0] && porcentEscassez == dados.datasets[0].data[1] && porcentExcesso == dados.datasets[0].data[2]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
                     } else {
-                        contadorPadrao++;
-                        contadorTotal++;
+                        dados.datasets[0].data.splice(0);
+                        dados.datasets[0].data.push(porcentPadrao);
+                        dados.datasets[0].data.push(porcentEscassez);
+                        dados.datasets[0].data.push(porcentExcesso);
+
+                        myChart.update();
                     }
 
-                }
-                porcentPadrao = (contadorPadrao/contadorTotal) * 100;
-                porcentEscassez = (contadorEscassez/contadorTotal) * 100;
-                porcentExcesso = (contadorExcesso/contadorTotal) * 100;
-
-                if (porcentPadrao == dados.datasets[0].data[0] && porcentEscassez == dados.datasets[0].data[1] && porcentExcesso == dados.datasets[0].data[2]) {
-                    console.log("---------------------------------------------------------------")
-                    console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                    avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                    console.log("Horário do novo dado capturado:")
-                    console.log(novoRegistro[0].momento_grafico)
-                    console.log("Horário do último dado capturado:")
-                    console.log(dados.labels[dados.labels.length - 1])
-                    console.log("---------------------------------------------------------------")
-                } else {
-                    dados.datasets[0].data.splice(0);
-                    dados.datasets[0].data.push(porcentPadrao);
-                    dados.datasets[0].data.push(porcentEscassez);
-                    dados.datasets[0].data.push(porcentExcesso);
-
-                    myChart.update();
-                }
-
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                 proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-    }
-
-function controle(id){
-    controlee=id
-    ObterGraficos(id)
-
-}
-function ObterGraficos(id) {
-    labels1 = [];
-    qtd1 = [];
-    labels2 = [];
-    qtd2 = [];
-    labels3 = [];
-    qtd3 = [];
-    labels4 = [];
-    qtd4 = [];
-    proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
-    
-}
-function ObterDados(id){
-    if (controlee!=id){
-        return
-    }
-    fetch(`/medidas/tempo-real/${id}`, { cache: 'no-store' })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Nenhum dado encontrado ou erro na API');
             }
         })
-        .then(resposta => {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            resposta.forEach(dados => {
-                if (dados.fkSensor == 1) {
-                    console.log('fk1');
-                    labels1.push(dados.momento_grafico); 
-                    qtd1.push(dados.umidade);
-                } else if (dados.fkSensor == 2) {
-                    console.log('fk2');
-                    labels2.push(dados.momento_grafico);
-                    qtd2.push(dados.umidade);
-                } else if (dados.fkSensor == 3) {
-                    console.log('fk3');
-                    labels3.push(dados.momento_grafico);
-                    qtd3.push(dados.umidade);
-                } else if (dados.fkSensor == 4) {
-                    console.log('fk4');
-                    labels4.push(dados.momento_grafico);
-                    qtd4.push(dados.umidade);
-                }
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-            console.log(`Labels 1: ${labels1}`);
-            console.log(`Qtd 1: ${qtd1}`);
-            console.log(`Labels 2: ${labels2}`);
-            console.log(`Qtd 2: ${qtd2}`);
-            console.log(`Labels 3: ${labels3}`);
-            console.log(`Qtd 3: ${qtd3}`);
-            console.log(`Labels 4: ${labels4}`);
-            console.log(`Qtd 4: ${qtd4}`);
-            graficoBarra1 = AtualizarGraficos(graficoBarra1, labels1, qtd1);
-            graficoBarra2 = AtualizarGraficos(graficoBarra2, labels2, qtd2);
-            graficoBarra3 = AtualizarGraficos(graficoBarra3, labels3, qtd3);
-            graficoBarra4 = AtualizarGraficos(graficoBarra4, labels4, qtd4);
-            let proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
+    }
+
+    function controle(id) {
+        painel_sensores.style.display = 'flex';
+        controlee = id
+        ObterGraficos(id)
+
+    }
+    function ObterGraficos(id) {
+        labels1 = [];
+        qtd1 = [];
+        labels2 = [];
+        qtd2 = [];
+        labels3 = [];
+        qtd3 = [];
+        labels4 = [];
+        qtd4 = [];
+        proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
+
+    }
+    function ObterDados(id) {
+        if (controlee != id) {
             return
-        })
-        .catch(error => {
-            console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
+        }
+        fetch(`/medidas/tempo-real/${id}`, { cache: 'no-store' })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .then(resposta => {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.forEach(dados => {
+                    if (dados.fkSensor == 1) {
+                        console.log('fk1');
+                        labels1.push(dados.momento_grafico);
+                        qtd1.push(dados.umidade);
+                    } else if (dados.fkSensor == 2) {
+                        console.log('fk2');
+                        labels2.push(dados.momento_grafico);
+                        qtd2.push(dados.umidade);
+                    } else if (dados.fkSensor == 3) {
+                        console.log('fk3');
+                        labels3.push(dados.momento_grafico);
+                        qtd3.push(dados.umidade);
+                    } else if (dados.fkSensor == 4) {
+                        console.log('fk4');
+                        labels4.push(dados.momento_grafico);
+                        qtd4.push(dados.umidade);
+                    }
+                });
+                console.log(`Labels 1: ${labels1}`);
+                console.log(`Qtd 1: ${qtd1}`);
+                console.log(`Labels 2: ${labels2}`);
+                console.log(`Qtd 2: ${qtd2}`);
+                console.log(`Labels 3: ${labels3}`);
+                console.log(`Qtd 3: ${qtd3}`);
+                console.log(`Labels 4: ${labels4}`);
+                console.log(`Qtd 4: ${qtd4}`);
+                graficoBarra1 = AtualizarGraficos(graficoBarra1, labels1, qtd1);
+                graficoBarra2 = AtualizarGraficos(graficoBarra2, labels2, qtd2);
+                graficoBarra3 = AtualizarGraficos(graficoBarra3, labels3, qtd3);
+                graficoBarra4 = AtualizarGraficos(graficoBarra4, labels4, qtd4);
+                let proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
+                return
+            })
+            .catch(error => {
+                console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
+            });
+    }
+    (function CriarGraficos1() {
+        if (graficoBarra1) {
+            graficoBarra1.destroy();
+        }
+        const grafico = document.getElementById('graficoLinha1');
+        graficoBarra1 = new Chart(grafico.getContext("2d"), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Sensor 1',
+                    data: [],
+                    borderColor: 'green',
+                    backgroundColor: 'green',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Umidade Mínima (%)',
+                    data: [50, 50, 50, 50, 50, 50, 50],
+                    borderColor: 'yellow',
+                    backgroundColor: 'yellow',
+                    usePointStyle: true,
+                        pointStyle: 'line'
+                },
+                {
+                    label: 'Umidade Máxima (%)',
+                    data: [80, 80, 80, 80, 80, 80, 80],
+                    borderColor: 'crimson',
+                    backgroundColor: 'crimson',
+                    usePointStyle: true,
+                        pointStyle: 'line'
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Sensor A'
+                        },
+                        beginAtZero: true
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '(%)'
+                        },
+                        beginAtZero: true,
+                        max: 100,
+                    },
+                },
+            }
         });
-}
-(function CriarGraficos1() {
-    if (graficoBarra1) {
-        graficoBarra1.destroy();
-    }
-    const grafico = document.getElementById('graficoLinha1');
-    graficoBarra1 = new Chart(grafico.getContext("2d"), {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Umidade',
-                data: [],
-                backgroundColor: ['rgb(212, 0, 0)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+    })();
+    (function CriarGraficos4() {
+        if (graficoBarra4) {
+            graficoBarra4.destroy();
+        }   
+        const grafico = document.getElementById('graficoLinha4');
+        graficoBarra4 = new Chart(grafico.getContext("2d"), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Sensor 4',
+                    data: [],
+                    borderColor: 'green',
+                    backgroundColor: 'green',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Umidade Mínima (%)',
+                    data: [50, 50, 50, 50, 50, 50, 50],
+                    borderColor: 'yellow',
+                    backgroundColor: 'yellow',
+                    usePointStyle: true,
+                        pointStyle: 'line'
+                },
+                {
+                    label: 'Umidade Máxima (%)',
+                    data: [80, 80, 80, 80, 80, 80, 80],
+                    borderColor: 'crimson',
+                    backgroundColor: 'crimson',
+                    usePointStyle: true,
+                        pointStyle: 'line'
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Sensor A'
+                        },
+                        beginAtZero: true
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '(%)'
+                        },
+                        beginAtZero: true,
+                        max: 100,
+                    },
+                },
             }
+        });
+    })();
+    (function CriarGraficos2() {
+        if (graficoBarra2) {
+            graficoBarra2.destroy();
         }
-    });
-}) ();
-(function CriarGraficos4() {
-    if (graficoBarra4) {
-        graficoBarra4.destroy();
-    }
-    const grafico = document.getElementById('graficoLinha4');
-    graficoBarra4 = new Chart(grafico.getContext("2d"), {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Umidade',
-                data: [],
-                backgroundColor: ['rgb(212, 0, 0)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+        const grafico = document.getElementById('graficoLinha2');
+        graficoBarra2 = new Chart(grafico.getContext("2d"), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Sensor 2',
+                    data: [],
+                    borderColor: 'green',
+                    backgroundColor: 'green',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Umidade Mínima (%)',
+                    data: [50, 50, 50, 50, 50, 50, 50],
+                    borderColor: 'yellow',
+                    backgroundColor: 'yellow',
+                    usePointStyle: true,
+                        pointStyle: 'line'
+                },
+                {
+                    label: 'Umidade Máxima (%)',
+                    data: [80, 80, 80, 80, 80, 80, 80],
+                    borderColor: 'crimson',
+                    backgroundColor: 'crimson',
+                    usePointStyle: true,
+                        pointStyle: 'line'
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Sensor A'
+                        },
+                        beginAtZero: true
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '(%)'
+                        },
+                        beginAtZero: true,
+                        max: 100,
+                    },
+                },
             }
+        });
+    })();
+    (function CriarGraficos3() {
+        if (graficoBarra3) {
+            graficoBarra3.destroy();
         }
-    });
-}) ();
-(function CriarGraficos2() {
-    if (graficoBarra2) {
-        graficoBarra2.destroy();
-    }
-    const grafico = document.getElementById('graficoLinha2');
-    graficoBarra2 = new Chart(grafico.getContext("2d"), {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Umidade',
-                data: [],
-                backgroundColor: ['rgb(212, 0, 0)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+        const grafico = document.getElementById('graficoLinha3');
+        graficoBarra3 = new Chart(grafico.getContext("2d"), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Sensor 3',
+                    data: [],
+                    borderColor: 'green',
+                    backgroundColor: 'green',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Umidade Mínima (%)',
+                    data: [50, 50, 50, 50, 50, 50, 50],
+                    borderColor: 'yellow',
+                    backgroundColor: 'yellow',
+                    usePointStyle: true,
+                        pointStyle: 'line'
+                },
+                {
+                    label: 'Umidade Máxima (%)',
+                    data: [80, 80, 80, 80, 80, 80, 80],
+                    borderColor: 'crimson',
+                    backgroundColor: 'crimson',
+                    usePointStyle: true,
+                        pointStyle: 'line'
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Sensor A'
+                        },
+                        beginAtZero: true
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '(%)'
+                        },
+                        beginAtZero: true,
+                        max: 100,
+                    },
+                },
             }
-        }
-    });
-}) ();
-(function CriarGraficos3() {
-    if (graficoBarra3) {
-        graficoBarra3.destroy();
-    }
-    const grafico = document.getElementById('graficoLinha3');
-    graficoBarra3 = new Chart(grafico.getContext("2d"), {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Umidade',
-                data: [],
-                backgroundColor: ['rgb(212, 0, 0)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}) ();
-function AtualizarGraficos(grafico, novoLabels, novoDados) {
+        });
+    })();
+    function AtualizarGraficos(grafico, novoLabels, novoDados) {
         if (grafico.data.labels.length == 7 && grafico.data.datasets[0].data.length == 7) {
             grafico.data.labels.shift();
             grafico.data.datasets[0].data.shift();
@@ -567,10 +692,10 @@ function AtualizarGraficos(grafico, novoLabels, novoDados) {
         grafico.data.datasets[0].data = novoDados;
         grafico.update();
         return grafico;
-}
+    }
 
-function toggleBobIA() {
-      const frame = document.getElementById('bobia-frame');
-      frame.style.display = frame.style.display === 'none' ? 'block' : 'none';
+    function toggleBobIA() {
+        const frame = document.getElementById('bobia-frame');
+        frame.style.display = frame.style.display === 'none' ? 'block' : 'none';
     }
 </script>
