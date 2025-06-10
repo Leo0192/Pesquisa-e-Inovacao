@@ -161,6 +161,11 @@
 
         </div>
     </div>
+
+    <div id="bot-bobia-icon" onclick="toggleBobIA()">🤖</div>
+
+  
+  <iframe id="bobia-frame" src="http://localhost:3001" style="display: none;"></iframe>
 </body>
 
 </html>
@@ -561,4 +566,19 @@ function AtualizarGraficos(grafico, novoLabels, novoDados) {
         grafico.update();
         return grafico;
 }
+
+function toggleBobIA() {
+      const frame = document.getElementById('bobia-frame');
+      frame.style.display = frame.style.display === 'none' ? 'block' : 'none';
+    }
+
+    
+    window.onload = function () {
+      const usuarioLogado = sessionStorage.getItem("usuarioLogado");
+      if (!usuarioLogado) {
+        window.location.href = "login.html";
+      }
+    };
+
+
 </script>
