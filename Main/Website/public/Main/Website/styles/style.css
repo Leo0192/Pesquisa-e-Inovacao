@@ -693,16 +693,28 @@ section{
   }
 
   .robo-bobIA {
-    position: fixed;
+   position: fixed;
     right: 15px;
     bottom: 15px;
     font-size: 2.5em;
     background-color: black;
     border-radius: 27px;
-    border: 2px #ff0101 solid;
+    border: 2px #644132 solid;
+    z-index: 1;
   }
 
-  .label-captura {
+  .iframe-bobIA{
+   position: fixed;
+    right: 15px;
+    bottom: 77px;
+    font-size: 2.5em;
+    background-color: black;
+    border-radius: 27px;
+    border: 2px #644132 solid;
+    height: 500px;
+}
+
+.label-captura {
     height: 80px;
     max-width: 250px;
     justify-content: center;
