@@ -195,6 +195,7 @@ function exibirTalhoesDoUsuario() {
                 <h3 class="tituloGraficos">
                     <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
                 </h3>
+                <div id = "alerta"> </div>
                 <a class="semNd" href="javascript:ObterGraficos(${item.idTalhao})">
                 <div class="graph">
                     <canvas id="myChartCanvas${item.idTalhao}"></canvas>
@@ -382,12 +383,12 @@ function atualizarGrafico(paramId, dados, myChart) {
                 }
 
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
             // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000000);
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
         }
     })
         .catch(function (error) {
