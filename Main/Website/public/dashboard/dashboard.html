@@ -57,7 +57,7 @@
         <h1 style="align-self: center;">SITUAÇÃO:</h1>
         <div>
             <div id="teste_container_avisos"></div>
-            <div id="teste_container_dashboards" style="display: flex;"></div>
+            <div id="teste_container_dashboards" class="semNd" style="display: flex;"></div>
         </div>
         <div class="alertas" id="alertas">
         </div>
@@ -65,15 +65,6 @@
 
     <div class="container_controle_situacao">
         <h1 style="align-self: center;">PAINEL DE SENSORES:</h1>
-        <select id="escolha_hectare" onchange="updateTalhao()">
-            <option value="#">Selecione o Talhão</option>
-            <option value="1">Talhão 1</option>
-            <option value="2">Talhão 2</option>
-            <option value="3">Talhão 3</option>
-            <option value="4">Talhão 4</option>
-            <option value="5">Talhão 5</option>
-            <option value="6">Umidade Mensal</option>
-        </select>
 
         <div class="div_grafico_donut">
             <div class="donut_container">
@@ -89,30 +80,30 @@
 
 
     <div class="div_container_graficos" id="div_container_graficos">
-        <!-- <div class="div_grafico_sensor">
+        <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor">
-                <canvas id="sensor1"></canvas>
+            <div class="div_container_sensor" style=" width: 30%;">
+                <canvas id="graficoLinha1"></canvas>
             </div>
         </div>
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor">
-                <canvas id="sensor2"></canvas>
+            <div class="div_container_sensor" style=" width: 30%;">
+                <canvas id="graficoLinha2"></canvas>
             </div>
         </div>
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor">
-                <canvas id="sensor3"></canvas>
+            <div class="div_container_sensor" style=" width: 30%;">
+                <canvas id="graficoLinha3"></canvas>
             </div>
         </div>
         <div class="div_grafico_sensor">
             <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
-            <div class="div_container_sensor">
-                <canvas id="sensor4"></canvas>
+            <div class="div_container_sensor" style=" width: 30%;">
+                <canvas id="graficoLinha4"></canvas>
             </div>
-        </div> -->
+        </div> 
     </div>
 
     <div class="footer">
@@ -177,7 +168,18 @@
 <script>
 
 let proximaAtualizacao;
-
+let graficoBarra1=null; 
+let graficoBarra2=null;
+let graficoBarra3=null;
+let graficoBarra4=null;
+let labels1 = [];
+let qtd1 = [];
+let labels2 = [];
+let qtd2 = [];
+let labels3 = [];
+let qtd3 = [];
+let labels4 = [];
+let qtd4 = [];
 window.onload = exibirTalhoesDoUsuario();
 
 function exibirTalhoesDoUsuario() {
@@ -188,13 +190,16 @@ function exibirTalhoesDoUsuario() {
                 <h3 class="tituloGraficos">
                     <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
                 </h3>
+                <a class="semNd" href="javascript:ObterGraficos(${item.idTalhao})">
                 <div class="graph">
                     <canvas id="myChartCanvas${item.idTalhao}"></canvas>
                 </div>
+                </a>
                 <div class="label-captura">
                     <p id="avisoCaptura${item.idTalhao}" style="color: white"></p>
                 </div>
             </div>
+            
         `
 
         obterDadosGrafico(item.idTalhao)
@@ -372,16 +377,184 @@ function atualizarGrafico(paramId, dados, myChart) {
                 }
 
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000000);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
             // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000000);
         }
     })
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
     }
+
+function ObterGraficos(id) {
+    labels1 = [];
+    qtd1 = [];
+    labels2 = [];
+    qtd2 = [];
+    labels3 = [];
+    qtd3 = [];
+    labels4 = [];
+    lqtd4 = [];
+    proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
+    
+}
+function ObterDados(id){
+    fetch(`/medidas/tempo-real/${id}`, { cache: 'no-store' })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .then(resposta => {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.forEach(dados => {
+                if (dados.fkSensor == 1) {
+                    console.log('fk1');
+                    labels1.push(dados.data);
+                    qtd1.push(dados.umidade);
+                } else if (dados.fkSensor == 2) {
+                    console.log('fk2');
+                    labels2.push(dados.data);
+                    qtd2.push(dados.umidade);
+                } else if (dados.fkSensor == 3) {
+                    console.log('fk3');
+                    labels3.push(dados.data);
+                    qtd3.push(dados.umidade);
+                } else if (dados.fkSensor == 4) {
+                    console.log('fk4');
+                    labels4.push(dados.data);
+                    qtd4.push(dados.umidade);
+                }
+            });
+            console.log(`Labels 1: ${labels1}`);
+            console.log(`Qtd 1: ${qtd1}`);
+            console.log(`Labels 2: ${labels2}`);
+            console.log(`Qtd 2: ${qtd2}`);
+            console.log(`Labels 3: ${labels3}`);
+            console.log(`Qtd 3: ${qtd3}`);
+            console.log(`Labels 4: ${labels4}`);
+            console.log(`Qtd 4: ${qtd4}`);
+            graficoBarra1 = AtualizarGraficos(graficoBarra1, labels1, qtd1);
+            graficoBarra2 = AtualizarGraficos(graficoBarra2, labels2, qtd2);
+            graficoBarra3 = AtualizarGraficos(graficoBarra3, labels3, qtd3);
+            graficoBarra4 = AtualizarGraficos(graficoBarra4, labels4, qtd4);
+            let proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
+            
+        })
+        .catch(error => {
+            console.error(`Erro na obtenção dos acessos para a dashboard: ${error.message}`);
+        });
+}
+(function CriarGraficos1() {
+    if (graficoBarra1) {
+        graficoBarra1.destroy();
+    }
+    const grafico = document.getElementById('graficoLinha1');
+    graficoBarra1 = new Chart(grafico.getContext("2d"), {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Umidade',
+                data: [],
+                backgroundColor: ['rgb(212, 0, 0)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}) ();
+(function CriarGraficos4() {
+    if (graficoBarra4) {
+        graficoBarra4.destroy();
+    }
+    const grafico = document.getElementById('graficoLinha4');
+    graficoBarra4= new Chart(grafico.getContext("2d"), {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Umidade',
+                data: [],
+                backgroundColor: ['rgb(212, 0, 0)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}) ();
+(function CriarGraficos2() {
+    if (graficoBarra2) {
+        graficoBarra2.destroy();
+    }
+    const grafico = document.getElementById('graficoLinha2');
+    graficoBarra2 = new Chart(grafico.getContext("2d"), {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Umidade',
+                data: [],
+                backgroundColor: ['rgb(212, 0, 0)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}) ();
+(function CriarGraficos3() {
+    if (graficoBarra3) {
+        graficoBarra3.destroy();
+    }
+    const grafico = document.getElementById('graficoLinha3');
+    graficoBarra3 = new Chart(grafico.getContext("2d"), {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Umidade',
+                data: [],
+                backgroundColor: ['rgb(212, 0, 0)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}) ();
+function AtualizarGraficos(grafico, novoLabels, novoDados) {
+        grafico.data.labels = novoLabels;
+        grafico.data.datasets[0].data = novoDados;
+        grafico.update();
+        return grafico;
+}
 </script>

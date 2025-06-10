@@ -426,3 +426,7 @@ canvas {
   margin-bottom: 100px;
   cursor: pointer;
 }
+.semNd{
+  text-decoration: none;
+  color: inherit;
+}
