@@ -406,6 +406,7 @@
     function controle(id) {
         painel_sensores.style.display = 'flex';
         controlee = id
+        window.location.hash = `#painel_sensores`;
         ObterGraficos(id)
 
     }
