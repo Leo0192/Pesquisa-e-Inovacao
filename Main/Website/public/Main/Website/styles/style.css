@@ -701,3 +701,10 @@ section{
     border-radius: 27px;
     border: 2px #ff0101 solid;
   }
+
+  .label-captura {
+    height: 80px;
+    max-width: 250px;
+    justify-content: center;
+    text-align: center;
+  }
