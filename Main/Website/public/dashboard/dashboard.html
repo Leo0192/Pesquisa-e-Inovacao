@@ -162,7 +162,7 @@
         </div>
     </div>
 
-    <div id="bot-bobia-icon" onclick="toggleBobIA()">🤖</div>
+    <div id="bot-bobia-icon" onclick="toggleBobIA()"  class="robo-bobIA">🤖</div>
 
   
   <iframe id="bobia-frame" src="http://localhost:3001" style="display: none;"></iframe>
@@ -572,14 +572,4 @@ function toggleBobIA() {
       const frame = document.getElementById('bobia-frame');
       frame.style.display = frame.style.display === 'none' ? 'block' : 'none';
     }
-
-    
-    window.onload = function () {
-      const usuarioLogado = sessionStorage.getItem("usuarioLogado");
-      if (!usuarioLogado) {
-        window.location.href = "login.html";
-      }
-    };
-
-
 </script>
