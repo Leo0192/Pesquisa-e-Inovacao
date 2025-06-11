@@ -47,6 +47,7 @@ button:hover {
     background-color: #D0D3D4;
     border: 1px solid #63666A;
     text-align: left;
+    width: 200px;
     display: none;
 }
   .robo-bobIA {
