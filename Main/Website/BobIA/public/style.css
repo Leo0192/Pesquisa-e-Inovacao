@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #63B1BC;
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
 }
@@ -19,7 +19,7 @@ textarea[type="text"] {
     padding: 8px;
     font-size: 16px;
     border-radius: 5px;
-    width: 400px;
+    width: 200px;
 }
 
 select,
@@ -31,13 +31,13 @@ button {
 }
 
 button {
-    background-color: #ED145B;
+    background-color: #644132;
     color: #FFFFFF;
     border: none;
 }
 
 button:hover {
-    background-color: #EFB661;
+    background-color: rgb(160, 122, 66);
 }
 
 #resposta {
