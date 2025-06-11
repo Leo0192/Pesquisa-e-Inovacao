@@ -91,7 +91,7 @@ function exibirCards() {
 
 function transformarEmDiv({ idTalhao, umd, grauDeAviso, grauDeAvisoCor }) {
 
-    var descricao = JSON.parse(sessionStorage.TALHOES).find(item => item.id == idTalhao).descricao;
+    var descricao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == idTalhao).descricao;
     return `
     <div class="mensagem-alarme">
         <div class="informacao">
