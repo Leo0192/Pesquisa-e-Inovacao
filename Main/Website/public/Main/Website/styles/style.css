@@ -614,10 +614,15 @@ section{
   
   .alertas {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: 10px;
     align-items: center;
+  }
+
+  .mensagem-alarme{
+    width: 300px;
+    height: fit-content;
   }
   
   .alertas p {
