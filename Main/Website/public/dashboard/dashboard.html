@@ -59,12 +59,12 @@
             <div id="teste_container_avisos"></div>
             <div id="teste_container_dashboards" class="semNd" style="display: flex; justify-content: center;"></div>
         </div>
-        <div class="alertas" id="alerta">
-        </div>
     </div>
-
+    
     <div style="display: none; flex-direction: column;" id="painel_sensores">
         <h1 style="align-self: center;">PAINEL DE SENSORES:</h1>
+        <div class="alertas" id="alerta">
+        </div>
         <div class="div_container_graficos" id="div_container_graficos">
             <div class="div_grafico_sensor">
                 <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
@@ -100,7 +100,7 @@
             </div>
         </div>
     </div>
-
+    
     <div class="footer">
         <div class="container">
 
@@ -196,7 +196,7 @@
                 <h3 class="tituloGraficos">
                     <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
                 </h3>
-                <div id="alerta"> </div>
+                
                 <a class="semNd" href="javascript:controle(${item.idTalhao})">
                 <div class="graph">
                     <canvas id="myChartCanvas${item.idTalhao}"></canvas>
@@ -323,7 +323,7 @@
             config
         );
 
-        setTimeout(() => atualizarGrafico(paramId, dados, myChart), 10000);
+        setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
     }
 
     function atualizarGrafico(paramId, dados, myChart) {
@@ -384,12 +384,12 @@
                     }
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 5000);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 5000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(paramId, dados, myChart), 2000);
             }
         })
             .catch(function (error) {
@@ -413,7 +413,7 @@
         qtd3 = [];
         labels4 = [];
         qtd4 = [];
-        proximaAtualizacao2 = setTimeout(() => ObterDados(id), 5000);
+        proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
 
     }
     function ObterDados(id) {
@@ -461,7 +461,7 @@
                 graficoBarra2 = AtualizarGraficos(graficoBarra2, labels2, qtd2);
                 graficoBarra3 = AtualizarGraficos(graficoBarra3, labels3, qtd3);
                 graficoBarra4 = AtualizarGraficos(graficoBarra4, labels4, qtd4);
-                let proximaAtualizacao2 = setTimeout(() => ObterDados(id), 5000);
+                let proximaAtualizacao2 = setTimeout(() => ObterDados(id), 1000);
                 return
             })
             .catch(error => {
