@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../Main/Website/styles/style.css" />
     <link rel="icon" href="../Main/Website/img/logo-VitAgro.ico" />
     <script src="../js/sessao.js"></script>
-    <script src="../js/alerta.js"></script>
+    <script src="./../js/alerta.js"></script>
     <title>VitAgro | Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -37,10 +37,6 @@
                 <li>
                     <a href="../dashboard.html">Dashboard</a>
                 </li>
-                <li class="pipe">|</li>
-                <li>
-                    <a href="https://vitagro.atlassian.net/servicedesk/customer/portal/1">Suporte/Ajuda</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -66,8 +62,6 @@
         <div class="alertas" id="alertas">
         </div>
     </div>
-
-    <div id="alerta"> </div>
 
     <div style="display: none; flex-direction: column;" id="painel_sensores">
         <h1 style="align-self: center;">PAINEL DE SENSORES:</h1>
@@ -202,7 +196,7 @@
                 <h3 class="tituloGraficos">
                     <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
                 </h3>
-                <div id="alerta"> </div>
+                <div id = "alerta"> </div>
                 <a class="semNd" href="javascript:controle(${item.idTalhao})">
                 <div class="graph">
                     <canvas id="myChartCanvas${item.idTalhao}"></canvas>
@@ -339,7 +333,7 @@
                 response.json().then(function (novoRegistro) {
 
                     obterdados(paramId);
-                    alertar(novoRegistro, paramId);
+                    // alertar(novoRegistro, paramId); -- REATIVAR QUANDO AVISO FUNCIONAR
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
@@ -406,7 +400,7 @@
     function controle(id) {
         painel_sensores.style.display = 'flex';
         controlee = id
-        window.location.hash = `#painel_sensores`;
+        window.location.hash='#painel_sensores';
         ObterGraficos(id)
 
     }
@@ -496,7 +490,7 @@
                     borderColor: 'yellow',
                     backgroundColor: 'yellow',
                     usePointStyle: true,
-                    pointStyle: 'line'
+                        pointStyle: 'line'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -504,7 +498,7 @@
                     borderColor: 'crimson',
                     backgroundColor: 'crimson',
                     usePointStyle: true,
-                    pointStyle: 'line'
+                        pointStyle: 'line'
                 }]
             },
             options: {
@@ -531,7 +525,7 @@
     (function CriarGraficos4() {
         if (graficoBarra4) {
             graficoBarra4.destroy();
-        }
+        }   
         const grafico = document.getElementById('graficoLinha4');
         graficoBarra4 = new Chart(grafico.getContext("2d"), {
             type: 'line',
@@ -550,7 +544,7 @@
                     borderColor: 'yellow',
                     backgroundColor: 'yellow',
                     usePointStyle: true,
-                    pointStyle: 'line'
+                        pointStyle: 'line'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -558,7 +552,7 @@
                     borderColor: 'crimson',
                     backgroundColor: 'crimson',
                     usePointStyle: true,
-                    pointStyle: 'line'
+                        pointStyle: 'line'
                 }]
             },
             options: {
@@ -604,7 +598,7 @@
                     borderColor: 'yellow',
                     backgroundColor: 'yellow',
                     usePointStyle: true,
-                    pointStyle: 'line'
+                        pointStyle: 'line'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -612,7 +606,7 @@
                     borderColor: 'crimson',
                     backgroundColor: 'crimson',
                     usePointStyle: true,
-                    pointStyle: 'line'
+                        pointStyle: 'line'
                 }]
             },
             options: {
@@ -658,7 +652,7 @@
                     borderColor: 'yellow',
                     backgroundColor: 'yellow',
                     usePointStyle: true,
-                    pointStyle: 'line'
+                        pointStyle: 'line'
                 },
                 {
                     label: 'Umidade Máxima (%)',
@@ -666,7 +660,7 @@
                     borderColor: 'crimson',
                     backgroundColor: 'crimson',
                     usePointStyle: true,
-                    pointStyle: 'line'
+                        pointStyle: 'line'
                 }]
             },
             options: {
@@ -691,296 +685,18 @@
         });
     })();
     function AtualizarGraficos(grafico, novoLabels, novoDados) {
-        console.log("Esse é o último dado: ", grafico.data.datasets.data[grafico.data.datasets.data.length - 1]);
-        console.log("Esse é o dado que vai tentar entrar: ", novoDados);
-        if (grafico.data.datasets.data[grafico.data.datasets.data.length - 1] == novoDados) {
-            console.log("---------------------------------------------------------------")
-            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-            avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-            console.log("Horário do novo dado capturado:")
-            console.log(novoLabels)
-            console.log("Horário do último dado capturado:")
-            console.log(grafico.data.datasets.data[grafico.data.datasets.data.length - 1])
-            console.log("---------------------------------------------------------------")
-        } else {
-            if (grafico.data.labels.length == 7 && grafico.data.datasets[0].data.length == 7) {
-                grafico.data.labels.shift();
-                grafico.data.datasets[0].data.shift();
-            }
-            grafico.data.labels = novoLabels;
-            grafico.data.datasets[0].data = novoDados;
-            grafico.update();
-            return grafico;
+        if (grafico.data.labels.length == 7 && grafico.data.datasets[0].data.length == 7) {
+            grafico.data.labels.shift();
+            grafico.data.datasets[0].data.shift();
         }
+        grafico.data.labels = novoLabels;
+        grafico.data.datasets[0].data = novoDados;
+        grafico.update();
+        return grafico;
     }
 
     function toggleBobIA() {
         const frame = document.getElementById('bobia-frame');
         frame.style.display = frame.style.display === 'none' ? 'block' : 'none';
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-    var alertas = [];
-
-function obterdados(idTalhao) {
-    fetch(`/medidas/tempo-real/${idTalhao}`)
-        .then(resposta => {
-            if (resposta.status == 200) {
-                resposta.json().then(resposta => {
-
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
-                    alertar(resposta, idTalhao);
-                });
-            } else {
-                console.error(`Nenhum dado encontrado para o id ${idTalhao} ou erro na API`);
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
-        });
-
-}
-
-function alertar(resposta, idTalhao) {
-    var umd = resposta[0].umidade;
-
-    var grauDeAviso = '';
-
-    var limites = {
-        excesso: 0,
-        idealMaximo: 0,
-        idealMinimo: 0,
-        escassez: 0,
-    };
-
-    var classe_umidade = 'cor-alerta';
-
-    if (umd >= limites.excesso) {
-        classe_umidade = 'cor-alerta perigo-quente';
-        grauDeAviso = 'perigo excesso de umidade'
-        grauDeAvisoCor = 'cor-alerta perigo-quente'
-        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
-    }
-    else if (umd < limites.excesso && umd > limites.escassez) {
-        classe_umidade = 'cor-alerta ideal';
-        removerAlerta(idTalhao);
-    }
-    else if (umd <= limites.escassez) {
-        classe_umidade = 'cor-alerta perigo-frio';
-        grauDeAviso = 'perigo escassez de umidade'
-        grauDeAvisoCor = 'cor-alerta perigo-frio'
-        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
-    }
-
-    var card;
-
-    if (document.getElementById(`umd_talhao${idTalhao}`) != null) {
-        document.getElementById(`umd_talhao${idTalhao}`).innerHTML = umd + "%";
-    }
-
-    if (document.getElementById(`card_${idTalhao}`)) {
-        card = document.getElementById(`card_${idTalhao}`)
-        card.className = classe_umidade;
-    }
-}
-
-function exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor) {
-    var indice = alertas.findIndex(item => item.idTalhao == idTalhao);
-
-    if (indice >= 0) {
-        alertas[indice] = { idTalhao, umd, grauDeAviso, grauDeAvisoCor }
-    } else {
-        alertas.push({ idTalhao, umd, grauDeAviso, grauDeAvisoCor });
-    }
-
-    exibirCards();
-}
-
-function removerAlerta(idTalhao) {
-    alertas = alertas.filter(item => item.idTalhao != idTalhao);
-    exibirCards();
-}
-
-function exibirCards() {
-    let alerta = document.getElementById('alerta')
-    alerta.style.width = '100px'
-    alerta.style.height = '100px'
-    alerta.innerHTML = '';
-
-    for (var i = 0; i < alertas.length; i++) {
-        var mensagem = alertas[i];
-        alerta.innerHTML += transformarEmDiv(mensagem);
-    }
-}
-
-function transformarEmDiv({ idTalhao, umd, grauDeAviso, grauDeAvisoCor }) {
-
-    // var descricao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == idTalhao).descricao;
-    return `
-    <div class="mensagem-alarme">
-        <div class="informacao">
-            <div class="cor-alerta perigo-frio">&#12644;</div> 
-            <h3>está em estado de !</h3>
-            <small>umidade capturada: 30°C.</small>   
-        </div>
-        <div class="alarme-sino"></div>
-    </div>
-    `;
-}
-
-function atualizacaoPeriodica() {
-    JSON.parse(sessionStorage.TALHOES).forEach(item => {
-        obterdados(item.id)
-    });
-    setTimeout(atualizacaoPeriodica, 5000);
-}
-
 </script>
