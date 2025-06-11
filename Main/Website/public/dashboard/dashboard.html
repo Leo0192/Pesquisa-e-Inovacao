@@ -247,6 +247,8 @@
             });
     }
 
+    const posicoesAlertas = [];
+
     function plotarGrafico(resposta, paramId) {
 
         console.log('iniciando plotagem do gráfico...');
@@ -294,6 +296,7 @@
         let posicao = -contadorEscassez -contadorExcesso;
         let graficoAtual = document.getElementById(`grafico${paramId}`);
         graficoAtual.style.order = posicao;
+        posicoesAlertas.push(posicao);
 
         dados.datasets[0].data.push((contadorPadrao / contadorTotal) * 100);
         dados.datasets[0].data.push((contadorEscassez / contadorTotal) * 100);
@@ -796,6 +799,9 @@ function exibirCards() {
     for (var i = 0; i < alertas.length; i++) {
         var mensagem = alertas[i];
         alerta.innerHTML += transformarEmDiv(mensagem);
+        let alertaAtual = document.getElementById(`mensagem_alarme${mensagem.idTalhao}`);
+        console.log("O alerta atual é", alertaAtual)
+        alertaAtual.style.order = posicoesAlertas[i];
     }
 }
 
@@ -805,7 +811,7 @@ function transformarEmDiv({ idTalhao, umd, grauDeAviso, grauDeAvisoCor }) {
 
     console.log(sessionStorage.TALHOES)
     return `
-    <div class="mensagem-alarme">
+    <div class="mensagem-alarme" id="mensagem_alarme${idTalhao}">
         <div class="informacao">
             <div class="">&#12644;</div> 
             <h3>Talhão ${descricao} está em estado de ${grauDeAviso}!</h3>
