@@ -67,7 +67,6 @@
         </div>
         <div class="div_container_graficos" id="div_container_graficos">
             <div class="div_grafico_sensor">
-                <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
                 <center>
                     <div class="div_container_sensor" style=" width: 80%;">
                         <canvas id="graficoLinha1"></canvas>
@@ -75,7 +74,6 @@
                 </center>
             </div>
             <div class="div_grafico_sensor">
-                <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
                 <center>
                     <div class="div_container_sensor" style=" width: 80%;">
                         <canvas id="graficoLinha2"></canvas>
@@ -83,7 +81,6 @@
                 </center>
             </div>
             <div class="div_grafico_sensor">
-                <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
                 <center>
                     <div class="div_container_sensor" style=" width: 80%;">
                         <canvas id="graficoLinha3"></canvas>
@@ -91,7 +88,6 @@
                 </center>
             </div>
             <div class="div_grafico_sensor">
-                <p class="descricao_situacao">Situação: <span class="situacao_sensor"></span></p>
                 <center>
                     <div class="div_container_sensor" style=" width: 80%;">
                         <canvas id="graficoLinha4"></canvas>
@@ -400,7 +396,7 @@
     function controle(id) {
         painel_sensores.style.display = 'flex';
         controlee = id
-        window.location.hash='#painel_sensores';
+        window.location='#painel_sensores';
         ObterGraficos(id)
 
     }
@@ -803,7 +799,7 @@ function transformarEmDiv({ idTalhao, umd, grauDeAviso, grauDeAvisoCor }) {
         <div class="informacao">
             <div class="">&#12644;</div> 
             <h3>Talhão ${descricao} está em estado de ${grauDeAviso}!</h3>
-            <small>umidade capturada: ${umd}%.</small>   
+            <small>Umidade capturada: ${umd}%.</small>   
         </div>
         <div class="alarme-sino"></div>
     </div>

@@ -339,8 +339,9 @@ input {
   margin: 0;
 }
 
-.mensagem-alarme .informacao {
+.informacao {
   width: 66%;
+  background-color: #c09452;
 }
 
 .alarme-sino {

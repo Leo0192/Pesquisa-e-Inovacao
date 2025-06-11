@@ -720,3 +720,9 @@ section{
     justify-content: center;
     text-align: center;
   }
+  .informacao {
+  width: 66%;
+  background-color: #c09452;
+  border-radius: 20px;
+  padding: 9px;
+}
