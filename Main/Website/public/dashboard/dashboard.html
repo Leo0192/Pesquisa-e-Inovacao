@@ -291,6 +291,10 @@
 
         }
 
+        let posicao = -contadorEscassez -contadorExcesso;
+        let graficoAtual = document.getElementById(`grafico${paramId}`);
+        graficoAtual.style.order = posicao;
+
         dados.datasets[0].data.push((contadorPadrao / contadorTotal) * 100);
         dados.datasets[0].data.push((contadorEscassez / contadorTotal) * 100);
         dados.datasets[0].data.push((contadorExcesso / contadorTotal) * 100);

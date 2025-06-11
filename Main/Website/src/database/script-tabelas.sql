@@ -225,19 +225,6 @@ where idTalhao = 1
 ORDER BY idHistorico DESC, fkSensor LIMIT 4;
 
 SELECT
-fkSensor,
-idHistorico,
-hs.fkTalhao,
-umidade,
-data,
-DATE_FORMAT(data,'%H:%i:%s') as momento_grafico
-FROM historico_sensor hs
-JOIN sensor s ON s.idSensor = hs.fkSensor
-join talhao t on s.fktalhao = t.idtalhao
-where hs.fkTalhao = 
-ORDER BY idHistorico DESC, fkSensor LIMIT 4;
-
-SELECT
 hs.fkSensor,
 hs.idHistorico,
 hs.fkTalhao,

@@ -128,11 +128,11 @@ function email(){
     let haveAt = text.indexOf('@');
     if(haveAt == -1){
         input_email.style.border = "2px solid red";
-        invalid_email.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> Email Inválido! </span>";
+        invalid_email.innerHTML = "<img src='Main/Website/img/denied.png'> <span class='denied'> Email Inválido! </span>";
         return false;
     }else{
         input_email.style.border = "2px solid green";
-        invalid_email.innerHTML = "<img src='../assets/icon/accept.png'> <span class='accept'> Email Ok! </span>";
+        invalid_email.innerHTML = "<img src='Main/Website/img/accept.png'> <span class='accept'> Email Ok! </span>";
         return true;
     }
 }
@@ -145,15 +145,15 @@ function password(){
     let haveUpper = /[A-Z]/.test(password);
     if(passwordLength < 8 || passwordLength > 20){
         input_password.style.border = "2px solid red";
-        invalid_password.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> A senha deve ter entre 8 e 20 dígitos! </span>";
+        invalid_password.innerHTML = "<img src='Main/Website/img/denied.png'> <span class='denied'> A senha deve ter entre 8 e 20 dígitos! </span>";
         return false;
     } else if(!haveNumber || !haveSpecial || !haveLower || !haveUpper){
         input_password.style.border = "2px solid red";
-        invalid_password.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais! </span>";
+        invalid_password.innerHTML = "<img src='Main/Website/img/denied.png'> <span class='denied'> A senha deve conter letras maiúsculas, minúsculas, números e caracteres especiais! </span>";
         return false;
     } else{
         input_password.style.border = "2px solid green";
-        invalid_password.innerHTML = "<img src='../assets/icon/accept.png'> <span class='accept'> Senha Ok! </span>";
+        invalid_password.innerHTML = "<img src='Main/Website/img/accept.png'> <span class='accept'> Senha Ok! </span>";
         return true;
     }
 }
@@ -212,7 +212,7 @@ function checkAllLoginSubmit(){
                 input_password.style.border = "2px solid red";
                 input_email.style.border = "2px solid red";
                 input_password.style.border = "2px solid green";
-                invalid_data.innerHTML = "<img src='../assets/icon/denied.png'> <span class='denied'> Email ou Senha inválidos! </span>";
+                invalid_data.innerHTML = "<img src='Main/Website/img/denied.png'> <span class='denied'> Email ou Senha inválidos! </span>";
                 console.log("Houve um erro ao tentar realizar o login!");
                 input_password.style.border = "2px solid red";
                 resposta.text().then(texto => {
