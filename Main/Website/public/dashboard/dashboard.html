@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../Main/Website/styles/style.css" />
     <link rel="icon" href="../Main/Website/img/logo-VitAgro.ico" />
     <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
+    <script src="../js/alerta.js"></script>
     <title>VitAgro | Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -59,7 +59,7 @@
             <div id="teste_container_avisos"></div>
             <div id="teste_container_dashboards" class="semNd" style="display: flex; justify-content: center;"></div>
         </div>
-        <div class="alertas" id="alertas">
+        <div class="alertas" id="alerta">
         </div>
     </div>
 
@@ -196,7 +196,7 @@
                 <h3 class="tituloGraficos">
                     <span id="tituloTalhao${item.idTalhao}">Talhão ${item.idTalhao}</span>
                 </h3>
-                <div id = "alerta"> </div>
+                <div id="alerta"> </div>
                 <a class="semNd" href="javascript:controle(${item.idTalhao})">
                 <div class="graph">
                     <canvas id="myChartCanvas${item.idTalhao}"></canvas>
@@ -333,7 +333,7 @@
                 response.json().then(function (novoRegistro) {
 
                     obterdados(paramId);
-                    // alertar(novoRegistro, paramId); -- REATIVAR QUANDO AVISO FUNCIONAR
+                    alertar(novoRegistro, paramId);
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
@@ -699,4 +699,130 @@
         const frame = document.getElementById('bobia-frame');
         frame.style.display = frame.style.display === 'none' ? 'block' : 'none';
     }
+
+
+var alertas = [];
+
+function obterdados(idTalhao) {
+    fetch(`/medidas/tempo-real/${idTalhao}`)
+        .then(resposta => {
+            if (resposta.status == 200) {
+                resposta.json().then(resposta => {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    alertar(resposta, idTalhao);
+                });
+            } else {
+                console.error(`Nenhum dado encontrado para o id ${idTalhao} ou erro na API`);
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados do aquario p/ gráfico: ${error.message}`);
+        });
+
+}
+
+function alertar(resposta, idTalhao) {
+    var umd = resposta[0].umidade;
+
+    var grauDeAviso = '';
+
+    var limites = {
+        excesso: 0,
+        idealMaximo: 0,
+        idealMinimo: 0,
+        escassez: 0,
+    };
+
+    var classe_umidade = 'cor-alerta';
+
+    if (umd >= limites.excesso) {
+        classe_umidade = 'cor-alerta perigo-quente';
+        grauDeAviso = 'perigo excesso de umidade'
+        grauDeAvisoCor = 'cor-alerta perigo-quente'
+        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
+    }
+    else if (umd < limites.excesso && umd > limites.escassez) {
+        classe_umidade = 'cor-alerta ideal';
+        removerAlerta(idTalhao);
+    }
+    else if (umd <= limites.escassez) {
+        classe_umidade = 'cor-alerta perigo-frio';
+        grauDeAviso = 'perigo escassez de umidade'
+        grauDeAvisoCor = 'cor-alerta perigo-frio'
+        exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor)
+    }
+
+    var card;
+
+    if (document.getElementById(`umd_talhao${idTalhao}`) != null) {
+        document.getElementById(`umd_talhao${idTalhao}`).innerHTML = umd + "%";
+    }
+
+    if (document.getElementById(`card_${idTalhao}`)) {
+        card = document.getElementById(`card_${idTalhao}`)
+        card.className = classe_umidade;
+    }
+}
+
+function exibirAlerta(umd, idTalhao, grauDeAviso, grauDeAvisoCor) {
+    var indice = alertas.findIndex(item => item.idTalhao == idTalhao);
+
+    if (indice >= 0) {
+        alertas[indice] = { idTalhao, umd, grauDeAviso, grauDeAvisoCor }
+    } else {
+        alertas.push({ idTalhao, umd, grauDeAviso, grauDeAvisoCor });
+    }
+
+    exibirCards();
+}
+
+function removerAlerta(idTalhao) {
+    alertas = alertas.filter(item => item.idTalhao != idTalhao);
+    exibirCards();
+}
+
+function exibirCards() {
+    let alerta = document.getElementById('alerta')
+    
+    alerta.innerHTML = '';
+
+
+
+    for (var i = 0; i < alertas.length; i++) {
+        var mensagem = alertas[i];
+        alerta.innerHTML += transformarEmDiv(mensagem);
+    }
+}
+
+function transformarEmDiv({ idTalhao, umd, grauDeAviso, grauDeAvisoCor }) {
+
+    // var descricao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == idTalhao).descricao;
+    return `
+    <div class="mensagem-alarme">
+        <div class="informacao">
+            <div class="">&#12644;</div> 
+            <h3> está em estado de !</h3>
+            <small>umidade capturada: °C.</small>   
+        </div>
+        <div class="alarme-sino"></div>
+    </div>
+    `;
+}
+
+// ${grauDeAvisoCor} ${descricao} ${grauDeAviso} 
+function atualizacaoPeriodica() {
+    JSON.parse(sessionStorage.TALHOES).forEach(item => {
+        obterdados(item.id)
+    });
+    setTimeout(atualizacaoPeriodica, 5000);
+}
+
+
+
+
+
+
+
 </script>
