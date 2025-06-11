@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #63B1BC;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    width: 80%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+h1 {
+    color: #1F2A44;
+}
+
+textarea[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 400px;
+}
+
+select,
+button {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button {
+    background-color: #ED145B;
+    color: #FFFFFF;
+    border: none;
+}
+
+button:hover {
+    background-color: #EFB661;
+}
+
+#resposta {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #D0D3D4;
+    border: 1px solid #63666A;
+    text-align: left;
+    display: none;
+}
+  .robo-bobIA {
+   position: fixed;
+    right: 15px;
+    bottom: 15px;
+    font-size: 2.5em;
+    background-color: black;
+    border-radius: 27px;
+    border: 2px #644132 solid;
+    z-index: 1;
+  }
+
+  .iframe-bobIA{
+   position: fixed;
+    right: 15px;
+    bottom: 77px;
+    font-size: 2.5em;
+    background-color: black;
+    border-radius: 27px;
+    border: 2px #644132 solid;
+    height: 500px;
+}
