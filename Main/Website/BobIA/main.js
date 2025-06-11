@@ -4,14 +4,14 @@ const express = require("express");
 const path = require("path");
 
 // carregando as variáveis de ambiente do projeto do arquivo .env
-require("dotenv").config();
+require('dotenv').config({ path: 'teste.env' });
 
 // configurando o servidor express
 const app = express();
 const PORTA_SERVIDOR = process.env.PORTA;
 
 // configurando o gemini (IA)
-const chatIA = new GoogleGenAI({ apiKey: process.env.MINHA_CHAVE });
+const chatIA = new GoogleGenAI({ apiKey:process.env.chave });
 
 // configurando o servidor para receber requisições JSON
 app.use(express.json());
@@ -57,7 +57,7 @@ app.post("/perguntar", async (req, res) => {
 
 // função para gerar respostas usando o gemini
 async function gerarResposta(mensagem) {
-
+    console.log(process.env.MINHA_CHAVE)
     try {
         // gerando conteúdo com base na pergunta
         const modeloIA = chatIA.models.generateContent({
