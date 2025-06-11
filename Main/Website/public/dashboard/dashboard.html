@@ -400,7 +400,7 @@
     function controle(id) {
         painel_sensores.style.display = 'flex';
         controlee = id
-        window.location='#painel_sensores';
+        window.location.hash='#painel_sensores';
         ObterGraficos(id)
 
     }
@@ -478,7 +478,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Umidade',
+                    label: 'Sensor 1',
                     data: [],
                     borderColor: 'green',
                     backgroundColor: 'green',
@@ -532,7 +532,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Umidade',
+                    label: 'Sensor 4',
                     data: [],
                     borderColor: 'green',
                     backgroundColor: 'green',
@@ -560,7 +560,7 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Sensor D'
+                            text: 'Sensor A'
                         },
                         beginAtZero: true
                     },
@@ -586,7 +586,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Umidade',
+                    label: 'Sensor 2',
                     data: [],
                     borderColor: 'green',
                     backgroundColor: 'green',
@@ -614,7 +614,7 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Sensor B'
+                            text: 'Sensor A'
                         },
                         beginAtZero: true
                     },
@@ -640,7 +640,7 @@
             data: {
                 labels: [],
                 datasets: [{
-                    label: 'Umidade',
+                    label: 'Sensor 3',
                     data: [],
                     borderColor: 'green',
                     backgroundColor: 'green',
@@ -668,7 +668,7 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Sensor C'
+                            text: 'Sensor A'
                         },
                         beginAtZero: true
                     },
@@ -729,10 +729,10 @@ function alertar(resposta, idTalhao) {
     var grauDeAviso = '';
 
     var limites = {
-        excesso: 0,
-        idealMaximo: 0,
-        idealMinimo: 0,
-        escassez: 0,
+        excesso: 80,
+        idealMaximo: 79,
+        idealMinimo: 51,
+        escassez: 50,
     };
 
     var classe_umidade = 'cor-alerta';
@@ -785,10 +785,7 @@ function removerAlerta(idTalhao) {
 
 function exibirCards() {
     let alerta = document.getElementById('alerta')
-    
     alerta.innerHTML = '';
-
-
 
     for (var i = 0; i < alertas.length; i++) {
         var mensagem = alertas[i];
@@ -798,20 +795,20 @@ function exibirCards() {
 
 function transformarEmDiv({ idTalhao, umd, grauDeAviso, grauDeAvisoCor }) {
 
-    // var descricao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == idTalhao).descricao;
+    var descricao = JSON.parse(sessionStorage.TALHOES).find(item => item.idTalhao == idTalhao).descricao;
     return `
     <div class="mensagem-alarme">
         <div class="informacao">
             <div class="">&#12644;</div> 
-            <h3> está em estado de !</h3>
-            <small>umidade capturada: °C.</small>   
+            <h3>${descricao} está em estado de ${grauDeAviso}!</h3>
+            <small>umidade capturada: ${umd}%.</small>   
         </div>
         <div class="alarme-sino"></div>
     </div>
     `;
 }
 
-// ${grauDeAvisoCor} ${descricao} ${grauDeAviso} 
+ 
 function atualizacaoPeriodica() {
     JSON.parse(sessionStorage.TALHOES).forEach(item => {
         obterdados(item.id)
